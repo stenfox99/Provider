@@ -1,7 +1,9 @@
 package by.training.provider.connection;
 
-import sun.rmi.transport.Connection;
+import java.sql.Connection;
 
-public class ConnectionProxy {
+public class ConnectionProxy  {
+    private Connection connection;
+
 
 }
