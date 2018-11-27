@@ -1,7 +1,7 @@
 package by.training.provider.command;
 
-import java.net.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public interface CommandType {
-    String execute(HttpRequest request);
+    String execute(HttpServletRequest request);
 }
