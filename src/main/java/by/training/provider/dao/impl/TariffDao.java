@@ -3,15 +3,15 @@ package by.training.provider.dao.impl;
 import by.training.provider.dao.Dao;
 
 public class TariffDao implements Dao<TariffDao> {
-    public boolean add(TariffDao element) {
-        return false;
+    public void add(TariffDao element) {
+
     }
 
-    public boolean remove(TariffDao element) {
-        return false;
+    public void remove(TariffDao element) {
+
     }
 
-    public boolean update(TariffDao element) {
-        return false;
+    public void update(TariffDao element) {
+
     }
 }

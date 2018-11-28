@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserTypeDao implements Dao<UserType> {
-    public boolean add(UserType element) {
-        return false;
+    public void add(UserType element) {
+
     }
 
-    public boolean remove(UserType element) {
-        return false;
+    public void remove(UserType element) {
+
     }
 
-    public boolean update(UserType element) {
-        return false;
+    public void update(UserType element) {
+
     }
 
     public List<UserType> findUserTypeByType(){

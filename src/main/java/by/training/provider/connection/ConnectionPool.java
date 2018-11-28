@@ -51,9 +51,9 @@ public final class ConnectionPool {
         for (int i = 0; i < CONNECTION_COUNT; ++i) {
             try {
                 ProxyConnection connection = new ProxyConnection(DriverManager.getConnection(
-                        DBConstant.DB_URL,
-                        DBConstant.DB_USER,
-                        DBConstant.DB_PASSWORD));
+                        DbConstant.DB_URL,
+                        DbConstant.DB_USER,
+                        DbConstant.DB_PASSWORD));
 
                 addConnection(connection);
             } catch (SQLException e) {
@@ -83,17 +83,22 @@ public final class ConnectionPool {
         }
     }
 
-    public void destroyConnections() {
-        for (int i = 0; i < CONNECTION_COUNT; ++i) {
-            try {
+    public void destroyConnections(){
+        try {
+            for (int i = 0; i < CONNECTION_COUNT; ++i) {
                 System.out.println(connections.size());
                 ProxyConnection connection = connections.take();
                 connection.realClose();
-            } catch (SQLException e) {
-                LOG.error("", e);
-            } catch (InterruptedException e) {
-                LOG.error("", e);
             }
+            DriverManager.drivers().forEach(x -> {
+                try {
+                    DriverManager.deregisterDriver(x);
+                } catch (SQLException e) {
+                    LOG.error("", e);
+                }
+            });
+        } catch (SQLException | InterruptedException e) {
+            LOG.error("", e);
         }
     }
 }

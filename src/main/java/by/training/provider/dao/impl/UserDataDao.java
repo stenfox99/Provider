@@ -3,15 +3,15 @@ package by.training.provider.dao.impl;
 import by.training.provider.dao.Dao;
 
 public class UserDataDao implements Dao<UserDataDao> {
-    public boolean add(UserDataDao element) {
-        return false;
+    public void add(UserDataDao element) {
+
     }
 
-    public boolean remove(UserDataDao element) {
-        return false;
+    public void remove(UserDataDao element) {
+
     }
 
-    public boolean update(UserDataDao element) {
-        return false;
+    public void update(UserDataDao element) {
+
     }
 }

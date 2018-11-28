@@ -4,15 +4,15 @@ import by.training.provider.dao.Dao;
 import by.training.provider.entity.Breach;
 
 public class BreachDao implements Dao<Breach> {
-    public boolean add(Breach element) {
-        return false;
+    public void add(Breach element) {
+
     }
 
-    public boolean remove(Breach element) {
-        return false;
+    public void remove(Breach element) {
+
     }
 
-    public boolean update(Breach element) {
-        return false;
+    public void update(Breach element) {
+
     }
 }
