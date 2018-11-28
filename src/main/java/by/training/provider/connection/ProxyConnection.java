@@ -1,15 +1,14 @@
 package by.training.provider.connection;
 
-import by.training.provider.exception.BusinessLogicException;
-
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class ProxyConnection implements Connection{
+public class ProxyConnection implements Connection {
     private Connection connection;
-    ProxyConnection(Connection connection){
+
+    ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -29,12 +28,12 @@ public class ProxyConnection implements Connection{
         return connection.nativeSQL(sql);
     }
 
-    public void setAutoCommit(boolean autoCommit) throws SQLException {
-        connection.setAutoCommit(autoCommit);
-    }
-
     public boolean getAutoCommit() throws SQLException {
         return connection.getAutoCommit();
+    }
+
+    public void setAutoCommit(boolean autoCommit) throws SQLException {
+        connection.setAutoCommit(autoCommit);
     }
 
     public void commit() throws SQLException {
@@ -46,14 +45,10 @@ public class ProxyConnection implements Connection{
     }
 
     public void close() throws SQLException {
-        try {
-            ConnectionPool.getInstance().addConnection(this);
-        } catch (BusinessLogicException e) {
-//            throw new BusinessLogicException(e);
-        }
+        ConnectionPool.getInstance().addConnection(this);
     }
 
-    void readClose() throws SQLException {
+    void realClose() throws SQLException {
         connection.close();
     }
 
@@ -65,28 +60,28 @@ public class ProxyConnection implements Connection{
         return connection.getMetaData();
     }
 
-    public void setReadOnly(boolean readOnly) throws SQLException {
-        connection.setReadOnly(readOnly);
-    }
-
     public boolean isReadOnly() throws SQLException {
         return connection.isReadOnly();
     }
 
-    public void setCatalog(String catalog) throws SQLException {
-        connection.setCatalog(catalog);
+    public void setReadOnly(boolean readOnly) throws SQLException {
+        connection.setReadOnly(readOnly);
     }
 
     public String getCatalog() throws SQLException {
         return connection.getCatalog();
     }
 
-    public void setTransactionIsolation(int level) throws SQLException {
-        connection.setTransactionIsolation(level);
+    public void setCatalog(String catalog) throws SQLException {
+        connection.setCatalog(catalog);
     }
 
     public int getTransactionIsolation() throws SQLException {
         return connection.getTransactionIsolation();
+    }
+
+    public void setTransactionIsolation(int level) throws SQLException {
+        connection.setTransactionIsolation(level);
     }
 
     public SQLWarning getWarnings() throws SQLException {
@@ -117,12 +112,12 @@ public class ProxyConnection implements Connection{
         connection.setTypeMap(map);
     }
 
-    public void setHoldability(int holdability) throws SQLException {
-        connection.setHoldability(holdability);
-    }
-
     public int getHoldability() throws SQLException {
         return connection.getHoldability();
+    }
+
+    public void setHoldability(int holdability) throws SQLException {
+        connection.setHoldability(holdability);
     }
 
     public Savepoint setSavepoint() throws SQLException {
@@ -189,16 +184,16 @@ public class ProxyConnection implements Connection{
         connection.setClientInfo(name, value);
     }
 
-    public void setClientInfo(Properties properties) throws SQLClientInfoException {
-        connection.setClientInfo(properties);
-    }
-
     public String getClientInfo(String name) throws SQLException {
         return connection.getClientInfo(name);
     }
 
     public Properties getClientInfo() throws SQLException {
         return connection.getClientInfo();
+    }
+
+    public void setClientInfo(Properties properties) throws SQLClientInfoException {
+        connection.setClientInfo(properties);
     }
 
     public Array createArrayOf(String typeName, Object[] elements) throws SQLException {
@@ -209,12 +204,12 @@ public class ProxyConnection implements Connection{
         return connection.createStruct(typeName, attributes);
     }
 
-    public void setSchema(String schema) throws SQLException {
-        connection.setSchema(schema);
-    }
-
     public String getSchema() throws SQLException {
         return connection.getSchema();
+    }
+
+    public void setSchema(String schema) throws SQLException {
+        connection.setSchema(schema);
     }
 
     public void abort(Executor executor) throws SQLException {

@@ -1,6 +1,5 @@
 package by.training.provider.connection;
 
-import by.training.provider.exception.BusinessLogicException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,26 +11,24 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public final class ConnectionPool {
 
-    private static final Logger LOG;
-    private static ConnectionPool instance;
-    private static ReentrantLock locker;
-    private static boolean isCreated;
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
     private static final int CONNECTION_COUNT = 10;
-    private BlockingQueue<ProxyConnection> connections;
+    private static ConnectionPool instance;
+    private static ReentrantLock locker = new ReentrantLock();
+    private static boolean isCreated;
 
     static {
-        LOG = LoggerFactory.getLogger(ConnectionPool.class);
         try {
-            Class.forName(DBConstant.DRIVER_CLASS);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            LOG.error(e.getMessage());
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        } catch (SQLException e) {
+            LOG.error("Can't install driver");
+            throw new RuntimeException("Can't install driver");
         }
     }
 
+    private BlockingQueue<ProxyConnection> connections = new LinkedBlockingDeque<>();
+
     private ConnectionPool() {
-        connections = new LinkedBlockingDeque<>();
-        locker = new ReentrantLock();
         init();
     }
 
@@ -50,55 +47,53 @@ public final class ConnectionPool {
         return instance;
     }
 
-    private void init(){
-        for (int i = 0; i < CONNECTION_COUNT; ++i){
+    private void init() {
+        for (int i = 0; i < CONNECTION_COUNT; ++i) {
             try {
-                addConnection(new ProxyConnection(DriverManager.getConnection(
+                ProxyConnection connection = new ProxyConnection(DriverManager.getConnection(
                         DBConstant.DB_URL,
                         DBConstant.DB_USER,
-                        DBConstant.DB_PASSWORD)));
-            } catch (BusinessLogicException | SQLException e) {
-                e.printStackTrace();
+                        DBConstant.DB_PASSWORD));
+
+                addConnection(connection);
+            } catch (SQLException e) {
+                LOG.error("Can't create connection", e);
+                throw new RuntimeException(e);
             }
         }
     }
 
-    public ProxyConnection getConnection() throws BusinessLogicException {
+    public ProxyConnection getConnection() {
         ProxyConnection connection = null;
-        locker.lock();
         try {
-            while (connection == null) {
-                try {
-                    if (this.connections.isEmpty()) {
-                        connection = new ProxyConnection(DriverManager.getConnection(
-                                DBConstant.DB_URL,
-                                DBConstant.DB_USER,
-                                DBConstant.DB_PASSWORD));
-                    } else {
-                        connection = this.connections.take();
-                        if (!connection.isValid(0)) {
-                            connection = null;
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    throw new BusinessLogicException(e.getMessage());
-                } catch (SQLException e) {
-                    throw new BusinessLogicException(e.getMessage());
-                }
-            }
-        } finally {
-            locker.unlock();
+            System.out.println("get" + connections.size());
+            connection = connections.take();
+        } catch (InterruptedException e) {
+            LOG.error("", e);
         }
         return connection;
     }
 
-    void addConnection(final ProxyConnection connection) throws BusinessLogicException {
+    void addConnection(ProxyConnection connection) {
         try {
+            System.out.println("add" + connections.size());
             this.connections.put(connection);
         } catch (InterruptedException e) {
-            throw new BusinessLogicException(e.getMessage());
+            LOG.error("", e);
         }
     }
 
+    public void destroyConnections() {
+        for (int i = 0; i < CONNECTION_COUNT; ++i) {
+            try {
+                System.out.println(connections.size());
+                ProxyConnection connection = connections.take();
+                connection.realClose();
+            } catch (SQLException e) {
+                LOG.error("", e);
+            } catch (InterruptedException e) {
+                LOG.error("", e);
+            }
+        }
+    }
 }
