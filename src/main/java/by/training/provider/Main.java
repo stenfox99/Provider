@@ -2,6 +2,7 @@ package by.training.provider;
 
 import by.training.provider.connection.ConnectionPool;
 import by.training.provider.connection.ProxyConnection;
+import by.training.provider.encrypt.Encrypt;
 
 import java.sql.SQLException;
 
@@ -18,6 +19,5 @@ public class Main {
             }
         }
         ConnectionPool.getInstance().destroyConnections();
-
     }
 }

@@ -10,7 +10,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class ConnectionPool {
-
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
     private static final int CONNECTION_COUNT = 10;
     private static ConnectionPool instance;

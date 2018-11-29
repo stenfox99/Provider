@@ -2,6 +2,9 @@ package by.training.provider.dao.impl;
 
 import by.training.provider.dao.Dao;
 import by.training.provider.entity.Breach;
+import by.training.provider.exception.DaoException;
+
+import java.util.List;
 
 public class BreachDao implements Dao<Breach> {
     public void add(Breach element) {
@@ -14,5 +17,10 @@ public class BreachDao implements Dao<Breach> {
 
     public void update(Breach element) {
 
+    }
+
+    @Override
+    public List<Breach> findAll() throws DaoException {
+        return null;
     }
 }
