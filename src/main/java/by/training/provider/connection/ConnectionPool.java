@@ -65,7 +65,6 @@ public final class ConnectionPool {
     public ProxyConnection getConnection() {
         ProxyConnection connection = null;
         try {
-            System.out.println("get" + connections.size());
             connection = connections.take();
         } catch (InterruptedException e) {
             LOG.error("", e);
@@ -75,29 +74,27 @@ public final class ConnectionPool {
 
     void addConnection(ProxyConnection connection) {
         try {
-            System.out.println("add" + connections.size());
             this.connections.put(connection);
         } catch (InterruptedException e) {
             LOG.error("", e);
         }
     }
 
-    public void destroyConnections(){
+    public void destroyConnections() {
         try {
             for (int i = 0; i < CONNECTION_COUNT; ++i) {
-                System.out.println(connections.size());
                 ProxyConnection connection = connections.take();
                 connection.realClose();
             }
-            DriverManager.drivers().forEach(x -> {
-                try {
-                    DriverManager.deregisterDriver(x);
-                } catch (SQLException e) {
-                    LOG.error("", e);
-                }
-            });
         } catch (SQLException | InterruptedException e) {
             LOG.error("", e);
         }
+        DriverManager.drivers().forEach(x -> {
+            try {
+                DriverManager.deregisterDriver(x);
+            } catch (SQLException e) {
+                LOG.error("", e);
+            }
+        });
     }
 }

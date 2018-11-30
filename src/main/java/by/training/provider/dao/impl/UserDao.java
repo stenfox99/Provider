@@ -2,7 +2,7 @@ package by.training.provider.dao.impl;
 
 import by.training.provider.connection.ConnectionPool;
 import by.training.provider.connection.ProxyConnection;
-import by.training.provider.creator.UserCreator;
+import by.training.provider.creator.Creator;
 import by.training.provider.dao.Dao;
 import by.training.provider.encrypt.Encrypt;
 import by.training.provider.entity.User;
@@ -90,20 +90,20 @@ public class UserDao implements Dao<User> {
         try {
             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER);
             ResultSet resultSet = statement.executeQuery();
-            users = UserCreator.createUsers(resultSet);
+            users = Creator.createUsers(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
         return users;
     }
 
-    public User findUserByLogin(String login) throws DaoException {
+    public List<User> findUserByLogin(String login) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<User> users;
         try {
             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_BY_LOGIN);
             ResultSet resultSet = statement.executeQuery();
-            users = UserCreator.createUsers(resultSet);
+            users = Creator.createUsers(resultSet);
             
         } catch (SQLException e) {
             throw new DaoException(e);
