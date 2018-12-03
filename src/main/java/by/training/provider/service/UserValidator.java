@@ -5,10 +5,12 @@ class UserValidator {
     private static final String PASSWORD_VALIDATOR = "\\b{4,16}";
 
     static boolean checkLogin(String login) {
-        return login.matches(LOGIN_VALIDATOR);
+        return true;
+//        return login.matches(LOGIN_VALIDATOR);
     }
 
     static boolean checkPassword(String password){
-        return password.matches(PASSWORD_VALIDATOR);
+        return true;
+//        return password.matches(PASSWORD_VALIDATOR);
     }
 }

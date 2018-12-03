@@ -9,7 +9,7 @@ public class AdminServiceTest {
 
     @Test(expectedExceptions = BusinessLogicException.class)
     public void addUser() throws BusinessLogicException {
-        User user = new User( 0, "admin", "al89", new UserType(2));
+        User user = new User( 0, "admin", "1234", new UserType(2));
         AdminService service = new AdminService();
         service.addUser(user);
     }

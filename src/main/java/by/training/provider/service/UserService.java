@@ -19,9 +19,20 @@ public class UserService {
             if (!users.isEmpty()) {
                 user = Optional.of(users.get(0));
             }
-        }catch(DaoException e){
+        } catch (DaoException e) {
             throw new BusinessLogicException(e);
         }
         return user;
+    }
+
+    public void updateUser(int userId, String password) throws BusinessLogicException{
+        try {
+            String encryptPassword = Encrypt.encrypt(password);
+            User user = new User(userId, encryptPassword);
+            UserDao.getInstance().update(user);
+        }catch (DaoException e){
+            throw new BusinessLogicException(e);
+        }
+
     }
 }

@@ -32,6 +32,10 @@ public class UserData {
         this.userId = userId;
     }
 
+    public UserData(int userDataId){
+        this.userDataId = userDataId;
+    }
+
     public UserData() {
     }
 

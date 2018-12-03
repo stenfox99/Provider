@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class SignIn implements CommandType {
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) {             //TODO EXCEPTION
         String login = request.getParameter(FieldConst.LOGIN);
         String password = request.getParameter(FieldConst.PASSWORD);
         UserService userService = new UserService();
