@@ -18,18 +18,20 @@
             <a class="navbar-brand" href="#">Provider</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
+            <form class="navbar-form navbar-right" action="controller" method="post">
+                <input type="hidden" name="command" value="sign_in"/>
                 <div class="form-group">
-                    <input type="text" placeholder="Login" class="form-control">
+                    <input type="text" placeholder="Login" class="form-control" name="login">
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
                 <a href="#">EN</a>
                 <a href="#">RU</a>
             </form>
         </div>
+        <span>${error}</span>
     </div>
 </nav>
 </div>

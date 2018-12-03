@@ -1,4 +1,4 @@
-package by.training.provider.connection;
+package by.training.provider.pool;
 
 import java.sql.*;
 import java.util.Map;
@@ -7,6 +7,16 @@ import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
     private Connection connection;
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        return connection.unwrap(iface);
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return connection.isWrapperFor(iface);
+    }
 
     ProxyConnection(Connection connection) {
         this.connection = connection;
@@ -222,37 +232,5 @@ public class ProxyConnection implements Connection {
 
     public int getNetworkTimeout() throws SQLException {
         return connection.getNetworkTimeout();
-    }
-
-    public void beginRequest() throws SQLException {
-        connection.beginRequest();
-    }
-
-    public void endRequest() throws SQLException {
-        connection.endRequest();
-    }
-
-    public boolean setShardingKeyIfValid(ShardingKey shardingKey, ShardingKey superShardingKey, int timeout) throws SQLException {
-        return connection.setShardingKeyIfValid(shardingKey, superShardingKey, timeout);
-    }
-
-    public boolean setShardingKeyIfValid(ShardingKey shardingKey, int timeout) throws SQLException {
-        return connection.setShardingKeyIfValid(shardingKey, timeout);
-    }
-
-    public void setShardingKey(ShardingKey shardingKey, ShardingKey superShardingKey) throws SQLException {
-        connection.setShardingKey(shardingKey, superShardingKey);
-    }
-
-    public void setShardingKey(ShardingKey shardingKey) throws SQLException {
-        connection.setShardingKey(shardingKey);
-    }
-
-    public <T> T unwrap(Class<T> iface) throws SQLException {
-        return connection.unwrap(iface);
-    }
-
-    public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return connection.isWrapperFor(iface);
     }
 }

@@ -1,4 +1,4 @@
-package by.training.provider.connection;
+package by.training.provider.pool;
 
 public class DbConstant {
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";

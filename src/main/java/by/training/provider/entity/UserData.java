@@ -15,8 +15,9 @@ public class UserData {
     private int traffic;
     private boolean ban;
     private Blob photo;
+    private int userId;
 
-    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, int tariffId, BigDecimal balance, int traffic, boolean ban, Blob photo) {
+    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, int tariffId, BigDecimal balance, int traffic, boolean ban, Blob photo, int userId) {
         this.userDataId = userDataId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +29,7 @@ public class UserData {
         this.traffic = traffic;
         this.ban = ban;
         this.photo = photo;
+        this.userId = userId;
     }
 
     public UserData() {
@@ -115,5 +117,13 @@ public class UserData {
 
     public void setPhoto(Blob photo) {
         this.photo = photo;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

@@ -1,6 +1,7 @@
 package by.training.provider.encrypt;
 
-import org.apache.commons.codec.binary.Base64;
+
+import java.util.Base64;
 
 public class Encrypt {
 
@@ -8,10 +9,10 @@ public class Encrypt {
     }
 
     public static String encrypt(String value) {
-        return new String(Base64.encodeBase64(value.getBytes()));
+        return new String(Base64.getEncoder().encode(value.getBytes()));
     }
 
     public static String decrypt(String value) {
-        return new String(Base64.decodeBase64(value.getBytes()));
+        return new String(Base64.getDecoder().decode(value.getBytes()));
     }
 }

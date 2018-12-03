@@ -1,7 +1,7 @@
-package by.training.provider.connection;
+package by.training.provider.pool;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.ReentrantLock;
 
 public final class ConnectionPool {
-    private static final Logger LOG = LoggerFactory.getLogger(ConnectionPool.class);
+    private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
     private static final int CONNECTION_COUNT = 10;
     private static ConnectionPool instance;
     private static ReentrantLock locker = new ReentrantLock();
@@ -20,7 +20,7 @@ public final class ConnectionPool {
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         } catch (SQLException e) {
-            LOG.error("Can't install driver");
+            LOG.fatal("Can't install driver");
             throw new RuntimeException("Can't install driver");
         }
     }
@@ -56,7 +56,7 @@ public final class ConnectionPool {
 
                 addConnection(connection);
             } catch (SQLException e) {
-                LOG.error("Can't create connection", e);
+                LOG.error("Can't create pool", e);
                 throw new RuntimeException(e);
             }
         }
@@ -76,24 +76,24 @@ public final class ConnectionPool {
         try {
             this.connections.put(connection);
         } catch (InterruptedException e) {
-            LOG.error("", e);
+            LOG.error("Can't add connection", e);
         }
     }
 
-    public void destroyConnections() {
+    public void destroyConnections() {                      //TODO Exceptions
         try {
             for (int i = 0; i < CONNECTION_COUNT; ++i) {
                 ProxyConnection connection = connections.take();
                 connection.realClose();
             }
         } catch (SQLException | InterruptedException e) {
-            LOG.error("", e);
+            LOG.error("Can't close connection", e);
         }
         DriverManager.drivers().forEach(x -> {
             try {
                 DriverManager.deregisterDriver(x);
             } catch (SQLException e) {
-                LOG.error("", e);
+                LOG.error("Can't deregister driver", e);
             }
         });
     }

@@ -1,21 +1,32 @@
 package by.training.provider.entity;
 
+import java.util.Objects;
+
 public class User {
     private int userId;
     private String login;
     private String password;
-    private int userTypeId;
-    private int userDataId;
+    private UserType userType;
 
     public User() {
     }
 
-    public User(int userId, String login, String password, int userTypeId, int userDataId) {
+    public User(int userId, String login, String password, UserType userType) {
         this.userId = userId;
         this.login = login;
         this.password = password;
-        this.userTypeId = userTypeId;
-        this.userDataId = userDataId;
+        this.userType = userType;
+    }
+
+    public User(int userId, String login, UserType userType) {
+        this.userId = userId;
+        this.login = login;
+        this.userType = userType;
+    }
+
+    public User(String login, String password){
+        this.login = login;
+        this.password = password;
     }
 
     public int getUserId() {
@@ -38,19 +49,37 @@ public class User {
         this.password = password;
     }
 
-    public int getUserTypeId() {
-        return userTypeId;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setUserTypeId(int userTypeId) {
-        this.userTypeId = userTypeId;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
-    public int getUserDataId() {
-        return userDataId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(userType, user.userType);
     }
 
-    public void setUserDataId(int userDataId) {
-        this.userDataId = userDataId;
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, login, password, userType);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                '}';
     }
 }
