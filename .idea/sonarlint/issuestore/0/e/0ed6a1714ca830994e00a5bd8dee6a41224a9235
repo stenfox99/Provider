@@ -1,0 +1,8 @@
+
+]squid:S1118":Add a private constructor to hide the implicit public one.(å”Ûûÿÿÿÿ8ĞÎÊ£÷,
+Msquid:S1172"/Remove this unused method parameter "password".(ı¯ĞÊ8¬ï§÷,
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¿÷‰8¬ï§÷,
+Tsquid:S1068"6Remove this unused "PASSWORD_VALIDATOR" private field.(ÙŸÑâ8¬ï§÷,
+nsquid:CommentedOutCodeLine	"<This block of commented-out lines of code should be removed.(õ  „ùÿÿÿÿ8 ½§÷,
+Osquid:S1172",Remove this unused method parameter "login".(õŞüÙüÿÿÿÿ8 ½§÷,
+Qsquid:S1068"3Remove this unused "LOGIN_VALIDATOR" private field.(—£Åê8 ½§÷,

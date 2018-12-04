@@ -2,6 +2,6 @@ package by.training.provider.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface CommandType {
+public interface Command {
     String execute(HttpServletRequest request);
 }

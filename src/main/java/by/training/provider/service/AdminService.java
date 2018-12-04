@@ -14,7 +14,7 @@ import java.util.List;
 public class AdminService {
 
     public void addUser(User user) throws BusinessLogicException {
-        if (!UserValidator.checkLogin(user.getLogin()) || !UserValidator.checkPassword(user.getPassword())){
+        if (!UserValidator.validLogin(user.getLogin()) || !UserValidator.validPassword(user.getPassword())){
             throw new BusinessLogicException("The incorrect input data");
         }
         try {
@@ -34,7 +34,7 @@ public class AdminService {
     }
 
     public void addAdmin(User user) throws BusinessLogicException{
-        if (!UserValidator.checkLogin(user.getLogin())|| !UserValidator.checkPassword(user.getPassword())){
+        if (!UserValidator.validLogin(user.getLogin())|| !UserValidator.validPassword(user.getPassword())){
             throw new BusinessLogicException("The incorrect input data");
         }
         try {
@@ -50,6 +50,9 @@ public class AdminService {
     }
 
     public void addTariff(Tariff tariff) throws BusinessLogicException{         //TODO THROW IN ELSE
+        if (TariffValidator.validTariff(tariff.getName()) || TariffValidator.validPrice(tariff.getPrice()) || TariffValidator.validDescription(tariff.getDescription())){
+            throw new BusinessLogicException("Incorrect input data");
+        }
         try{
             List<Tariff> existedTariff = TariffDao.getInstance().findTariffByName(tariff.getName());
             if (existedTariff.isEmpty()){

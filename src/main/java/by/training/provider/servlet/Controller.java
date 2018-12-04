@@ -1,7 +1,7 @@
 package by.training.provider.servlet;
 
 import by.training.provider.command.CommandMap;
-import by.training.provider.command.CommandType;
+import by.training.provider.command.Command;
 import by.training.provider.pool.ConnectionPool;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class Controller extends HttpServlet {
 
     private void proccesRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String command = req.getParameter(COMMAND);
-        CommandType commandType = CommandMap.valueOf(command.toUpperCase()).getCommand();
+        Command commandType = CommandMap.valueOf(command.toUpperCase()).getCommand();
         String page = commandType.execute(req);
         req.getRequestDispatcher(req.getContextPath() + page).forward(req, resp);
     }

@@ -12,7 +12,7 @@ public class AdminServiceTest {
 
     @Test
     public void addUser() throws BusinessLogicException {
-        User user = new User( 0, "user2", "145asd1", new UserType(2));
+        User user = new User( 0, "user3", "qwedsa", new UserType(2));
         AdminService service = new AdminService();
         service.addUser(user);
     }

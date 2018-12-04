@@ -15,9 +15,10 @@ import java.util.List;
 public class UserDao implements Dao<User> {
     private static final String ADD_USER = "INSERT INTO Users(login, password, userTypeId) VALUES(?,?,?);";
     private static final String REMOVE_USER = "DELETE FROM Users WHERE Users.userId = ?;";
-    private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.userId = ?;";
+    private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.login = ?;";
     private static final String SELECT_ALL_USER = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId;";
     private static final String SELECT_USER_BY_LOGIN = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.login = ?;";
+    private static final String SELECT_USER_BY_ID = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.userId = ?;";
     private static final String SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE  Users.login = ? AND Users.password = ?;";
     private static UserDao instance = new UserDao();
 
@@ -61,7 +62,7 @@ public class UserDao implements Dao<User> {
         try {
             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD);
             statement.setString(1, element.getPassword());
-            statement.setInt(2, element.getUserId());
+            statement.setString(2, element.getLogin());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);

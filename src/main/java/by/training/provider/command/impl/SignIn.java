@@ -1,6 +1,6 @@
 package by.training.provider.command.impl;
 
-import by.training.provider.command.CommandType;
+import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.User;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-public class SignIn implements CommandType {
+public class SignIn implements Command {
     @Override
     public String execute(HttpServletRequest request) {             //TODO EXCEPTION
         String login = request.getParameter(FieldConst.LOGIN);
@@ -25,7 +25,6 @@ public class SignIn implements CommandType {
                 request.setAttribute(FieldConst.ERROR, "Incorrect login or password");
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute(FieldConst.USER_ID, user.get().getUserId());
                 session.setAttribute(FieldConst.LOGIN, user.get().getLogin());
                 session.setAttribute(FieldConst.ROLE, user.get().getUserType().getUserType());
                 page = PagePath.mainPage;

@@ -25,10 +25,10 @@ public class UserService {
         return user;
     }
 
-    public void updateUser(int userId, String password) throws BusinessLogicException{
+    public void updateUser(String login, String password) throws BusinessLogicException{
         try {
             String encryptPassword = Encrypt.encrypt(password);
-            User user = new User(userId, encryptPassword);
+            User user = new User(login, encryptPassword);
             UserDao.getInstance().update(user);
         }catch (DaoException e){
             throw new BusinessLogicException(e);

@@ -6,13 +6,13 @@ public enum CommandMap {
     SIGN_IN(new SignIn()), SIGN_OUT(new SignOut()), ADD_USER(new AddUser()), UPDATE_USER(new ChangeUserPassword()),
     ADD_TARIFF(new AddTariff());
 
-    private CommandType commandType;
+    private Command commandType;
 
-    CommandMap(CommandType commandType){
+    CommandMap(Command commandType){
         this.commandType = commandType;
     }
 
-    public CommandType getCommand(){
+    public Command getCommand(){
         return commandType;
     }
 }

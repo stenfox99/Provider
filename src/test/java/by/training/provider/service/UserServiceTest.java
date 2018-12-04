@@ -9,8 +9,8 @@ public class UserServiceTest {
 
     @Test
     public void updateUserTest() throws BusinessLogicException {
-        User user = new User(1, "admin", "admin", new UserType(1, "admin"));
+        User user = new User(1, "user2", "user2", new UserType(1, "admin"));
         UserService service = new UserService();
-        service.updateUser(user.getUserId(), user.getPassword());
+        service.updateUser(user.getLogin(), user.getPassword());
     }
 }

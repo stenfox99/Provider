@@ -1,6 +1,6 @@
 package by.training.provider.command.impl;
 
-import by.training.provider.command.CommandType;
+import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.Tariff;
@@ -10,7 +10,7 @@ import by.training.provider.service.AdminService;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
-public class AddTariff implements CommandType {         //TODO EXCEPTION
+public class AddTariff implements Command {         //TODO EXCEPTION
     @Override
     public String execute(HttpServletRequest request) {
         String tariffName = request.getParameter(FieldConst.TARIFF_NAME);

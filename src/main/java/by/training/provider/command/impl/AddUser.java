@@ -1,6 +1,6 @@
 package by.training.provider.command.impl;
 
-import by.training.provider.command.CommandType;
+import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.User;
@@ -10,7 +10,7 @@ import by.training.provider.service.AdminService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddUser implements CommandType {
+public class AddUser implements Command {
     private static final String ADMIN = "admin";
 
     @Override
