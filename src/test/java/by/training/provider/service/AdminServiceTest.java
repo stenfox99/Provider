@@ -12,22 +12,35 @@ public class AdminServiceTest {
 
     @Test
     public void addUser() throws BusinessLogicException {
-        User user = new User( 0, "user3", "qwedsa", new UserType(2));
+        User user = new User(0, "user3", "qwedsa", new UserType(2));
         AdminService service = new AdminService();
         service.addUser(user);
     }
 
     @Test
     public void addAdmin() throws BusinessLogicException {
-        User user = new User( 0, "admin", "admin", new UserType(1));
+        User user = new User(0, "admin", "admin", new UserType(1));
         AdminService service = new AdminService();
         service.addAdmin(user);
     }
 
     @Test
-    public void addTariff() throws BusinessLogicException{
+    public void addTariff() throws BusinessLogicException {
         Tariff tariff = new Tariff("tariff1", BigDecimal.valueOf(30), "description");
         AdminService service = new AdminService();
         service.addTariff(tariff);
+    }
+
+    @Test
+    public void removeTariff() throws BusinessLogicException {
+        AdminService service = new AdminService();
+        service.removeTariff("tariff1");
+    }
+
+    @Test
+    public void updateTariff() throws BusinessLogicException {
+        Tariff tariff = new Tariff(2, "tariff2", BigDecimal.valueOf(10), "the best tariff");
+        AdminService service = new AdminService();
+        service.updateTariff(tariff);
     }
 }

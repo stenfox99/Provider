@@ -21,6 +21,10 @@ public class Tariff {
         this.description = description;
     }
 
+    public Tariff(String name){
+        this.name = name;
+    }
+
     public Tariff() {
     }
 

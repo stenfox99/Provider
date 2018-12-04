@@ -11,6 +11,8 @@ public class FieldConst {
     public static final String TARIFF_NAME = "tariffName";
     public static final String TARIFF_PRICE = "tariffPrice";
     public static final String DESCRIPTION = "description";
+    public static final String TARIFF_ID = "tariffId";
 
-    private FieldConst(){}
+    private FieldConst() {
+    }
 }

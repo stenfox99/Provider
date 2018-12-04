@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TariffDao implements Dao<Tariff> {
     private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, description) VALUES(?,?,?);";
-    private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffId = ?;";
+    private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
     private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.tariffName = ?, Tariffs.price = ?, Tariffs.description = ? WHERE Tariffs.tariffId = ?;";
     private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs;";
     private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs WHERE Tariffs.tariffName = ?;";
@@ -46,7 +46,7 @@ public class TariffDao implements Dao<Tariff> {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try {
             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_TARIFF);
-            statement.setInt(1, element.getTariffId());
+            statement.setString(1, element.getName());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);

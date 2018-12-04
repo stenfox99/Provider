@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class TariffValidator {          //TODO ONE VALIDATOR OR FOR EVERY ENTITY
     private static final String TARIFF_NAME_VALIDATOR = "[\\w\\d]{6,20}";
     private static final String TARIFF_PRICE_VALIDATOR = "[\\d]{1,6}";
-    private static final String TARIFF_DESCRIPTION_VALIDATOR = "[\\w\\d]{1,45}";
+    private static final String TARIFF_DESCRIPTION_VALIDATOR = "[\\w\\d]{1,45}"; //TODO CSS ATTACK
 
     static boolean validTariff(String tariffName){
         return tariffName.matches(TARIFF_NAME_VALIDATOR);

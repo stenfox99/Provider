@@ -50,7 +50,7 @@ public class AdminService {
     }
 
     public void addTariff(Tariff tariff) throws BusinessLogicException{         //TODO THROW IN ELSE
-        if (TariffValidator.validTariff(tariff.getName()) || TariffValidator.validPrice(tariff.getPrice()) || TariffValidator.validDescription(tariff.getDescription())){
+        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) || !TariffValidator.validDescription(tariff.getDescription())){
             throw new BusinessLogicException("Incorrect input data");
         }
         try{
@@ -60,6 +60,26 @@ public class AdminService {
             }else{
                 throw new BusinessLogicException("This name already exists");
             }
+        }catch (DaoException e){
+            throw new BusinessLogicException(e);
+        }
+    }
+
+    public void removeTariff(String tariffName)throws BusinessLogicException{
+        Tariff tariff = new Tariff(tariffName);
+        try {
+            TariffDao.getInstance().remove(tariff);
+        }catch (DaoException e){
+            throw new BusinessLogicException(e);
+        }
+    }
+
+    public void updateTariff(Tariff tariff)throws BusinessLogicException{
+        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) || !TariffValidator.validDescription(tariff.getDescription())){
+            throw new BusinessLogicException("Incorrect input data");
+        }
+        try{
+            TariffDao.getInstance().update(tariff);
         }catch (DaoException e){
             throw new BusinessLogicException(e);
         }
