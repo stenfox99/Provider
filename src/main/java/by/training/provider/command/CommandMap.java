@@ -1,12 +1,10 @@
 package by.training.provider.command;
 
-import by.training.provider.command.impl.AddUser;
-import by.training.provider.command.impl.SignIn;
-import by.training.provider.command.impl.SignOut;
-import by.training.provider.command.impl.ChangeUserPassword;
+import by.training.provider.command.impl.*;
 
 public enum CommandMap {
-    SIGN_IN(new SignIn()), SIGN_OUT(new SignOut()), ADD_USER(new AddUser()), UPDATE_USER(new ChangeUserPassword());
+    SIGN_IN(new SignIn()), SIGN_OUT(new SignOut()), ADD_USER(new AddUser()), UPDATE_USER(new ChangeUserPassword()),
+    ADD_TARIFF(new AddTariff());
 
     private CommandType commandType;
 

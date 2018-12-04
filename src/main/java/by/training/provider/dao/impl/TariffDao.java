@@ -17,6 +17,7 @@ public class TariffDao implements Dao<Tariff> {
     private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffId = ?;";
     private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.tariffName = ?, Tariffs.price = ?, Tariffs.description = ? WHERE Tariffs.tariffId = ?;";
     private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs;";
+    private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs WHERE Tariffs.tariffName = ?;";
     private static TariffDao instance = new TariffDao();
 
     private TariffDao() {
@@ -73,6 +74,20 @@ public class TariffDao implements Dao<Tariff> {
         List<Tariff> tariffs;
         try {
             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF);
+            ResultSet resultSet = statement.executeQuery();
+            tariffs = Creator.createTariffs(resultSet);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return tariffs;
+    }
+
+    public List<Tariff> findTariffByName(String name) throws DaoException{
+        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+        List<Tariff> tariffs;
+        try {
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME);
+            statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             tariffs = Creator.createTariffs(resultSet);
         } catch (SQLException e) {

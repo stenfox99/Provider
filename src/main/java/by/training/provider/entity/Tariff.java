@@ -15,6 +15,12 @@ public class Tariff {
         this.description = description;
     }
 
+    public Tariff(String name, BigDecimal price, String description){
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
     public Tariff() {
     }
 

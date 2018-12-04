@@ -32,15 +32,15 @@ public class Controller extends HttpServlet {
         req.getRequestDispatcher(req.getContextPath() + page).forward(req, resp);
     }
 
-//    @Override
-//    public void init() throws ServletException {
-//        super.init();
-//        ConnectionPool.getInstance();
-//    }
-//
-//    @Override
-//    public void destroy() {
-//        super.destroy();
-//        ConnectionPool.getInstance().destroyConnections();
-//    }
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ConnectionPool.getInstance();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        ConnectionPool.getInstance().destroyConnections();
+    }
 }

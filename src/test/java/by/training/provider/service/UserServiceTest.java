@@ -9,7 +9,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUserTest() throws BusinessLogicException {
-        User user = new User(7, "user1", "updateTest1", new UserType(2, "user"));
+        User user = new User(1, "admin", "admin", new UserType(1, "admin"));
         UserService service = new UserService();
         service.updateUser(user.getUserId(), user.getPassword());
     }
