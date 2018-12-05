@@ -54,7 +54,7 @@ public class ProxyConnection implements Connection {
         connection.rollback();
     }
 
-    public void close() throws SQLException {
+    public void close(){
         ConnectionPool.getInstance().addConnection(this);
     }
 

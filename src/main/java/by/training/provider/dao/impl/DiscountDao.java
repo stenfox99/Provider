@@ -28,8 +28,7 @@ public class DiscountDao implements Dao<Discount> {
     @Override
     public void add(Discount element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT)){
             statement.setInt(1, element.getTariffId());
             statement.setInt(2, element.getDiscount());
             statement.setString(3, element.getDescription());
@@ -42,8 +41,7 @@ public class DiscountDao implements Dao<Discount> {
     @Override
     public void remove(Discount element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_DISCOUNT);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_DISCOUNT)){
             statement.setInt(1, element.getDiscountId());
             statement.execute();
         } catch (SQLException e) {
@@ -54,8 +52,7 @@ public class DiscountDao implements Dao<Discount> {
     @Override
     public void update(Discount element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT)){
             statement.setInt(1, element.getTariffId());
             statement.setInt(2, element.getDiscount());
             statement.setString(3, element.getDescription());
@@ -70,8 +67,7 @@ public class DiscountDao implements Dao<Discount> {
     public List<Discount> findAll() throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Discount> discounts;
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_DISCOUNT);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_DISCOUNT)){
             ResultSet resultSet = statement.executeQuery();
             discounts = Creator.createDiscount(resultSet);
         } catch (SQLException e) {

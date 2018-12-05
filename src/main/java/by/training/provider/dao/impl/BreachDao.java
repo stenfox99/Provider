@@ -28,8 +28,7 @@ public class BreachDao implements Dao<Breach> {
     @Override
     public void add(Breach element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_BREACH);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_BREACH)){
             statement.setString(1, element.getDescription());
             statement.setInt(2, element.getUserId());
             statement.execute();
@@ -41,8 +40,7 @@ public class BreachDao implements Dao<Breach> {
     @Override
     public void remove(Breach element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_BREACH);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_BREACH)){
             statement.setInt(1, element.getBreachId());
             statement.execute();
         } catch (SQLException e) {
@@ -53,8 +51,7 @@ public class BreachDao implements Dao<Breach> {
     @Override
     public void update(Breach element) throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BREACH);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BREACH)){
             statement.setString(1, element.getDescription());
             statement.setInt(2, element.getUserId());
             statement.setInt(3, element.getBreachId());
@@ -68,8 +65,7 @@ public class BreachDao implements Dao<Breach> {
     public List<Breach> findAll() throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Breach> breaches;
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_BREACH);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_BREACH)){
             ResultSet resultSet = statement.executeQuery();
             breaches = Creator.createBreaches(resultSet);
         } catch (SQLException e) {

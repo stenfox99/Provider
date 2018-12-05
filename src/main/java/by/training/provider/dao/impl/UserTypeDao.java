@@ -42,8 +42,7 @@ public class UserTypeDao implements Dao<UserType> {
     public List<UserType> findAll() throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<UserType> userTypes;
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER_TYPE);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER_TYPE)){
             ResultSet resultSet = statement.executeQuery();
             userTypes = Creator.createUserTypes(resultSet);
         } catch (SQLException e) {

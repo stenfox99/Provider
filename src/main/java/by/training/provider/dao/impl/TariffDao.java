@@ -56,8 +56,7 @@ public class TariffDao implements Dao<Tariff> {
     @Override
     public void update(Tariff element) throws DaoException{
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TARIFF);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TARIFF)){
             statement.setString(1, element.getName());
             statement.setBigDecimal(2, element.getPrice());
             statement.setString(3, element.getDescription());
@@ -72,8 +71,7 @@ public class TariffDao implements Dao<Tariff> {
     public List<Tariff> findAll() throws DaoException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Tariff> tariffs;
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF)){
             ResultSet resultSet = statement.executeQuery();
             tariffs = Creator.createTariffs(resultSet);
         } catch (SQLException e) {
@@ -85,8 +83,7 @@ public class TariffDao implements Dao<Tariff> {
     public List<Tariff> findTariffByName(String name) throws DaoException{
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Tariff> tariffs;
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME);
+        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME)){
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             tariffs = Creator.createTariffs(resultSet);
