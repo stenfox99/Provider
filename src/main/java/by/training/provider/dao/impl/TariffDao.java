@@ -1,18 +1,17 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.pool.ConnectionPool;
-import by.training.provider.pool.ProxyConnection;
-import by.training.provider.dao.Dao;
+import by.training.provider.dao.TariffDaoable;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
+import by.training.provider.pool.ConnectionPool;
+import by.training.provider.pool.ProxyConnection;
 import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
-public class TariffDao implements Dao<Tariff> {
+public class TariffDao implements TariffDaoable {
     private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, description) VALUES(?,?,?);";
     private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
     private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.tariffName = ?, Tariffs.price = ?, Tariffs.description = ? WHERE Tariffs.tariffId = ?;";
@@ -28,10 +27,9 @@ public class TariffDao implements Dao<Tariff> {
     }
 
     @Override
-    public void add(Tariff element) throws DaoException{
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_TARIFF);
+    public void add(Tariff element) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_TARIFF)) {
             statement.setString(1, element.getName());
             statement.setBigDecimal(2, element.getPrice());
             statement.setString(3, element.getDescription());
@@ -42,10 +40,9 @@ public class TariffDao implements Dao<Tariff> {
     }
 
     @Override
-    public void remove(Tariff element) throws DaoException{
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try {
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_TARIFF);
+    public void remove(Tariff element) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_TARIFF);) {
             statement.setString(1, element.getName());
             statement.execute();
         } catch (SQLException e) {
@@ -54,9 +51,9 @@ public class TariffDao implements Dao<Tariff> {
     }
 
     @Override
-    public void update(Tariff element) throws DaoException{
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TARIFF)){
+    public void update(Tariff element) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TARIFF)) {
             statement.setString(1, element.getName());
             statement.setBigDecimal(2, element.getPrice());
             statement.setString(3, element.getDescription());
@@ -69,9 +66,9 @@ public class TariffDao implements Dao<Tariff> {
 
     @Override
     public List<Tariff> findAll() throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Tariff> tariffs;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF)) {
             ResultSet resultSet = statement.executeQuery();
             tariffs = Creator.createTariffs(resultSet);
         } catch (SQLException e) {
@@ -80,10 +77,10 @@ public class TariffDao implements Dao<Tariff> {
         return tariffs;
     }
 
-    public List<Tariff> findTariffByName(String name) throws DaoException{
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+    public List<Tariff> findTariffByName(String name) throws DaoException {
         List<Tariff> tariffs;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             tariffs = Creator.createTariffs(resultSet);

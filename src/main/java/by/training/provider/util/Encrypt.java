@@ -1,4 +1,4 @@
-package by.training.provider.encrypt;
+package by.training.provider.util;
 
 
 import java.util.Base64;

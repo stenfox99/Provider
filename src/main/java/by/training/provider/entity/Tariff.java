@@ -2,7 +2,7 @@ package by.training.provider.entity;
 
 import java.math.BigDecimal;
 
-public class Tariff {
+public class Tariff extends Entity{
     private int tariffId;
     private String name;
     private BigDecimal price;

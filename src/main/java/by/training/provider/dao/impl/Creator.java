@@ -1,6 +1,5 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.encrypt.Encrypt;
 import by.training.provider.entity.*;
 import by.training.provider.exception.DaoException;
 

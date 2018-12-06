@@ -14,7 +14,7 @@ public class AddUser implements Command {
     private static final String ADMIN = "admin";
 
     @Override
-    public String execute(HttpServletRequest request) {                 //TODO TIGHT BINDING
+    public String execute(HttpServletRequest request) {
         String login = request.getParameter(FieldConst.LOGIN);          //TODO EXCEPTION
         String password = request.getParameter(FieldConst.PASSWORD);
         String userType = request.getParameter(FieldConst.USER_TYPE);

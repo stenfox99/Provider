@@ -1,10 +1,8 @@
 package by.training.provider.dao;
 
-import by.training.provider.dao.impl.UserDao;
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserType;
 import by.training.provider.exception.BusinessLogicException;
-import by.training.provider.exception.DaoException;
 import by.training.provider.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,7 +12,7 @@ import java.util.Optional;
 public class UserDaoTest {
 
     @Test
-    public void checkUser(){
+    public void checkUser() {
         String login = "admin";
         String pas = "admin";
         UserService service = new UserService();
@@ -24,7 +22,7 @@ public class UserDaoTest {
         } catch (BusinessLogicException e) {
             e.printStackTrace();
         }
-        User expected = new User(1, "admin", "admin" , new UserType(1, "admin"));
+        User expected = new User(5, "admin", null, new UserType(1, "admin"));
         Assert.assertEquals(userOptional.get(), expected);
     }
 }

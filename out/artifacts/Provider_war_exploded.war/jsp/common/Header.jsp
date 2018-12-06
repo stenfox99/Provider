@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <body>
@@ -8,32 +9,40 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Main</a>
-            <a class="navbar-brand" href="#">Tariffs</a>
-            <a class="navbar-brand" href="#">Discounts</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right" action="controller" method="post">
-                <input type="hidden" name="command" value="sign_in"/>
-                <div class="form-group">
-                    <input type="text" placeholder="Login" class="form-control" name="login">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name="password">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-                <a href="#">EN</a>
-                <a href="#">RU</a>
+            <form>
+                <a class="navbar-brand" href="controller?command=To_Main_Page">Main</a>
+                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0">Tariffs</a>
+                <a class="navbar-brand" href="#">Discounts</a>
             </form>
         </div>
-        <span>${error}</span>
+        <c:choose>
+            <c:when test="${empty login}">
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right" action="controller" method="post">
+                        <input type="hidden" name="command" value="sign_in"/>
+                        <div class="form-group">
+                            <input type="text" placeholder="Login" class="form-control" name="login">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-success">Sign in</button>
+                        </br>
+                        <span class="ui-state-error" style="color: red;">${error}</span>
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right" action="controller" method="post">
+                        <input type="hidden" name="command" value="sign_out"/>
+                        <a class="nav-link" href="controller?command=To_Profile">${login}</a>
+                        <button type="submit" class="btn btn-success">Sign out</button>
+                        </br>
+                    </form>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </nav>
 </div>

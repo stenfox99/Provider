@@ -2,7 +2,7 @@ package by.training.provider.entity;
 
 import java.util.Objects;
 
-public class UserType {
+public class UserType extends Entity{
     private int userTypeId;
     private String userType;
 

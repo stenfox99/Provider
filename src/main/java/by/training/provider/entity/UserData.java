@@ -3,7 +3,7 @@ package by.training.provider.entity;
 import java.math.BigDecimal;
 import java.sql.Blob;
 
-public class UserData {
+public class UserData extends Entity{
     private int userDataId;
     private String firstName;
     private String lastName;

@@ -1,6 +1,6 @@
 package by.training.provider.entity;
 
-public class Discount {
+public class Discount extends Entity{
     private int discountId;
     private int tariffId;
     private int discount;

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class SignIn implements Command {
     @Override
-    public String execute(HttpServletRequest request) {             //TODO EXCEPTION
+    public String execute(HttpServletRequest request) {             //TODO SEND ERROR PAGE
         String login = request.getParameter(FieldConst.LOGIN);
         String password = request.getParameter(FieldConst.PASSWORD);
         UserService userService = new UserService();
@@ -21,12 +21,13 @@ public class SignIn implements Command {
         try {
             Optional<User> user = userService.findUser(login, password);
             if (user.isPresent()) {
-                page = PagePath.mainPage;
-                request.setAttribute(FieldConst.ERROR, "Incorrect login or password");
-            } else {
                 HttpSession session = request.getSession();
                 session.setAttribute(FieldConst.LOGIN, user.get().getLogin());
                 session.setAttribute(FieldConst.ROLE, user.get().getUserType().getUserType());
+                page = PagePath.mainPage;
+
+            } else {
+                request.setAttribute(FieldConst.ERROR, "Incorrect login or password");
                 page = PagePath.mainPage;
             }
         }catch (BusinessLogicException e){

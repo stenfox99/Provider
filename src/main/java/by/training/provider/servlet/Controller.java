@@ -17,19 +17,19 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        proccesRequest(req, resp);
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        proccesRequest(req,resp);
+        processRequest(req,resp);
     }
 
-    private void proccesRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String command = req.getParameter(COMMAND);
         Command commandType = CommandMap.valueOf(command.toUpperCase()).getCommand();
         String page = commandType.execute(req);
-        req.getRequestDispatcher(req.getContextPath() + page).forward(req, resp);
+        req.getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override

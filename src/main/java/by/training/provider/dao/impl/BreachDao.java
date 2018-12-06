@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.Dao;
+import by.training.provider.dao.BreachDaoable;
 import by.training.provider.entity.Breach;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BreachDao implements Dao<Breach> {
+public class BreachDao implements BreachDaoable {
     private static final String ADD_BREACH = "INSERT INTO Breaches(description, userId) VALUES(?,?);";
     private static final String REMOVE_BREACH = "DELETE FROM Breaches WHERE Breaches.breachId = ?;";
     private static final String UPDATE_BREACH = "UPDATE Breaches SET Breaches.description = ?, Breaches.userId = ? WHERE Breaches.breachId = ?;";
@@ -27,8 +27,8 @@ public class BreachDao implements Dao<Breach> {
 
     @Override
     public void add(Breach element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_BREACH)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_BREACH)) {
             statement.setString(1, element.getDescription());
             statement.setInt(2, element.getUserId());
             statement.execute();
@@ -39,8 +39,8 @@ public class BreachDao implements Dao<Breach> {
 
     @Override
     public void remove(Breach element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_BREACH)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_BREACH)) {
             statement.setInt(1, element.getBreachId());
             statement.execute();
         } catch (SQLException e) {
@@ -50,8 +50,8 @@ public class BreachDao implements Dao<Breach> {
 
     @Override
     public void update(Breach element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BREACH)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BREACH)) {
             statement.setString(1, element.getDescription());
             statement.setInt(2, element.getUserId());
             statement.setInt(3, element.getBreachId());
@@ -63,9 +63,9 @@ public class BreachDao implements Dao<Breach> {
 
     @Override
     public List<Breach> findAll() throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Breach> breaches;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_BREACH)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_BREACH)) {
             ResultSet resultSet = statement.executeQuery();
             breaches = Creator.createBreaches(resultSet);
         } catch (SQLException e) {

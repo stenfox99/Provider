@@ -3,11 +3,14 @@ package by.training.provider.service;
 import by.training.provider.dao.impl.TariffDao;
 import by.training.provider.dao.impl.UserDao;
 import by.training.provider.dao.impl.UserDataDao;
+import by.training.provider.util.Encrypt;
 import by.training.provider.entity.Tariff;
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserData;
 import by.training.provider.exception.BusinessLogicException;
 import by.training.provider.exception.DaoException;
+import by.training.provider.util.TariffValidator;
+import by.training.provider.util.UserValidator;
 
 import java.util.List;
 
@@ -20,9 +23,10 @@ public class AdminService {
         try {
             List<User> users = UserDao.getInstance().findUserByLogin(user.getLogin());
             if (users.isEmpty()){
+                user.setPassword(Encrypt.encrypt(user.getPassword()));
                 UserDao.getInstance().add(user);
                 List<User> dbUser = UserDao.getInstance().findUserByLogin(user.getLogin());
-                UserData userData = new UserData(dbUser.get(0).getUserId());                //TODO GET USER ID
+                UserData userData = new UserData(dbUser.get(0).getUserId());
                 UserDataDao.getInstance().add(userData);
             }else{
                 throw new BusinessLogicException("This login already exists");
@@ -49,7 +53,7 @@ public class AdminService {
         }
     }
 
-    public void addTariff(Tariff tariff) throws BusinessLogicException{         //TODO THROW IN ELSE
+    public void addTariff(Tariff tariff) throws BusinessLogicException{
         if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) || !TariffValidator.validDescription(tariff.getDescription())){
             throw new BusinessLogicException("Incorrect input data");
         }

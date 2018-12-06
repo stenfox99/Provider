@@ -1,7 +1,7 @@
 package by.training.provider.service;
 
 import by.training.provider.dao.impl.UserDao;
-import by.training.provider.encrypt.Encrypt;
+import by.training.provider.util.Encrypt;
 import by.training.provider.entity.User;
 import by.training.provider.exception.BusinessLogicException;
 import by.training.provider.exception.DaoException;

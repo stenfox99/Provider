@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.Dao;
+import by.training.provider.dao.DiscountDaoable;
 import by.training.provider.entity.Discount;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DiscountDao implements Dao<Discount> {
+public class DiscountDao implements DiscountDaoable {
     private static final String ADD_DISCOUNT = "INSERT INTO Discounts(tariffId, discount, description) VALUES(?,?,?);";
     private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountId = ?;";
     private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ? WHERE Discounts.discountId = ?;";
@@ -27,8 +27,8 @@ public class DiscountDao implements Dao<Discount> {
 
     @Override
     public void add(Discount element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT)) {
             statement.setInt(1, element.getTariffId());
             statement.setInt(2, element.getDiscount());
             statement.setString(3, element.getDescription());
@@ -40,8 +40,8 @@ public class DiscountDao implements Dao<Discount> {
 
     @Override
     public void remove(Discount element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_DISCOUNT)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_DISCOUNT)) {
             statement.setInt(1, element.getDiscountId());
             statement.execute();
         } catch (SQLException e) {
@@ -51,8 +51,8 @@ public class DiscountDao implements Dao<Discount> {
 
     @Override
     public void update(Discount element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT)) {
             statement.setInt(1, element.getTariffId());
             statement.setInt(2, element.getDiscount());
             statement.setString(3, element.getDescription());
@@ -65,9 +65,9 @@ public class DiscountDao implements Dao<Discount> {
 
     @Override
     public List<Discount> findAll() throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<Discount> discounts;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_DISCOUNT)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_DISCOUNT)) {
             ResultSet resultSet = statement.executeQuery();
             discounts = Creator.createDiscount(resultSet);
         } catch (SQLException e) {

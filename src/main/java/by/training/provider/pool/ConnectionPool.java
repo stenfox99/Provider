@@ -25,7 +25,8 @@ public final class ConnectionPool {
         }
     }
 
-    private BlockingQueue<ProxyConnection> connections = new LinkedBlockingDeque<>();
+    private BlockingQueue<ProxyConnection> allConnections = new LinkedBlockingDeque<>();
+    private BlockingQueue<ProxyConnection> usedConnections = new LinkedBlockingDeque<>();
 
     private ConnectionPool() {
         init();
@@ -65,7 +66,8 @@ public final class ConnectionPool {
     public ProxyConnection getConnection() {
         ProxyConnection connection = null;
         try {
-            connection = connections.take();
+            connection = allConnections.take();
+//            usedConnections.put(connection);
         } catch (InterruptedException e) {
             LOG.error("", e);
         }
@@ -74,16 +76,17 @@ public final class ConnectionPool {
 
     void addConnection(ProxyConnection connection) {
         try {
-            this.connections.put(connection);
+//            usedConnections.take();
+            allConnections.put(connection);
         } catch (InterruptedException e) {
             LOG.error("Can't add connection", e);
         }
     }
 
-    public void destroyConnections() {                      //TODO Exceptions
+    public void destroyConnections() {                      //TODO SLOW USED CONNECTIONS
         try {
             for (int i = 0; i < CONNECTION_COUNT; ++i) {
-                ProxyConnection connection = connections.take();
+                ProxyConnection connection = allConnections.take();
                 connection.realClose();
             }
         } catch (SQLException | InterruptedException e) {

@@ -1,6 +1,6 @@
 package by.training.provider.entity;
 
-public class Breach {
+public class Breach extends Entity{
     private int breachId;
     private String description;
     private int userId;

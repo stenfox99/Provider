@@ -2,7 +2,7 @@ package by.training.provider.entity;
 
 import java.util.Objects;
 
-public class User {
+public class User extends Entity{
     private int userId;
     private String login;
     private String password;

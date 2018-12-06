@@ -1,7 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.Dao;
-import by.training.provider.encrypt.Encrypt;
+import by.training.provider.dao.UserDaoable;
 import by.training.provider.entity.User;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -12,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDao implements Dao<User> {
+public class UserDao implements UserDaoable {
     private static final String ADD_USER = "INSERT INTO Users(login, password, userTypeId) VALUES(?,?,?);";
     private static final String REMOVE_USER = "DELETE FROM Users WHERE Users.userId = ?;";
     private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.login = ?;";
@@ -30,12 +29,11 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void add(User element) throws DaoException {                     //TODO ENCRYPTION PASSWORD  TRANSFER IN SERVICE
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_USER)){
+    public void add(User element) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_USER)) {
             statement.setString(1, element.getLogin());
-            String encryptionPassword = Encrypt.encrypt(element.getPassword());
-            statement.setString(2, encryptionPassword);
+            statement.setString(2, element.getPassword());
             statement.setInt(3, element.getUserType().getUserTypeId());
             statement.execute();
         } catch (SQLException e) {
@@ -45,8 +43,8 @@ public class UserDao implements Dao<User> {
 
     @Override
     public void remove(User element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_USER)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_USER)) {
             statement.setInt(1, element.getUserId());
             statement.execute();
         } catch (SQLException e) {
@@ -56,8 +54,8 @@ public class UserDao implements Dao<User> {
 
     @Override
     public void update(User element) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD)) {
             statement.setString(1, element.getPassword());
             statement.setString(2, element.getLogin());
             statement.execute();
@@ -68,9 +66,9 @@ public class UserDao implements Dao<User> {
 
     @Override
     public List<User> findAll() throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<User> users;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER)) {
             ResultSet resultSet = statement.executeQuery();
             users = Creator.createUsers(resultSet);
         } catch (SQLException e) {
@@ -79,10 +77,11 @@ public class UserDao implements Dao<User> {
         return users;
     }
 
+    @Override
     public List<User> findUserByLogin(String login) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<User> users;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_BY_LOGIN)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_BY_LOGIN)) {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             users = Creator.createUsers(resultSet);
@@ -92,10 +91,11 @@ public class UserDao implements Dao<User> {
         return users;
     }
 
+    @Override
     public List<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
-        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         List<User> users;
-        try (PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_BY_LOGIN_AND_PASSWORD)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_BY_LOGIN_AND_PASSWORD)) {
             statement.setString(1, login);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();

@@ -7,6 +7,10 @@
 <div align="center">
     <footer>
         <p>© 2018 Training</p>
+        <form>
+            <a class="aboutLanguage" href="#">EN</a>
+            <a class="aboutLanguage" href="#">RU</a></br>
+        </form>
     </footer>
 </div>
 </body>
