@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TariffDao implements TariffDaoable {
-    private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, description) VALUES(?,?,?);";
+    private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, monthTraffic, description) VALUES(?,?,?,?);";
     private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
-    private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.tariffName = ?, Tariffs.price = ?, Tariffs.description = ? WHERE Tariffs.tariffId = ?;";
-    private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs;";
-    private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.description FROM Tariffs WHERE Tariffs.tariffName = ?;";
+    private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.tariffName = ?, Tariffs.price = ?, Tariffs.monthTraffic = ?, Tariffs.description = ? WHERE Tariffs.tariffId = ?;";
+    private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.monthTraffic, Tariffs.description FROM Tariffs;";
+    private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.monthTraffic, Tariffs.description FROM Tariffs WHERE Tariffs.tariffName = ?;";
     private static TariffDao instance = new TariffDao();
 
     private TariffDao() {
@@ -32,7 +32,8 @@ public class TariffDao implements TariffDaoable {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_TARIFF)) {
             statement.setString(1, element.getName());
             statement.setBigDecimal(2, element.getPrice());
-            statement.setString(3, element.getDescription());
+            statement.setInt(3, element.getMonthTraffic());
+            statement.setString(4, element.getDescription());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -56,8 +57,9 @@ public class TariffDao implements TariffDaoable {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TARIFF)) {
             statement.setString(1, element.getName());
             statement.setBigDecimal(2, element.getPrice());
-            statement.setString(3, element.getDescription());
-            statement.setInt(4, element.getTariffId());
+            statement.setInt(3, element.getMonthTraffic());
+            statement.setString(4, element.getDescription());
+            statement.setInt(5, element.getTariffId());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);

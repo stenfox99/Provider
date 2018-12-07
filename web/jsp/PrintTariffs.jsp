@@ -3,24 +3,97 @@
 <html>
 <head>
     <title>Tariffs</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>
 <div class="jumbotron">
     <div class="container">
-        <div class="row">
-            <c:forEach var="element" items="${printedTariffs}">
-                <div class="col-md-4">
-                    <h2>${element.name}</h2>
-                    <h3>${element.price}$</h3>
-                    <p>${element.description}</p>
-                    <p><a class="btn btn-default" href="#" role="button">Select tariff</a></p>
+        <c:choose>
+            <c:when test="${role == 'admin'}">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add new tariff</button>
+                <span class="ui-state-error" style="color: red;">${error}</span>
+            </c:when>
+        </c:choose>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Info about tariff</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="controller" method="post">
+                            <input type="hidden" value="add_tariff" name="command">
+                            <div class="form-group">
+                                <label for="tariff-name" class="col-form-label">Tariff name:</label>
+                                <input type="text" class="form-control" id="tariff-name" name="tariffName" required pattern="[\w\d]{6,20}">
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="col-form-label">Price</label>
+                                <input type="text" class="form-control" id="price" name="tariffPrice" required pattern="[\d]{1,4}(\.[\d]{1,2}})?">
+                            </div>
+                            <div class="form-group">
+                                <label for="month-traffic" class="col-form-label">Month traffic</label>
+                                <input type="text" class="form-control" id="month-traffic" name="monthTraffic" required pattern="[\d]{1,6}">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Description</label>
+                                <textarea class="form-control" id="message-text" name="description" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add tariff</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
-            </c:forEach>
+            </div>
         </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Tariff name</th>
+                <th scope="col">Cost($)</th>
+                <th scope="col">Month traffic</th>
+                <th scope="col">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="element" items="${printedTariffs}">
+                <form>
+                    <tr>
+                        <td>${element.name}</td>
+                        <td>${element.price}</td>
+                        <td>${element.monthTraffic}</td>
+                        <td>${element.description}</td>
+                        <c:choose>
+                            <c:when test="${role == 'admin'}">
+                                <td>
+                                    <button>Change info</button>
+                                </td>
+                                <td>
+                                    <a href="controller?command=remove_tariff&tariffName=${element.name}">Delete tariff</a>
+                                </td>
+                            </c:when>
+                            <c:when test="${role == 'user'}">
+                                <td>
+                                    <button type="submit">Connect to tariff</button>
+                                </td>
+                            </c:when>
+                        </c:choose>
+                    </tr>
+                </form>
+            </c:forEach>
+            </tbody>
+        </table>
         <nav align="center">
             <ul class="pagination">
-                <c:forEach var="i" begin="1" end="${countPage+1}">
+                <c:forEach var="i" begin="1" end="${countPage}">
                     <li class="page-item"><a class="page-link"
                                              href="controller?command=print_tariffs&pageNumber=${i-1}">${i}</a>
                     </li>

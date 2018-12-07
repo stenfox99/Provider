@@ -44,6 +44,7 @@ public class AdminService {
         try {
             List<User> users = UserDao.getInstance().findUserByLogin(user.getLogin());
             if (users.isEmpty()){
+                user.setPassword(Encrypt.encrypt(user.getPassword()));
                 UserDao.getInstance().add(user);
             }else{
                 throw new BusinessLogicException("This login already exists");
@@ -54,7 +55,8 @@ public class AdminService {
     }
 
     public void addTariff(Tariff tariff) throws BusinessLogicException{
-        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) || !TariffValidator.validDescription(tariff.getDescription())){
+        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) ||
+                !TariffValidator.validDescription(tariff.getDescription()) || !TariffValidator.validTraffic(tariff.getMonthTraffic())){
             throw new BusinessLogicException("Incorrect input data");
         }
         try{

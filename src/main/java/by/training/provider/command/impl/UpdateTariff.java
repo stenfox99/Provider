@@ -16,8 +16,9 @@ public class UpdateTariff implements Command {              //TODO EXCEPTION
         int tariffId = Integer.parseInt(request.getParameter(FieldConst.TARIFF_ID));
         String tariffName = request.getParameter(FieldConst.TARIFF_NAME);
         BigDecimal price = BigDecimal.valueOf(Double.valueOf(request.getParameter(FieldConst.TARIFF_PRICE)));
+        int monthTraffic = Integer.parseInt(request.getParameter(FieldConst.MONTH_TRAFFIC));
         String description = request.getParameter(FieldConst.DESCRIPTION);
-        Tariff tariff = new Tariff(tariffId, tariffName, price, description);
+        Tariff tariff = new Tariff(tariffId, tariffName, price, monthTraffic, description);
         AdminService service = new AdminService();
         try{
             service.updateTariff(tariff);

@@ -1,6 +1,7 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.Command;
+import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
@@ -12,7 +13,6 @@ import java.util.List;
 
 public class PrintTariffs implements Command {
     private static final String PAGE_NUMBER = "pageNumber";
-    private static final int TARIFF_COUNT = 9;
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -25,7 +25,11 @@ public class PrintTariffs implements Command {
             //TODO EXCEPTION
         }
         List<Tariff> printedTariffs = service.getListOnPage(tariffs, pageNumber);
-        request.setAttribute("countPage", tariffs.size() / TARIFF_COUNT);
+        if (tariffs.size() % FieldConst.COUNT_ON_PAGE == 0){
+            request.setAttribute("countPage", tariffs.size() / FieldConst.COUNT_ON_PAGE);
+        }else {
+            request.setAttribute("countPage", tariffs.size() / FieldConst.COUNT_ON_PAGE + 1);
+        }
         request.setAttribute("printedTariffs", printedTariffs);
         return PagePath.printTariffs;
     }

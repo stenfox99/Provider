@@ -50,8 +50,9 @@ class Creator {
                 int id = resultTariffs.getInt(1);
                 String tariffName = resultTariffs.getString(2);
                 BigDecimal price = resultTariffs.getBigDecimal(3);
-                String description = resultTariffs.getString(4);
-                Tariff tariff = new Tariff(id, tariffName, price, description);
+                int monthTraffic = resultTariffs.getInt(4);
+                String description = resultTariffs.getString(5);
+                Tariff tariff = new Tariff(id, tariffName, price, monthTraffic, description);
                 tariffs.add(tariff);
             }
         } catch (SQLException e) {

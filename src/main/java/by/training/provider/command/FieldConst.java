@@ -12,6 +12,8 @@ public class FieldConst {
     public static final String TARIFF_PRICE = "tariffPrice";
     public static final String DESCRIPTION = "description";
     public static final String TARIFF_ID = "tariffId";
+    public static final String MONTH_TRAFFIC = "monthTraffic";
+    public static final int COUNT_ON_PAGE = 9;                      //TODO INCORRECT PLACE
 
     private FieldConst() {
     }
