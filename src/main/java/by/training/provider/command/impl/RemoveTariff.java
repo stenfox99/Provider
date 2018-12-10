@@ -37,6 +37,6 @@ public class RemoveTariff implements Command {
             request.setAttribute("countPage", tariffs.size() / FieldConst.COUNT_ON_PAGE + 1);
         }
         request.setAttribute("printedTariffs", printedTariffs);
-        return PagePath.printTariffs;
+        return PagePath.tariffs;
     }
 }

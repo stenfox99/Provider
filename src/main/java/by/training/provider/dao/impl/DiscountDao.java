@@ -12,10 +12,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DiscountDao implements DiscountDaoable {
-    private static final String ADD_DISCOUNT = "INSERT INTO Discounts(tariffId, discount, description) VALUES(?,?,?);";
-    private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountId = ?;";
-    private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ? WHERE Discounts.discountId = ?;";
-    private static final String SELECT_ALL_DISCOUNT = "SELECT Discounts.discountId, Discounts.tariffId, Discounts.discount, Discounts.description FROM Discounts;";
+    private static final String ADD_DISCOUNT = "INSERT INTO Discounts(discountName, tariffId, discount, description, beginningDate, endDate) VALUES(?,?,?,?,?,?);";
+    private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountName = ?;";
+    private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ?, Discounts.beginningDate = ?, Discounts.endDate = ? WHERE Discounts.discountName = ?;";
+    private static final String SELECT_ALL_DISCOUNT = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs on Discounts.tariffId = Tariffs.tariffId;";
     private static DiscountDao instance = new DiscountDao();
 
     private DiscountDao() {
@@ -29,9 +29,12 @@ public class DiscountDao implements DiscountDaoable {
     public void add(Discount element) throws DaoException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT)) {
-            statement.setInt(1, element.getTariffId());
-            statement.setInt(2, element.getDiscount());
-            statement.setString(3, element.getDescription());
+            statement.setString(1, element.getName());
+            statement.setInt(2, element.getTariff().getTariffId());
+            statement.setInt(3, element.getDiscount());
+            statement.setString(4, element.getDescription());
+            statement.setDate(5, element.getBeginningDate());
+            statement.setDate(6, element.getEndDate());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -42,7 +45,7 @@ public class DiscountDao implements DiscountDaoable {
     public void remove(Discount element) throws DaoException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_DISCOUNT)) {
-            statement.setInt(1, element.getDiscountId());
+            statement.setString(1, element.getName());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -53,10 +56,12 @@ public class DiscountDao implements DiscountDaoable {
     public void update(Discount element) throws DaoException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT)) {
-            statement.setInt(1, element.getTariffId());
+            statement.setInt(1, element.getTariff().getTariffId());
             statement.setInt(2, element.getDiscount());
             statement.setString(3, element.getDescription());
-            statement.setInt(4, element.getDiscountId());
+            statement.setDate(4, element.getBeginningDate());
+            statement.setDate(5, element.getEndDate());
+            statement.setString(6, element.getName());
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);

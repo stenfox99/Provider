@@ -11,7 +11,7 @@
             <form>
                 <a class="navbar-brand" href="controller?command=To_Main_Page">Main</a>
                 <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0">Tariffs</a>
-                <a class="navbar-brand" href="#">Discounts</a>
+                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0">Discounts</a>
             </form>
         </div>
         <c:choose>

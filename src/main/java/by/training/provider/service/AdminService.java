@@ -81,7 +81,8 @@ public class AdminService {
     }
 
     public void updateTariff(Tariff tariff)throws BusinessLogicException{
-        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) || !TariffValidator.validDescription(tariff.getDescription())){
+        if (!TariffValidator.validTariff(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) ||
+                !TariffValidator.validDescription(tariff.getDescription()) || !TariffValidator.validTraffic(tariff.getMonthTraffic())){
             throw new BusinessLogicException("Incorrect input data");
         }
         try{

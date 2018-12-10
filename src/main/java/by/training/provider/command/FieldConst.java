@@ -13,6 +13,7 @@ public class FieldConst {
     public static final String DESCRIPTION = "description";
     public static final String TARIFF_ID = "tariffId";
     public static final String MONTH_TRAFFIC = "monthTraffic";
+    public static final String PAGE_NUMBER = "pageNumber";
     public static final int COUNT_ON_PAGE = 9;                      //TODO INCORRECT PLACE
 
     private FieldConst() {

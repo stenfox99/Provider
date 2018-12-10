@@ -28,6 +28,11 @@ public class Tariff extends Entity{
         this.name = name;
     }
 
+    public Tariff(int tariffId, String name){
+        this.tariffId = tariffId;
+        this.name = name;
+    }
+
     public Tariff() {
     }
 

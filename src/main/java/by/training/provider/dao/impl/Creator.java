@@ -5,6 +5,7 @@ import by.training.provider.exception.DaoException;
 
 import java.math.BigDecimal;
 import java.sql.Blob;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -81,11 +82,16 @@ class Creator {
         List<Discount> discounts = new ArrayList<>();
         try {
             while (resultDiscount.next()) {
-                int id = resultDiscount.getInt(1);
-                int tariffId = resultDiscount.getInt(2);
-                int discount = resultDiscount.getInt(3);
-                String description = resultDiscount.getString(4);
-                Discount newDiscount = new Discount(id, tariffId, discount, description);
+                String discountName = resultDiscount.getString(1);
+                int discount = resultDiscount.getInt(2);
+                String description = resultDiscount.getString(3);
+                Date beginningDate = resultDiscount.getDate(4);
+                Date endDate = resultDiscount.getDate(5);
+                int tariffId = resultDiscount.getInt(6);
+                String tariffName = resultDiscount.getString(7);
+                Tariff tariff = new Tariff(tariffId, tariffName);
+
+                Discount newDiscount = new Discount(discountName, discount, description, beginningDate, endDate, tariff);
                 discounts.add(newDiscount);
             }
         } catch (SQLException e) {

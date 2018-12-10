@@ -1,7 +1,9 @@
 package by.training.provider.service;
 
 import by.training.provider.command.FieldConst;
+import by.training.provider.dao.impl.DiscountDao;
 import by.training.provider.dao.impl.TariffDao;
+import by.training.provider.entity.Discount;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
 
@@ -17,7 +19,6 @@ public class WithoutRoleService {  //TODO NAME
         } catch (DaoException e) {
             throw new DaoException(e);
         }
-
         return tariffs;
     }
 
@@ -31,5 +32,15 @@ public class WithoutRoleService {  //TODO NAME
             returnedList.add(list.get(i));
         }
         return returnedList;
+    }
+
+    public List<Discount> findDiscounts() throws DaoException {
+        List<Discount> discounts;
+        try {
+            discounts = DiscountDao.getInstance().findAll();
+        } catch (DaoException e) {
+            throw new DaoException(e);
+        }
+        return discounts;
     }
 }
