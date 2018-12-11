@@ -5,7 +5,7 @@ import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserType;
-import by.training.provider.exception.BusinessLogicException;
+import by.training.provider.exception.LogicException;
 import by.training.provider.service.AdminService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class AddUser implements Command {
                 User user = new User(1, login, password, type);
                 service.addUser(user);
             }
-        } catch (BusinessLogicException e) {
+        } catch (LogicException e) {
 
         }
         return PagePath.mainPage;

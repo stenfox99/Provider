@@ -4,7 +4,7 @@ import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.User;
-import by.training.provider.exception.BusinessLogicException;
+import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class SignIn implements Command {
                 request.setAttribute(FieldConst.ERROR, "Incorrect login or password");
                 page = PagePath.mainPage;
             }
-        }catch (BusinessLogicException e){
+        }catch (LogicException e){
 
         }
         return page;

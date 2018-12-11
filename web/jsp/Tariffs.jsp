@@ -81,10 +81,10 @@
                                         ${element.name}
                                 </td>
                                 <td>
-                                    <input type="text" name="tariffPrice" value="${element.price}">
+                                    <input type="text" name="tariffPrice" value="${element.price}" pattern="[\d]{1,4}(\.[\d]{1,2}})?">
                                 </td>
                                 <td>
-                                    <input type="text" name="monthTraffic" value="${element.monthTraffic}">
+                                    <input type="text" name="monthTraffic" value="${element.monthTraffic}" pattern="[\d]{1,6}">
                                 </td>
                                 <td>
                                     <textarea type="textarea" name="description">${element.description}</textarea>

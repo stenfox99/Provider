@@ -6,17 +6,27 @@ import by.training.provider.command.PagePath;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
+import by.training.provider.exception.LogicException;
+import by.training.provider.service.AdminService;
 import by.training.provider.service.WithoutRoleService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintDiscounts implements Command {
+public class RemoveDiscount implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        int pageNumber = Integer.parseInt(request.getParameter(FieldConst.PAGE_NUMBER));
+        String name = request.getParameter(FieldConst.DISCOUNT_NAME);
+        Discount discount = new Discount(name);
+        AdminService adminService = new AdminService();
+        try {
+            adminService.removeDiscount(discount);
+        } catch (LogicException e) {
+            //TODO EXCEPTION
+        }
+
         List<Discount> discounts = new ArrayList<>();
         List<Tariff> tariffs = new ArrayList<>();
         WithoutRoleService service = new WithoutRoleService();
@@ -27,12 +37,11 @@ public class PrintDiscounts implements Command {
             //TODO EXCEPTION
         }
         List<Discount> printedDiscounts;                                                                //TODO LOGIC IN COMMAND
-        if (pageNumber * FieldConst.COUNT_ON_PAGE + FieldConst.COUNT_ON_PAGE >= discounts.size()) {
-            printedDiscounts = discounts.subList(pageNumber * FieldConst.COUNT_ON_PAGE, discounts.size());
+        if (FieldConst.COUNT_ON_PAGE >= discounts.size()) {
+            printedDiscounts = discounts.subList(0, discounts.size());
         } else {
-            printedDiscounts = discounts.subList(pageNumber * FieldConst.COUNT_ON_PAGE, pageNumber
-                    * FieldConst.COUNT_ON_PAGE + FieldConst.COUNT_ON_PAGE);
-        }
+            printedDiscounts = discounts.subList(0, FieldConst.COUNT_ON_PAGE);
+        } //TODO LOGIC IN COMMAND
         if (discounts.size() % FieldConst.COUNT_ON_PAGE == 0) {
             request.setAttribute("countPage", discounts.size() / FieldConst.COUNT_ON_PAGE);
         } else {

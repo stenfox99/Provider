@@ -78,7 +78,8 @@ public class TariffDao implements TariffDaoable {
         return tariffs;
     }
 
-    public List<Tariff> findTariffByName(String name) throws DaoException {
+    @Override
+    public List<Tariff> findByName(String name) throws DaoException {
         List<Tariff> tariffs;
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME)) {

@@ -9,7 +9,7 @@ public class TariffValidator {          //TODO ONE VALIDATOR OR FOR EVERY ENTITY
     private static final String TARIFF_DESCRIPTION_VALIDATOR = "[\\w\\d\\s\\n',.!?]{1,255}";
     private static final String CSS_ATTACK_VALIDATOR = "</?script>";
 
-    public static boolean validTariff(String tariffName){
+    public static boolean validTariffName(String tariffName){
         return tariffName.matches(TARIFF_NAME_VALIDATOR) && !tariffName.matches(CSS_ATTACK_VALIDATOR);
     }
 

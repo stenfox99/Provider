@@ -30,6 +30,10 @@ public class Discount extends Entity{
         this.endDate = endDate;
     }
 
+    public Discount(String name){
+        this.name = name;
+    }
+
     public Discount() {
     }
 

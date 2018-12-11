@@ -3,7 +3,7 @@ package by.training.provider.command.impl;
 import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
-import by.training.provider.exception.BusinessLogicException;
+import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
 import by.training.provider.util.Encrypt;
 
@@ -19,7 +19,7 @@ public class ChangeUserPassword implements Command {
         String encryptPassword = Encrypt.encrypt(password);
         try {
             userService.updateUser(login, encryptPassword);
-        }catch (BusinessLogicException e){
+        }catch (LogicException e){
 
         }
         return PagePath.mainPage;

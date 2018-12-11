@@ -4,7 +4,7 @@ import by.training.provider.command.Command;
 import by.training.provider.command.FieldConst;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.Tariff;
-import by.training.provider.exception.BusinessLogicException;
+import by.training.provider.exception.LogicException;
 import by.training.provider.exception.DaoException;
 import by.training.provider.service.AdminService;
 import by.training.provider.service.WithoutRoleService;
@@ -20,17 +20,22 @@ public class RemoveTariff implements Command {
         AdminService adminService = new AdminService();
         try {
             adminService.removeTariff(tariffName);
-        }catch (BusinessLogicException e){
+        }catch (LogicException e){
 
         }
         List<Tariff> tariffs = new ArrayList<>();
         WithoutRoleService service = new WithoutRoleService();
         try {
-            tariffs = service.findTariffs();
+            tariffs = service.findAllTariffs();
         } catch (DaoException e) {
             //TODO EXCEPTION
         }
-        List<Tariff> printedTariffs = service.getListOnPage(tariffs, 0);
+        List<Tariff> printedTariffs;                                                                //TODO LOGIC IN COMMAND
+        if (FieldConst.COUNT_ON_PAGE >= tariffs.size()) {
+            printedTariffs = tariffs.subList(0, tariffs.size());
+        } else {
+            printedTariffs = tariffs.subList(0, FieldConst.COUNT_ON_PAGE);
+        }
         if (tariffs.size() % FieldConst.COUNT_ON_PAGE == 0){
             request.setAttribute("countPage", tariffs.size() / FieldConst.COUNT_ON_PAGE);
         }else {

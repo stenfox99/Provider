@@ -40,6 +40,10 @@ public class Tariff extends Entity{
         return tariffId;
     }
 
+    public void setTariffId(int tariffId) {
+        this.tariffId = tariffId;
+    }
+
     public String getName() {
         return name;
     }

@@ -2,7 +2,7 @@ package by.training.provider.dao;
 
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserType;
-import by.training.provider.exception.BusinessLogicException;
+import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,7 +19,7 @@ public class UserDaoTest {
         Optional<User> userOptional = Optional.empty();
         try {
             userOptional = service.findUser(login, pas);
-        } catch (BusinessLogicException e) {
+        } catch (LogicException e) {
             e.printStackTrace();
         }
         User expected = new User(5, "admin", null, new UserType(1, "admin"));
