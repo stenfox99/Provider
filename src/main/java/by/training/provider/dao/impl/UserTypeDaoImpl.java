@@ -1,9 +1,8 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.UserTypeDaoable;
+import by.training.provider.dao.UserTypeDao;
 import by.training.provider.pool.ConnectionPool;
 import by.training.provider.pool.ProxyConnection;
-import by.training.provider.dao.DaoBase;
 import by.training.provider.entity.UserType;
 import by.training.provider.exception.DaoException;
 import com.mysql.jdbc.PreparedStatement;
@@ -12,14 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserTypeDao implements UserTypeDaoable{
+public class UserTypeDaoImpl implements UserTypeDao {
     private static final String SELECT_ALL_USER_TYPE = "SELECT userTypeId, userType FROM UserTypes;";
-    private static UserTypeDao instance = new UserTypeDao();
+    private static UserTypeDaoImpl instance = new UserTypeDaoImpl();
 
-    private UserTypeDao() {
+    private UserTypeDaoImpl() {
     }
 
-    public static UserTypeDao getInstance() {
+    public static UserTypeDaoImpl getInstance() {
         return instance;
     }
 

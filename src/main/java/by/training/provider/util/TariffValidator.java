@@ -2,8 +2,8 @@ package by.training.provider.util;
 
 import java.math.BigDecimal;
 
-public class TariffValidator {          //TODO ONE VALIDATOR OR FOR EVERY ENTITY
-    private static final String TARIFF_NAME_VALIDATOR = "[\\w\\d]{6,20}";
+public class TariffValidator {
+    private static final String TARIFF_NAME_VALIDATOR = "[\\w\\d\\s]{6,20}";
     private static final String TARIFF_PRICE_VALIDATOR = "[\\d]{1,4}\\.[\\d]{1,2}";
     private static final String TARIFF_TRAFFIC_VALIDATOR = "[\\d]{1,7}";
     private static final String TARIFF_DESCRIPTION_VALIDATOR = "[\\w\\d\\s\\n',.!?]{1,255}";

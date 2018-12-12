@@ -1,7 +1,7 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.Command;
-import by.training.provider.command.FieldConst;
+import by.training.provider.command.ParameterName;
 import by.training.provider.command.PagePath;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
@@ -13,8 +13,8 @@ public class ChangeUserPassword implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {                     //TODO EXCEPTION
-        String login = request.getSession().getAttribute(FieldConst.LOGIN).toString();
-        String password = request.getParameter(FieldConst.PASSWORD);
+        String login = request.getSession().getAttribute(ParameterName.LOGIN).toString();
+        String password = request.getParameter(ParameterName.PASSWORD);
         UserService userService = new UserService();
         String encryptPassword = Encrypt.encrypt(password);
         try {
@@ -22,6 +22,6 @@ public class ChangeUserPassword implements Command {
         }catch (LogicException e){
 
         }
-        return PagePath.mainPage;
+        return PagePath.MAIN_PAGE;
     }
 }

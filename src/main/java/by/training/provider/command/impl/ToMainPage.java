@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ToMainPage implements Command {
     @Override
     public String execute(HttpServletRequest request) {
-        return PagePath.mainPage;
+        return PagePath.MAIN_PAGE;
     }
 }

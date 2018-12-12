@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.BreachDaoable;
+import by.training.provider.dao.BreachDao;
 import by.training.provider.entity.Breach;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,17 +11,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BreachDao implements BreachDaoable {
+public class BreachDaoImpl implements BreachDao {
     private static final String ADD_BREACH = "INSERT INTO Breaches(description, userId) VALUES(?,?);";
     private static final String REMOVE_BREACH = "DELETE FROM Breaches WHERE Breaches.breachId = ?;";
     private static final String UPDATE_BREACH = "UPDATE Breaches SET Breaches.description = ?, Breaches.userId = ? WHERE Breaches.breachId = ?;";
     private static final String SELECT_ALL_BREACH = "SELECT Breaches.breachId, Breaches.userId, Breaches.description FROM Breaches;";
-    private static BreachDao instance = new BreachDao();
+    private static BreachDaoImpl instance = new BreachDaoImpl();
 
-    private BreachDao() {
+    private BreachDaoImpl() {
     }
 
-    public static BreachDao getInstance() {
+    public static BreachDaoImpl getInstance() {
         return instance;
     }
 

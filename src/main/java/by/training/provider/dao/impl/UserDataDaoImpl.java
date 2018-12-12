@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.UserDataDaoable;
+import by.training.provider.dao.UserDataDao;
 import by.training.provider.entity.UserData;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDataDao implements UserDataDaoable {
+public class UserDataDaoImpl implements UserDataDao {
     private static final String ADD_USER_DATA = "INSERT INTO UserData(userDataId) VALUES(?);";
     private static final String REMOVE_USER_DATA = "DELETE FROM UserData WHERE UserData.userDataId = ?;";
     private static final String UPDATE_USER_DATA = "UPDATE UserData SET UserData.firstName = ?, " +
@@ -21,12 +21,12 @@ public class UserDataDao implements UserDataDaoable {
             "UserData.traffic = ?, UserData.ban = ?," +
             "UserData.photo = ?;";
     private static final String SELECT_ALL_USER_DATA = "SELECT (UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId) FROM UserData;";
-    private static UserDataDao instance = new UserDataDao();
+    private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
-    private UserDataDao() {
+    private UserDataDaoImpl() {
     }
 
-    public static UserDataDao getInstance() {
+    public static UserDataDaoImpl getInstance() {
         return instance;
     }
 

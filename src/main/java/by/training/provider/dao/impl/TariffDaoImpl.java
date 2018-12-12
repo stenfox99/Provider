@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.TariffDaoable;
+import by.training.provider.dao.TariffDao;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,18 +11,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TariffDao implements TariffDaoable {
+public class TariffDaoImpl implements TariffDao {
     private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, monthTraffic, description) VALUES(?,?,?,?);";
     private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
     private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.price = ?, Tariffs.monthTraffic = ?, Tariffs.description = ? WHERE Tariffs.tariffName = ?;";
     private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.monthTraffic, Tariffs.description FROM Tariffs;";
     private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.monthTraffic, Tariffs.description FROM Tariffs WHERE Tariffs.tariffName = ?;";
-    private static TariffDao instance = new TariffDao();
+    private static TariffDaoImpl instance = new TariffDaoImpl();
 
-    private TariffDao() {
+    private TariffDaoImpl() {
     }
 
-    public static TariffDao getInstance() {
+    public static TariffDaoImpl getInstance() {
         return instance;
     }
 

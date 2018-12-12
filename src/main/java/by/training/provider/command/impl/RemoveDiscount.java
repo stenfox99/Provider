@@ -1,14 +1,14 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.Command;
-import by.training.provider.command.FieldConst;
+import by.training.provider.command.ParameterName;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.DaoException;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.AdminService;
-import by.training.provider.service.WithoutRoleService;
+import by.training.provider.service.CommonService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class RemoveDiscount implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String name = request.getParameter(FieldConst.DISCOUNT_NAME);
+        String name = request.getParameter(ParameterName.DISCOUNT_NAME);
         Discount discount = new Discount(name);
         AdminService adminService = new AdminService();
         try {
@@ -29,26 +29,21 @@ public class RemoveDiscount implements Command {
 
         List<Discount> discounts = new ArrayList<>();
         List<Tariff> tariffs = new ArrayList<>();
-        WithoutRoleService service = new WithoutRoleService();
+        CommonService service = new CommonService();
         try {
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
         } catch (DaoException e) {
             //TODO EXCEPTION
         }
-        List<Discount> printedDiscounts;                                                                //TODO LOGIC IN COMMAND
-        if (FieldConst.COUNT_ON_PAGE >= discounts.size()) {
-            printedDiscounts = discounts.subList(0, discounts.size());
+        List<Discount> printedDiscounts = service.divideListOnPage(discounts, 0);
+        if (discounts.size() % ParameterName.COUNT_ON_PAGE == 0) {
+            request.setAttribute("countPage", discounts.size() / ParameterName.COUNT_ON_PAGE);
         } else {
-            printedDiscounts = discounts.subList(0, FieldConst.COUNT_ON_PAGE);
-        } //TODO LOGIC IN COMMAND
-        if (discounts.size() % FieldConst.COUNT_ON_PAGE == 0) {
-            request.setAttribute("countPage", discounts.size() / FieldConst.COUNT_ON_PAGE);
-        } else {
-            request.setAttribute("countPage", discounts.size() / FieldConst.COUNT_ON_PAGE + 1);
+            request.setAttribute("countPage", discounts.size() / ParameterName.COUNT_ON_PAGE + 1);
         }
         request.setAttribute("printedDiscounts", printedDiscounts);
-        request.setAttribute("tariffs", tariffs);
-        return PagePath.discounts;
+        request.setAttribute("TARIFFS", tariffs);
+        return PagePath.DISCOUNTS;
     }
 }

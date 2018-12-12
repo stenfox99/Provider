@@ -1,6 +1,6 @@
 package by.training.provider.service;
 
-import by.training.provider.dao.impl.UserDao;
+import by.training.provider.dao.impl.UserDaoImpl;
 import by.training.provider.util.Encrypt;
 import by.training.provider.entity.User;
 import by.training.provider.exception.LogicException;
@@ -15,7 +15,7 @@ public class UserService {
         Optional<User> user = Optional.empty();
         try {
             String encryptPassword = Encrypt.encrypt(password);
-            List<User> users = UserDao.getInstance().findUserByLoginAndPassword(login, encryptPassword);
+            List<User> users = UserDaoImpl.getInstance().findUserByLoginAndPassword(login, encryptPassword);
             if (!users.isEmpty()) {
                 user = Optional.of(users.get(0));
             }
@@ -29,7 +29,7 @@ public class UserService {
         try {
             String encryptPassword = Encrypt.encrypt(password);
             User user = new User(login, encryptPassword);
-            UserDao.getInstance().update(user);
+            UserDaoImpl.getInstance().update(user);
         }catch (DaoException e){
             throw new LogicException(e);
         }

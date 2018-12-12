@@ -1,6 +1,6 @@
 package by.training.provider.command;
 
-public class FieldConst {
+public class ParameterName {
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String ERROR = "error";
@@ -18,8 +18,8 @@ public class FieldConst {
     public static final String DISCOUNT = "discount";
     public static final String BEGINNING_DATE = "beginningDate";
     public static final String END_DATE = "endDate";
-    public static final int COUNT_ON_PAGE = 9;                      //TODO INCORRECT PLACE
-
-    private FieldConst() {
+    public static final int COUNT_ON_PAGE = 9;
+    public static final String LOCALE = "language";
+    private ParameterName(){
     }
 }

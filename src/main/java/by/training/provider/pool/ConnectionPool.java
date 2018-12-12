@@ -83,7 +83,7 @@ public final class ConnectionPool {
         }
     }
 
-    public void destroyConnections() {                      //TODO SLOW USED CONNECTIONS
+    public void destroyConnections() {
         try {
             for (int i = 0; i < CONNECTION_COUNT; ++i) {
                 ProxyConnection connection = allConnections.take();

@@ -35,7 +35,7 @@
                                         <label for="discount-name" class="col-form-label">Discount name:</label>
                                         <input type="text" class="form-control" id="discount-name" name="discountName"
                                                required
-                                               pattern="[\w\d]{6,20}">
+                                               pattern="[\w\d\s]{6,20}">
                                     </div>
                                     <div class="form-group">
                                         <label for="tariffName">Tariff name</label>

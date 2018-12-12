@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <body>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="content" var="var"/>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -9,9 +12,9 @@
     <div class="container">
         <div class="navbar-header">
             <form>
-                <a class="navbar-brand" href="controller?command=To_Main_Page">Main</a>
-                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0">Tariffs</a>
-                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0">Discounts</a>
+                <a class="navbar-brand" href="controller?command=To_Main_Page"><fmt:message key="label.main" bundle="${var}"/></a>
+                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0"><fmt:message key="label.tariffs" bundle="${var}"/></a>
+                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message key="label.discounts" bundle="${var}"/></a>
             </form>
         </div>
         <c:choose>

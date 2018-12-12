@@ -5,6 +5,6 @@ import by.training.provider.exception.DaoException;
 
 import java.util.List;
 
-public interface DiscountDaoable extends DaoBase<Discount> {    //TODO ABLE
+public interface DiscountDao extends DaoBase<Discount> {
     List<Discount> findByName(String name)throws DaoException;
 }

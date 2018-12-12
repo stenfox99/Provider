@@ -1,7 +1,7 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.Command;
-import by.training.provider.command.FieldConst;
+import by.training.provider.command.ParameterName;
 import by.training.provider.command.PagePath;
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserType;
@@ -15,9 +15,9 @@ public class AddUser implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String login = request.getParameter(FieldConst.LOGIN);          //TODO EXCEPTION
-        String password = request.getParameter(FieldConst.PASSWORD);
-        String userType = request.getParameter(FieldConst.USER_TYPE);
+        String login = request.getParameter(ParameterName.LOGIN);          //TODO EXCEPTION
+        String password = request.getParameter(ParameterName.PASSWORD);
+        String userType = request.getParameter(ParameterName.USER_TYPE);
         AdminService service = new AdminService();
         try {
             if (userType.equals(ADMIN)) {
@@ -32,6 +32,6 @@ public class AddUser implements Command {
         } catch (LogicException e) {
 
         }
-        return PagePath.mainPage;
+        return PagePath.MAIN_PAGE;
     }
 }

@@ -5,6 +5,6 @@ import by.training.provider.exception.DaoException;
 
 import java.util.List;
 
-public interface TariffDaoable extends DaoBase<Tariff> {
+public interface TariffDao extends DaoBase<Tariff> {
     List<Tariff> findByName(String name)throws DaoException;
 }

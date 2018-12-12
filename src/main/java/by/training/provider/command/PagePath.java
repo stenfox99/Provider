@@ -1,9 +1,9 @@
 package by.training.provider.command;
 
 public class PagePath {
-    public static final String mainPage = "/jsp/Main.jsp";
-    public static final String tariffs = "/jsp/Tariffs.jsp";
-    public static final String discounts = "/jsp/Discounts.jsp";
+    public static final String MAIN_PAGE = "/jsp/Main.jsp";
+    public static final String TARIFFS = "/jsp/Tariffs.jsp";
+    public static final String DISCOUNTS = "/jsp/Discounts.jsp";
 
     private PagePath(){}
 }

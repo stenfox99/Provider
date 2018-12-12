@@ -8,8 +8,8 @@
     <footer>
         <p>© 2018 Training</p>
         <form>
-            <a class="aboutLanguage" href="#">EN</a>
-            <a class="aboutLanguage" href="#">RU</a></br>
+            <a class="aboutLanguage" href="controller?command=language&language=en_EN">EN</a>
+            <a class="aboutLanguage" href="controller?command=language&language=ru_RU">RU</a></br>
         </form>
     </footer>
 </div>

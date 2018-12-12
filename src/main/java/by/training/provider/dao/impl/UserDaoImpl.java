@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.UserDaoable;
+import by.training.provider.dao.UserDao;
 import by.training.provider.entity.User;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDao implements UserDaoable {
+public class UserDaoImpl implements UserDao {
     private static final String ADD_USER = "INSERT INTO Users(login, password, userTypeId) VALUES(?,?,?);";
     private static final String REMOVE_USER = "DELETE FROM Users WHERE Users.userId = ?;";
     private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.login = ?;";
@@ -19,12 +19,12 @@ public class UserDao implements UserDaoable {
     private static final String SELECT_USER_BY_LOGIN = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.login = ?;";
     private static final String SELECT_USER_BY_ID = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.userId = ?;";
     private static final String SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE  Users.login = ? AND Users.password = ?;";
-    private static UserDao instance = new UserDao();
+    private static UserDaoImpl instance = new UserDaoImpl();
 
-    private UserDao() {
+    private UserDaoImpl() {
     }
 
-    public static UserDao getInstance() {
+    public static UserDaoImpl getInstance() {
         return instance;
     }
 

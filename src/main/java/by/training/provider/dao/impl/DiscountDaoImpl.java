@@ -1,6 +1,6 @@
 package by.training.provider.dao.impl;
 
-import by.training.provider.dao.DiscountDaoable;
+import by.training.provider.dao.DiscountDao;
 import by.training.provider.entity.Discount;
 import by.training.provider.exception.DaoException;
 import by.training.provider.pool.ConnectionPool;
@@ -11,18 +11,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DiscountDao implements DiscountDaoable {
+public class DiscountDaoImpl implements DiscountDao {
     private static final String ADD_DISCOUNT = "INSERT INTO Discounts(discountName, tariffId, discount, description, beginningDate, endDate) VALUES(?,?,?,?,?,?);";
     private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountName = ?;";
     private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ?, Discounts.beginningDate = ?, Discounts.endDate = ? WHERE Discounts.discountName = ?;";
     private static final String SELECT_ALL_DISCOUNTS = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId;";
     private static final String SELECT_DISCOUNT_BY_NAME = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId WHERE Discounts.discountName = ?;";
-    private static DiscountDao instance = new DiscountDao();
+    private static DiscountDaoImpl instance = new DiscountDaoImpl();
 
-    private DiscountDao() {
+    private DiscountDaoImpl() {
     }
 
-    public static DiscountDao getInstance() {
+    public static DiscountDaoImpl getInstance() {
         return instance;
     }
 

@@ -1,4 +1,6 @@
+<%@ taglib prefix="check" uri="http://mycompany.com" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -8,6 +10,7 @@
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>
+<%--<check:checkAdminTariff/>--%>
 <div>
     <div class="jumbotron">
         <div class="container">

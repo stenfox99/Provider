@@ -1,9 +1,9 @@
 package by.training.provider.service;
 
-import by.training.provider.dao.impl.DiscountDao;
-import by.training.provider.dao.impl.TariffDao;
-import by.training.provider.dao.impl.UserDao;
-import by.training.provider.dao.impl.UserDataDao;
+import by.training.provider.dao.impl.DiscountDaoImpl;
+import by.training.provider.dao.impl.TariffDaoImpl;
+import by.training.provider.dao.impl.UserDaoImpl;
+import by.training.provider.dao.impl.UserDataDaoImpl;
 import by.training.provider.entity.Discount;
 import by.training.provider.util.DiscountValidator;
 import by.training.provider.util.Encrypt;
@@ -24,13 +24,13 @@ public class AdminService {
             throw new LogicException("The incorrect input data");
         }
         try {
-            List<User> users = UserDao.getInstance().findUserByLogin(user.getLogin());
+            List<User> users = UserDaoImpl.getInstance().findUserByLogin(user.getLogin());
             if (users.isEmpty()){
                 user.setPassword(Encrypt.encrypt(user.getPassword()));
-                UserDao.getInstance().add(user);
-                List<User> dbUser = UserDao.getInstance().findUserByLogin(user.getLogin());
+                UserDaoImpl.getInstance().add(user);
+                List<User> dbUser = UserDaoImpl.getInstance().findUserByLogin(user.getLogin());
                 UserData userData = new UserData(dbUser.get(0).getUserId());
-                UserDataDao.getInstance().add(userData);
+                UserDataDaoImpl.getInstance().add(userData);
             }else{
                 throw new LogicException("This login already exists");
             }
@@ -45,10 +45,10 @@ public class AdminService {
             throw new LogicException("The incorrect input data");
         }
         try {
-            List<User> users = UserDao.getInstance().findUserByLogin(user.getLogin());
+            List<User> users = UserDaoImpl.getInstance().findUserByLogin(user.getLogin());
             if (users.isEmpty()){
                 user.setPassword(Encrypt.encrypt(user.getPassword()));
-                UserDao.getInstance().add(user);
+                UserDaoImpl.getInstance().add(user);
             }else{
                 throw new LogicException("This login already exists");
             }
@@ -63,9 +63,9 @@ public class AdminService {
             throw new LogicException("Incorrect input data");
         }
         try{
-            List<Tariff> existedTariff = TariffDao.getInstance().findByName(tariff.getName());
+            List<Tariff> existedTariff = TariffDaoImpl.getInstance().findByName(tariff.getName());
             if (existedTariff.isEmpty()){
-                TariffDao.getInstance().add(tariff);
+                TariffDaoImpl.getInstance().add(tariff);
             }else{
                 throw new LogicException("This name already exists");
             }
@@ -77,7 +77,7 @@ public class AdminService {
     public void removeTariff(String tariffName)throws LogicException {
         Tariff tariff = new Tariff(tariffName);
         try {
-            TariffDao.getInstance().remove(tariff);
+            TariffDaoImpl.getInstance().remove(tariff);
         }catch (DaoException e){
             throw new LogicException(e);
         }
@@ -89,7 +89,7 @@ public class AdminService {
             throw new LogicException("Incorrect input data");
         }
         try{
-            TariffDao.getInstance().update(tariff);
+            TariffDaoImpl.getInstance().update(tariff);
         }catch (DaoException e){
             throw new LogicException(e);
         }
@@ -101,11 +101,14 @@ public class AdminService {
             throw new LogicException("Incorrect input data");
         }
         try{
-            List<Discount> existedDiscounts = DiscountDao.getInstance().findByName(discount.getName());
+            List<Discount> existedDiscounts = DiscountDaoImpl.getInstance().findByName(discount.getName());
             if (existedDiscounts.isEmpty()){
-                List<Tariff> tariff = TariffDao.getInstance().findByName(discount.getTariff().getName());
+                List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(discount.getTariff().getName());
+                if (tariff.isEmpty()){
+                    throw new DaoException("Selected tariff doesn't exist");
+                }
                 discount.getTariff().setTariffId(tariff.get(0).getTariffId());
-                DiscountDao.getInstance().add(discount);
+                DiscountDaoImpl.getInstance().add(discount);
             }else{
                 throw new LogicException("This name already exists");
             }
@@ -116,7 +119,7 @@ public class AdminService {
 
     public void removeDiscount(Discount discount) throws LogicException {
         try {
-            DiscountDao.getInstance().remove(discount);
+            DiscountDaoImpl.getInstance().remove(discount);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -128,9 +131,12 @@ public class AdminService {
             throw new LogicException("Incorrect input data");
         }
         try{
-            List<Tariff> tariff = TariffDao.getInstance().findByName(discount.getTariff().getName());
+            List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(discount.getTariff().getName());
+            if (tariff.isEmpty()){
+                throw new DaoException("Selected tariff doesn't exist");
+            }
             discount.getTariff().setTariffId(tariff.get(0).getTariffId());
-            DiscountDao.getInstance().update(discount);
+            DiscountDaoImpl.getInstance().update(discount);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
