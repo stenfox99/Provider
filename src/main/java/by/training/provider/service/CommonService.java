@@ -42,4 +42,14 @@ public class CommonService {
         }
         return discounts;
     }
+
+    public int pageCount(List<? extends Entity> list){
+        int pageCount;
+        if (list.size() % ParameterName.COUNT_ON_PAGE == 0){
+            pageCount = list.size() / ParameterName.COUNT_ON_PAGE;
+        }else {
+            pageCount = list.size() / ParameterName.COUNT_ON_PAGE + 1;
+        }
+        return pageCount;
+    }
 }

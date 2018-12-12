@@ -24,11 +24,8 @@ public class PrintTariffs implements Command {
             //TODO EXCEPTION
         }
         List<Tariff> printedTariffs = service.divideListOnPage(tariffs, pageNumber);
-        if (tariffs.size() % ParameterName.COUNT_ON_PAGE == 0) {
-            request.setAttribute("countPage", tariffs.size() / ParameterName.COUNT_ON_PAGE);
-        } else {
-            request.setAttribute("countPage", tariffs.size() / ParameterName.COUNT_ON_PAGE + 1);
-        }
+        int countPage = service.pageCount(tariffs);
+        request.setAttribute("countPage", countPage);
         request.setAttribute("printedTariffs", printedTariffs);
         return PagePath.TARIFFS;
     }

@@ -10,7 +10,7 @@
     <uri>http://mycompany.com</uri>
 <tag>
     <name>checkAdminTariff</name>
-    <tag-class>by.training.provider.tag.CheckRole</tag-class>
+    <tag-class>by.training.provider.tag.CheckRoleTag</tag-class>
     <body-content>empty</body-content>
 </tag>
 </taglib>

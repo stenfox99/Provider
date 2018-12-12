@@ -50,11 +50,8 @@ public class UpdateDiscount implements Command {
             //TODO EXCEPTION
         }
         List<Discount> printedDiscounts = service.divideListOnPage(discounts, 0);
-        if (discounts.size() % ParameterName.COUNT_ON_PAGE == 0) {
-            request.setAttribute("countPage", discounts.size() / ParameterName.COUNT_ON_PAGE);
-        } else {
-            request.setAttribute("countPage", discounts.size() / ParameterName.COUNT_ON_PAGE + 1);
-        }
+        int countPage = service.pageCount(discounts);
+        request.setAttribute("countPage", countPage);
         request.setAttribute("printedDiscounts", printedDiscounts);
         request.setAttribute("TARIFFS", tariffs);
         return PagePath.DISCOUNTS;

@@ -12,9 +12,12 @@
     <div class="container">
         <div class="navbar-header">
             <form>
-                <a class="navbar-brand" href="controller?command=To_Main_Page"><fmt:message key="label.main" bundle="${var}"/></a>
-                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0"><fmt:message key="label.tariffs" bundle="${var}"/></a>
-                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message key="label.discounts" bundle="${var}"/></a>
+                <a class="navbar-brand" href="controller?command=To_Main_Page"><fmt:message key="label.main"
+                                                                                            bundle="${var}"/></a>
+                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0"><fmt:message
+                        key="label.tariffs" bundle="${var}"/></a>
+                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message
+                        key="label.discounts" bundle="${var}"/></a>
             </form>
         </div>
         <c:choose>
@@ -38,7 +41,14 @@
                 <div class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right" action="controller" method="post">
                         <input type="hidden" name="command" value="sign_out"/>
-                        <a class="nav-link" href="controller?command=To_Profile">${login}</a>
+                        <c:choose>
+                            <c:when test="${role == 'user'}">
+                                <a class="nav-link" href="controller?command=To_Profile">${login}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="navbar-brand">${login}</span>
+                            </c:otherwise>
+                        </c:choose>
                         <button type="submit" class="btn btn-success">Sign out</button>
                         </br>
                     </form>

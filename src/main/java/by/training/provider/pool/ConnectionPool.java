@@ -26,7 +26,6 @@ public final class ConnectionPool {
     }
 
     private BlockingQueue<ProxyConnection> allConnections = new LinkedBlockingDeque<>();
-    private BlockingQueue<ProxyConnection> usedConnections = new LinkedBlockingDeque<>();
 
     private ConnectionPool() {
         init();
@@ -67,7 +66,6 @@ public final class ConnectionPool {
         ProxyConnection connection = null;
         try {
             connection = allConnections.take();
-//            usedConnections.put(connection);
         } catch (InterruptedException e) {
             LOG.error("", e);
         }
@@ -76,7 +74,6 @@ public final class ConnectionPool {
 
     void addConnection(ProxyConnection connection) {
         try {
-//            usedConnections.take();
             allConnections.put(connection);
         } catch (InterruptedException e) {
             LOG.error("Can't add connection", e);
