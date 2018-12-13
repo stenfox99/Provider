@@ -43,10 +43,10 @@
                         <input type="hidden" name="command" value="sign_out"/>
                         <c:choose>
                             <c:when test="${role == 'user'}">
-                                <a class="nav-link" href="controller?command=To_Profile">${login}</a>
+                                <a class="navbar-link" style="font-size: 16px;" href="controller?command=To_Profile">${login}</a>
                             </c:when>
                             <c:otherwise>
-                                <span class="navbar-brand">${login}</span>
+                                <span class="navbar-link" style="font-size: 16px;">${login}</span>
                             </c:otherwise>
                         </c:choose>
                         <button type="submit" class="btn btn-success">Sign out</button>

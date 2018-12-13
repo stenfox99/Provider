@@ -23,6 +23,7 @@ public class SignIn implements Command {
             if (user.isPresent()) {
                 HttpSession session = request.getSession();
                 session.setAttribute(ParameterName.LOGIN, user.get().getLogin());
+                session.setAttribute(ParameterName.USER_ID, user.get().getUserId());
                 session.setAttribute(ParameterName.ROLE, user.get().getUserType().getUserType());
                 page = PagePath.MAIN_PAGE;
             } else {
@@ -30,7 +31,7 @@ public class SignIn implements Command {
                 page = PagePath.MAIN_PAGE;
             }
         }catch (LogicException e){
-
+            e.printStackTrace();
         }
         return page;
     }

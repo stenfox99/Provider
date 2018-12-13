@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL_USER = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId;";
     private static final String SELECT_USER_BY_LOGIN = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.login = ?;";
     private static final String SELECT_USER_BY_ID = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.userId = ?;";
-    private static final String SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE  Users.login = ? AND Users.password = ?;";
+    private static final String SELECT_USER_BY_LOGIN_AND_PASSWORD = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = UserTypes.userTypeId WHERE Users.login = ? AND Users.password = ?;";
     private static UserDaoImpl instance = new UserDaoImpl();
 
     private UserDaoImpl() {

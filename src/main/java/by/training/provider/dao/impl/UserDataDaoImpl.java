@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDataDaoImpl implements UserDataDao {
-    private static final String ADD_USER_DATA = "INSERT INTO UserData(userDataId) VALUES(?);";
+    private static final String ADD_USER_DATA = "INSERT INTO UserData(userDataId, userId) VALUES(?,?);";
     private static final String REMOVE_USER_DATA = "DELETE FROM UserData WHERE UserData.userDataId = ?;";
     private static final String UPDATE_USER_DATA = "UPDATE UserData SET UserData.firstName = ?, " +
             "UserData.lastName = ?, UserData.patronymic = ?," +
@@ -20,7 +20,8 @@ public class UserDataDaoImpl implements UserDataDao {
             "UserData.tariffId = ?, UserData.balance = ?," +
             "UserData.traffic = ?, UserData.ban = ?," +
             "UserData.photo = ?;";
-    private static final String SELECT_ALL_USER_DATA = "SELECT (UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId) FROM UserData;";
+    private static final String SELECT_ALL_USER_DATA = "SELECT UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId FROM UserData;";
+    private static final String SELECT_USER_DATA_BY_ID = "SELECT UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId FROM UserData WHERE UserData.userId = ?;";
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
     private UserDataDaoImpl() {
@@ -36,6 +37,7 @@ public class UserDataDaoImpl implements UserDataDao {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_USER_DATA)) {
             int userDataId = element.getUserDataId();
             statement.setInt(1, userDataId);
+            statement.setInt(2, userDataId);
             statement.execute();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -78,6 +80,20 @@ public class UserDataDaoImpl implements UserDataDao {
         List<UserData> userData;
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER_DATA)) {
+            ResultSet resultSet = statement.executeQuery();
+            userData = Creator.createUserData(resultSet);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return userData;
+    }
+
+    @Override
+    public List<UserData> findUserDataByUserId(int userId) throws DaoException{
+        List<UserData> userData;
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_DATA_BY_ID)) {
+            statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             userData = Creator.createUserData(resultSet);
         } catch (SQLException e) {

@@ -3,10 +3,13 @@ package by.training.provider.service;
 import by.training.provider.command.ParameterName;
 import by.training.provider.dao.impl.DiscountDaoImpl;
 import by.training.provider.dao.impl.TariffDaoImpl;
+import by.training.provider.dao.impl.UserDataDaoImpl;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Entity;
 import by.training.provider.entity.Tariff;
+import by.training.provider.entity.UserData;
 import by.training.provider.exception.DaoException;
+import by.training.provider.exception.LogicException;
 
 import java.util.List;
 
@@ -51,5 +54,16 @@ public class CommonService {
             pageCount = list.size() / ParameterName.COUNT_ON_PAGE + 1;
         }
         return pageCount;
+    }
+
+    public UserData findUserData(int userId) throws LogicException{
+        UserData userData;
+        try {
+            List<UserData> userDataList = UserDataDaoImpl.getInstance().findUserDataByUserId(userId);
+            userData = userDataList.get(0);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+        return userData;
     }
 }

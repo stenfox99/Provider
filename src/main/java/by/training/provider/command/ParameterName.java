@@ -18,6 +18,7 @@ public class ParameterName {
     public static final String DISCOUNT = "discount";
     public static final String BEGINNING_DATE = "beginningDate";
     public static final String END_DATE = "endDate";
+    public static final String USER_DATA = "userData";
     public static final int COUNT_ON_PAGE = 9;
     public static final String LOCALE = "language";
     private ParameterName(){
