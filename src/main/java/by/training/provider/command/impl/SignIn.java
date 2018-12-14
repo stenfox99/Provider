@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public class SignIn implements Command {
     @Override
-    public String execute(HttpServletRequest request) {             //TODO SEND ERROR PAGE
+    public String execute(HttpServletRequest request) {
         String login = request.getParameter(ParameterName.LOGIN);
         String password = request.getParameter(ParameterName.PASSWORD);
         UserService userService = new UserService();
-        String page = "";
+        String page;
         try {
             Optional<User> user = userService.findUser(login, password);
             if (user.isPresent()) {
@@ -31,7 +31,8 @@ public class SignIn implements Command {
                 page = PagePath.MAIN_PAGE;
             }
         }catch (LogicException e){
-            e.printStackTrace();
+            request.setAttribute(ParameterName.ERROR, e);
+            page = PagePath.ERROR;
         }
         return page;
     }

@@ -14,9 +14,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddTariff implements Command {         //TODO EXCEPTION
+public class AddTariff implements Command { //TODO EXCEPTION
     @Override
     public String execute(HttpServletRequest request) {
+        String page;
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         BigDecimal tariffPrice = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.TARIFF_PRICE)));
         int monthTraffic = Integer.parseInt(request.getParameter(ParameterName.MONTH_TRAFFIC));
@@ -26,19 +27,22 @@ public class AddTariff implements Command {         //TODO EXCEPTION
         try {
             adminService.addTariff(tariff);
         }catch (LogicException e){
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute(ParameterName.ERROR, e.getMessage());
+            page = PagePath.TARIFFS;
         }
         List<Tariff> tariffs = new ArrayList<>();
         CommonService service = new CommonService();
         try {
             tariffs = service.findAllTariffs();
-        } catch (DaoException e) {
-            //TODO EXCEPTION
+            page = PagePath.TARIFFS;
+        } catch (LogicException e) {
+            request.setAttribute(ParameterName.ERROR, e);
+            page = PagePath.ERROR;
         }
         List printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);
-        request.setAttribute("countPage", countPage);
-        request.setAttribute("printedTariffs", printedTariffs);
-        return PagePath.TARIFFS;
+        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.setAttribute(ParameterName.PRINTED_TARIFFS, printedTariffs);
+        return page;
     }
 }

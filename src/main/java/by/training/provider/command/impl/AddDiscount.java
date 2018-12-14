@@ -1,11 +1,10 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.Command;
-import by.training.provider.command.ParameterName;
 import by.training.provider.command.PagePath;
+import by.training.provider.command.ParameterName;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Tariff;
-import by.training.provider.exception.DaoException;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.AdminService;
 import by.training.provider.service.CommonService;
@@ -19,6 +18,7 @@ import java.util.List;
 public class AddDiscount implements Command {
     @Override
     public String execute(HttpServletRequest request) {
+        String page = "";
         String discountName = request.getParameter(ParameterName.DISCOUNT_NAME);
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         int discountValue = Integer.parseInt(request.getParameter(ParameterName.DISCOUNT));
@@ -29,7 +29,8 @@ public class AddDiscount implements Command {
             beginningDate = DateConverter.toDate(request.getParameter(ParameterName.BEGINNING_DATE));
             endDate = DateConverter.toDate(request.getParameter(ParameterName.END_DATE));
         } catch (LogicException e) {
-            //TODO EXCEPTION
+            request.setAttribute(ParameterName.ERROR, e.getMessage());
+            page = PagePath.DISCOUNTS;
         }
         Tariff tariff = new Tariff(tariffName);
         Discount discount = new Discount(discountName, discountValue, description, beginningDate, endDate, tariff);
@@ -37,7 +38,8 @@ public class AddDiscount implements Command {
         try {
             adminService.addDiscount(discount);
         } catch (LogicException e) {
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute(ParameterName.ERROR, e.getMessage());
+            page = PagePath.DISCOUNTS;                                      //TODO EXCEPTION
         }
 
         List<Discount> discounts = new ArrayList<>();
@@ -46,14 +48,16 @@ public class AddDiscount implements Command {
         try {
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
-        } catch (DaoException e) {
-            //TODO EXCEPTION
+            page = PagePath.DISCOUNTS;
+        } catch (LogicException e) {
+            request.setAttribute(ParameterName.ERROR, e);
+            page = PagePath.ERROR;
         }
         List<Discount> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);
-        request.setAttribute("countPage", countPage);
-        request.setAttribute("printedDiscounts", printedDiscounts);
-        request.setAttribute("TARIFFS", tariffs);
-        return PagePath.DISCOUNTS;
+        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.setAttribute(ParameterName.PRINTED_DISCOUNTS, printedDiscounts);
+        request.setAttribute(ParameterName.TARIFFS, tariffs);
+        return page;
     }
 }

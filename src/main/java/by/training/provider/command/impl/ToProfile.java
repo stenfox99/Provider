@@ -13,16 +13,19 @@ import javax.servlet.http.HttpSession;
 public class ToProfile implements Command {
     @Override
     public String execute(HttpServletRequest request) {
+        String page;
         HttpSession session = request.getSession();
         int userId = Integer.parseInt(session.getAttribute(ParameterName.USER_ID).toString());
         CommonService commonService = new CommonService();
         UserData userData = new UserData();
         try {
             userData = commonService.findUserData(userId);
+            page = PagePath.PROFILE;
         } catch (LogicException e) {
-            //TODO EXCEPTION
+            request.setAttribute(ParameterName.ERROR, e);
+            page = PagePath.ERROR;
         }
         request.setAttribute(ParameterName.USER_DATA, userData);
-        return PagePath.PROFILE;
+        return page;
     }
 }

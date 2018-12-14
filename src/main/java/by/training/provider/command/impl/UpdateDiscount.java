@@ -19,6 +19,7 @@ import java.util.List;
 public class UpdateDiscount implements Command {
     @Override
     public String execute(HttpServletRequest request) {
+        String page;
         String discountName = request.getParameter(ParameterName.DISCOUNT_NAME);
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         int discountValue = Integer.parseInt(request.getParameter(ParameterName.DISCOUNT));
@@ -37,7 +38,7 @@ public class UpdateDiscount implements Command {
         try {
             adminService.updateDiscount(discount);
         } catch (LogicException e) {
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute(ParameterName.ERROR, e.getMessage());
         }
 
         List<Discount> discounts = new ArrayList<>();
@@ -46,14 +47,14 @@ public class UpdateDiscount implements Command {
         try {
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
-        } catch (DaoException e) {
+        } catch (LogicException e) {
             //TODO EXCEPTION
         }
         List<Discount> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);
-        request.setAttribute("countPage", countPage);
-        request.setAttribute("printedDiscounts", printedDiscounts);
-        request.setAttribute("TARIFFS", tariffs);
+        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.setAttribute(ParameterName.PRINTED_DISCOUNTS, printedDiscounts);
+        request.setAttribute(ParameterName.TARIFFS, tariffs);
         return PagePath.DISCOUNTS;
     }
 }

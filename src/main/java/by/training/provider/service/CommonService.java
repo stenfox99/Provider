@@ -15,12 +15,12 @@ import java.util.List;
 
 public class CommonService {
 
-    public List<Tariff> findAllTariffs() throws DaoException {
+    public List<Tariff> findAllTariffs() throws LogicException {
         List<Tariff> tariffs;
         try {
             tariffs = TariffDaoImpl.getInstance().findAll();
         } catch (DaoException e) {
-            throw new DaoException(e);
+            throw new LogicException(e);
         }
         return tariffs;
     }
@@ -36,12 +36,12 @@ public class CommonService {
         return returnedList;
     }
 
-    public List<Discount> findAllDiscounts() throws DaoException {
+    public List<Discount> findAllDiscounts() throws LogicException {
         List<Discount> discounts;
         try {
             discounts = DiscountDaoImpl.getInstance().findAll();
         } catch (DaoException e) {
-            throw new DaoException(e);
+            throw new LogicException(e);
         }
         return discounts;
     }

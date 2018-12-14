@@ -16,11 +16,23 @@ public class ParameterName {
     public static final String PAGE_NUMBER = "pageNumber";
     public static final String DISCOUNT_NAME = "discountName";
     public static final String DISCOUNT = "discount";
+    public static final String PRINTED_DISCOUNTS = "printedDiscounts";
     public static final String BEGINNING_DATE = "beginningDate";
     public static final String END_DATE = "endDate";
     public static final String USER_DATA = "userData";
-    public static final int COUNT_ON_PAGE = 9;
     public static final String LOCALE = "language";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String PATRONYMIC = "patronymic";
+    public static final String EMAIL = "email";
+    public static final String PHONE = "phone";
+    public static final String TARIFFS = "tariffs";
+    public static final String PRINTED_TARIFFS = "printedTariffs";
+    public static final String CHANGE_INFO_PROFILE_ERROR = "changeInfoError";
+
+    public static final String COUNT_PAGE = "countPage";
+
+    public static final int COUNT_ON_PAGE = 9;
     private ParameterName(){
     }
 }

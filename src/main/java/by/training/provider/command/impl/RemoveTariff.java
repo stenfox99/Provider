@@ -15,25 +15,24 @@ import java.util.List;
 
 public class RemoveTariff implements Command {
     @Override
-    public String execute(HttpServletRequest request) { //TODO EXCEPTION
+    public String execute(HttpServletRequest request) {
+        String page;
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         AdminService adminService = new AdminService();
-        try {
-            adminService.removeTariff(tariffName);
-        }catch (LogicException e){
-
-        }
         List<Tariff> tariffs = new ArrayList<>();
         CommonService service = new CommonService();
         try {
+            adminService.removeTariff(tariffName);
             tariffs = service.findAllTariffs();
-        } catch (DaoException e) {
-            //TODO EXCEPTION
+            page = PagePath.TARIFFS;
+        }catch (LogicException e){
+            request.setAttribute(ParameterName.ERROR, e);
+            page = PagePath.ERROR;
         }
         List<Tariff> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);
-        request.setAttribute("countPage", countPage);
-        request.setAttribute("printedTariffs", printedTariffs);
+        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.setAttribute(ParameterName.PRINTED_TARIFFS, printedTariffs);
         return PagePath.TARIFFS;
     }
 }

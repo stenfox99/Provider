@@ -11,7 +11,7 @@ public class DiscountValidator {
     }
 
     public static boolean validDiscountValue(int discount) {
-        return String.valueOf(discount).matches(DISCOUNT_DISCOUNT_VALIDATOR);
+        return String.valueOf(discount).matches(DISCOUNT_DISCOUNT_VALIDATOR) && discount >= 0 && discount <= 100;
     }
 
     public static boolean validDescription(String description) {

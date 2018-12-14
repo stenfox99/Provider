@@ -40,12 +40,12 @@
                             <div class="form-group">
                                 <label for="price" class="col-form-label">Price</label>
                                 <input type="text" class="form-control" id="price" name="tariffPrice" required
-                                       pattern="[\d]{1,4}(\.[\d]{1,2}})?">
+                                       pattern="\d{1,6}\.\d{2}|\d{1,6}">
                             </div>
                             <div class="form-group">
                                 <label for="month-traffic" class="col-form-label">Month traffic</label>
                                 <input type="text" class="form-control" id="month-traffic" name="monthTraffic" required
-                                       pattern="[\d]{1,6}">
+                                       pattern="[\d]{1,9}">
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Description</label>
@@ -81,10 +81,10 @@
                                         ${element.name}
                                 </td>
                                 <td>
-                                    <input type="text" name="tariffPrice" value="${element.price}" pattern="[\d]{1,4}(\.[\d]{1,2}})?">
+                                    <input type="text" name="tariffPrice" value="${element.price}" pattern="\d{1,6}\.\d{2}|\d{1,6}">
                                 </td>
                                 <td>
-                                    <input type="text" name="monthTraffic" value="${element.monthTraffic}" pattern="[\d]{1,6}">
+                                    <input type="text" name="monthTraffic" value="${element.monthTraffic}" pattern="[\d]{1,9}">
                                 </td>
                                 <td>
                                     <textarea type="textarea" name="description">${element.description}</textarea>

@@ -18,7 +18,7 @@ public class ChangeUserPassword implements Command {
         UserService userService = new UserService();
         String encryptPassword = Encrypt.encrypt(password);
         try {
-            userService.updateUser(login, encryptPassword);
+            userService.updateUserPassword(login, encryptPassword);
         }catch (LogicException e){
 
         }

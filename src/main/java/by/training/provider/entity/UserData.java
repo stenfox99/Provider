@@ -39,6 +39,15 @@ public class UserData extends Entity{
     public UserData() {
     }
 
+    public UserData(String firstName, String lastName, String patronymic, String email, String phone, int userId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.email = email;
+        this.phone = phone;
+        this.userId = userId;
+    }
+
     public int getUserDataId() {
         return userDataId;
     }

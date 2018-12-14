@@ -11,6 +11,6 @@ public class UserServiceTest {
     public void updateUserTest() throws LogicException {
         User user = new User(1, "user2", "user2", new UserType(1, "admin"));
         UserService service = new UserService();
-        service.updateUser(user.getLogin(), user.getPassword());
+        service.updateUserPassword(user.getLogin(), user.getPassword());
     }
 }

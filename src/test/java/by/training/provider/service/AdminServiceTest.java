@@ -12,7 +12,7 @@ public class AdminServiceTest {
 
     @Test
     public void addUser() throws LogicException {
-        User user = new User(1, "user1", "user11", new UserType(1));
+        User user = new User(1, "user3", "user33", new UserType(2));
         AdminService service = new AdminService();
         service.addUser(user);
     }

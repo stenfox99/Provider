@@ -36,12 +36,13 @@
                     <div class="tab-pane active" id="changeInfo">
                         <hr>
                         <form class="form" action="controller" method="post" id="changeForm">
+                            <input type="hidden" value="change_profile_info" name="command">
                             <div class="form-group">
                                 <div class="col-xs-6">
                                     <label for="first_name"><h4>First name</h4></label>
                                     <input type="text" class="form-control" name="firstName" id="first_name"
                                            placeholder="first name" title="enter your first name if any."
-                                           value="${userData.firstName}">
+                                           value="${userData.firstName}" pattern="[\w]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -49,7 +50,7 @@
                                     <label for="last_name"><h4>Last name</h4></label>
                                     <input type="text" class="form-control" name="lastName" id="last_name"
                                            placeholder="last name" title="enter your last name if any."
-                                           value="${userData.lastName}">
+                                           value="${userData.lastName}" pattern="[\w]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -57,7 +58,7 @@
                                     <label for="last_name"><h4>Patronymic</h4></label>
                                     <input type="text" class="form-control" name="patronymic" id="patronymic"
                                            placeholder="patronymic" title="enter your patronymic if any."
-                                           value="${userData.patronymic}">
+                                           value="${userData.patronymic}" pattern="[\w]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -65,7 +66,7 @@
                                     <label for="phone"><h4>Phone</h4></label>
                                     <input type="text" class="form-control" name="phone" id="phone"
                                            placeholder="enter phone" title="enter your phone number if any."
-                                           value="${userData.phone}">
+                                           value="${userData.phone}" pattern="\+\d{12}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -73,12 +74,13 @@
                                     <label for="email"><h4>Email</h4></label>
                                     <input type="email" class="form-control" name="email" id="email"
                                            placeholder="you@email.com" title="enter your email."
-                                           value="${userData.email}">
+                                           value="${userData.email}" pattern="[\w\d]+@mail\.ru|[\w\d]+@gmail\.com">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <br>
+                                    <span class="ui-state-error" style="color: red;">${changeInfoError}</span>
                                     <button class="btn btn-lg btn-success" type="submit"><i
                                             class="glyphicon glyphicon-ok-sign"></i> Save
                                     </button>
