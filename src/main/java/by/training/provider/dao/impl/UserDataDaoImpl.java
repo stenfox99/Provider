@@ -18,8 +18,13 @@ public class UserDataDaoImpl implements UserDataDao {
     private static final String UPDATE_USER_DATA = "UPDATE UserData SET UserData.firstName = ?, " +
             "UserData.lastName = ?, UserData.patronymic = ?," +
             "UserData.email = ?, UserData.phone = ? WHERE UserData.userId = ?;";
-    private static final String SELECT_ALL_USER_DATA = "SELECT UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId FROM UserData;";
-    private static final String SELECT_USER_DATA_BY_ID = "SELECT UserDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId FROM UserData WHERE UserData.userId = ?;";
+    private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
+            "U.email, U.phone, U.balance, U.traffic, U.ban," +
+            "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId;";
+    private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
+            "U.email, U.phone, U.balance, U.traffic, U.ban," +
+            "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId WHERE U.userId = ?;";
+    private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
     private UserDataDaoImpl() {
@@ -95,5 +100,17 @@ public class UserDataDaoImpl implements UserDataDao {
             throw new DaoException(e);
         }
         return userData;
+    }
+
+    @Override
+    public void updateBalance(int userId, BigDecimal balance) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BALANCE)) {
+            statement.setBigDecimal(1, balance);
+            statement.setInt(2, userId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

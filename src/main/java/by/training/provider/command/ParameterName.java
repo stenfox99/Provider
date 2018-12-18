@@ -3,6 +3,7 @@ package by.training.provider.command;
 public class ParameterName {
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
+    public static final String SECOND_PASSWORD = "password2";
     public static final String ERROR = "error";
     public static final String USER_ID = "userId";
     public static final String ROLE = "role";
@@ -29,6 +30,10 @@ public class ParameterName {
     public static final String TARIFFS = "tariffs";
     public static final String PRINTED_TARIFFS = "printedTariffs";
     public static final String CHANGE_INFO_PROFILE_ERROR = "changeInfoError";
+    public static final String CURRENT_BALANCE = "currentBalance";
+    public static final String BALANCE = "balance";
+    public static final String CHANGE_PASSWORD_ERROR = "changePasswordError";
+    public static final String INCREASE_BALANCE_ERROR = "increaseBalanceError";
 
     public static final String COUNT_PAGE = "countPage";
 

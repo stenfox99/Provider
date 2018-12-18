@@ -14,7 +14,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final String ADD_USER = "INSERT INTO Users(login, password, userTypeId) VALUES(?,?,?);";
     private static final String REMOVE_USER = "DELETE FROM Users WHERE Users.userId = ?;";
-    private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.login = ?;";
+    private static final String CHANGE_PASSWORD = "UPDATE Users SET Users.password = ? WHERE Users.userId = ?;";
     private static final String SELECT_ALL_USER = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId;";
     private static final String SELECT_USER_BY_LOGIN = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.login = ?;";
     private static final String SELECT_USER_BY_ID = "SELECT Users.userId, Users.login, Users.userTypeId, UserTypes.userType FROM Users INNER JOIN UserTypes ON users.userTypeId = usertypes.userTypeId WHERE Users.userId = ?;";
@@ -104,5 +104,17 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return users;
+    }
+
+    @Override
+    public void changePassword(int userId, String password) throws DaoException {
+        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD)){
+            statement.setString(1, password);
+            statement.setInt(2, userId);
+            statement.execute();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
     }
 }

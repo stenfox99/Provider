@@ -8,7 +8,9 @@ import by.training.provider.entity.User;
 import by.training.provider.exception.LogicException;
 import by.training.provider.exception.DaoException;
 import by.training.provider.util.UserDataValidator;
+import by.training.provider.util.UserValidator;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +48,31 @@ public class UserService {
         }
         try {
             UserDataDaoImpl.getInstance().update(data);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    public void changePassword(int userId, String password, String password2) throws LogicException{
+        if (!UserValidator.validPassword(password) || !UserValidator.validPassword(password2)
+                || !UserValidator.verifyPassword(password, password2)){
+            throw new LogicException("Incorrect input data");
+        }
+        try{
+            password = Encrypt.encrypt(password);
+            UserDaoImpl.getInstance().changePassword(userId, password);
+        }catch (DaoException e){
+            throw new LogicException(e);
+        }
+    }
+
+    public void increaseBalance(int userId, BigDecimal currentBalance, BigDecimal balance) throws LogicException{
+        if (balance.compareTo(BigDecimal.ZERO) < 0){
+            throw new LogicException("Incorrect input data");
+        }
+        BigDecimal updatedBalance = currentBalance.add(balance);
+        try {
+            UserDataDaoImpl.getInstance().updateBalance(userId, updatedBalance);
         } catch (DaoException e) {
             throw new LogicException(e);
         }

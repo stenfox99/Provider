@@ -110,13 +110,16 @@ class Creator {
                 String patronymic = resultUserData.getString(4);
                 String email = resultUserData.getString(5);
                 String phone = resultUserData.getString(6);
-                int tariffId = resultUserData.getInt(7);
-                BigDecimal balance = resultUserData.getBigDecimal(8);
-                int traffic = resultUserData.getInt(9);
-                boolean ban = resultUserData.getBoolean(10);
-                Blob photo = resultUserData.getBlob(11);
-                int userId = resultUserData.getInt(12);
-                UserData newUserData = new UserData(userDataId, firstName, lastName, patronymic, email, phone, tariffId, balance, traffic, ban, photo, userId);
+                BigDecimal balance = resultUserData.getBigDecimal(7);
+                int traffic = resultUserData.getInt(8);
+                boolean ban = resultUserData.getBoolean(9);
+                Blob photo = resultUserData.getBlob(10);
+                int userId = resultUserData.getInt(11);
+                String tariffName = resultUserData.getString(12);
+                BigDecimal price = resultUserData.getBigDecimal(13);
+                int monthTraffic = resultUserData.getInt(14);
+                Tariff tariff = new Tariff(tariffName, price, monthTraffic);
+                UserData newUserData = new UserData(userDataId, firstName, lastName, patronymic, email, phone, tariff, balance, traffic, ban, photo, userId);
                 userData.add(newUserData);
             }
         } catch (SQLException e) {

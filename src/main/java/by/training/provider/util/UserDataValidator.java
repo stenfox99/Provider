@@ -1,7 +1,7 @@
 package by.training.provider.util;
 
 public class UserDataValidator {
-    private static final String INITIALS_VALIDATOR = "[\\w]{2,12}";
+    private static final String INITIALS_VALIDATOR = "[a-zA-Z]{2,12}";
     private static final String EMAIL_VALIDATOR = "[\\w\\d]+@mail\\.ru|[\\w\\d]+@gmail\\.com";
     private static final String PHONE_VALIDATOR = "\\+\\d{12}";
     private static final String CSS_ATTACK_VALIDATOR = "</?script>";

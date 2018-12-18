@@ -10,21 +10,21 @@ public class UserData extends Entity{
     private String patronymic;
     private String email;
     private String phone;
-    private int tariffId;
+    private Tariff tariff;
     private BigDecimal balance;
     private int traffic;
     private boolean ban;
     private Blob photo;
     private int userId;
 
-    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, int tariffId, BigDecimal balance, int traffic, boolean ban, Blob photo, int userId) {
+    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, Tariff tariff, BigDecimal balance, int traffic, boolean ban, Blob photo, int userId) {
         this.userDataId = userDataId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;
         this.email = email;
         this.phone = phone;
-        this.tariffId = tariffId;
+        this.tariff = tariff;
         this.balance = balance;
         this.traffic = traffic;
         this.ban = ban;
@@ -92,12 +92,12 @@ public class UserData extends Entity{
         this.phone = phone;
     }
 
-    public int getTariffId() {
-        return tariffId;
+    public Tariff getTariff() {
+        return tariff;
     }
 
-    public void setTariffId(int tariffId) {
-        this.tariffId = tariffId;
+    public void setTariff(Tariff tariff) {
+        this.tariff = tariff;
     }
 
     public BigDecimal getBalance() {

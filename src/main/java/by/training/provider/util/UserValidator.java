@@ -12,4 +12,8 @@ public class UserValidator {
     public static boolean validPassword(String password){
         return password.matches(PASSWORD_VALIDATOR);
     }
+
+    public static boolean verifyPassword(String password, String password2){
+        return password.equals(password2);
+    }
 }

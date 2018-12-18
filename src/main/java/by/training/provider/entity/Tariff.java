@@ -24,6 +24,12 @@ public class Tariff extends Entity{
         this.description = description;
     }
 
+    public Tariff(String name, BigDecimal price, int monthTraffic){
+        this.name = name;
+        this.price = price;
+        this.monthTraffic = monthTraffic;
+    }
+
     public Tariff(String name){
         this.name = name;
     }
