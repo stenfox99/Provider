@@ -25,7 +25,7 @@ public class CommonService {
         return tariffs;
     }
 
-    public List divideListOnPage(List<? extends Entity> list, int pageNumber) {
+    public List<?> divideListOnPage(List<? extends Entity> list, int pageNumber) { //TODO RETURNED TYPE
         List<? extends Entity> returnedList;
         if (pageNumber * ParameterName.COUNT_ON_PAGE + ParameterName.COUNT_ON_PAGE >= list.size()) {
             returnedList = list.subList(pageNumber * ParameterName.COUNT_ON_PAGE, list.size());

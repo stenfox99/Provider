@@ -39,7 +39,7 @@ public class AddTariff implements Command { //TODO EXCEPTION
             request.setAttribute(ParameterName.ERROR, e);
             page = PagePath.ERROR;
         }
-        List printedTariffs = service.divideListOnPage(tariffs, 0);
+        List<?> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);
         request.setAttribute(ParameterName.COUNT_PAGE, countPage);
         request.setAttribute(ParameterName.PRINTED_TARIFFS, printedTariffs);

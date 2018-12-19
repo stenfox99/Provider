@@ -12,7 +12,9 @@ public class UserDataValidator {
     }
 
     public static boolean emailValidate(String email) {
-        if (email.isEmpty()) return true;
+        if (email.isEmpty()) {
+            return true;
+        }
         return email.isEmpty() || email.matches(EMAIL_VALIDATOR) && !email.matches(CSS_ATTACK_VALIDATOR);
     }
 

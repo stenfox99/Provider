@@ -33,14 +33,12 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    public void init() throws ServletException {
-        super.init();
+    public void init() {
         ConnectionPool.getInstance();
     }
 
     @Override
     public void destroy() {
-        super.destroy();
         ConnectionPool.getInstance().destroyConnections();
     }
 }
