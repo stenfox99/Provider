@@ -25,7 +25,7 @@ public class CommonService {
         return tariffs;
     }
 
-    public List<?> divideListOnPage(List<? extends Entity> list, int pageNumber) { //TODO RETURNED TYPE
+    public List<?> divideListOnPage(List<? extends Entity> list, int pageNumber) {
         List<? extends Entity> returnedList;
         if (pageNumber * ParameterName.COUNT_ON_PAGE + ParameterName.COUNT_ON_PAGE >= list.size()) {
             returnedList = list.subList(pageNumber * ParameterName.COUNT_ON_PAGE, list.size());
@@ -54,16 +54,5 @@ public class CommonService {
             pageCount = list.size() / ParameterName.COUNT_ON_PAGE + 1;
         }
         return pageCount;
-    }
-
-    public UserData findUserData(int userId) throws LogicException{
-        UserData userData;
-        try {
-            List<UserData> userDataList = UserDataDaoImpl.getInstance().findUserDataByUserId(userId);
-            userData = userDataList.get(0);
-        } catch (DaoException e) {
-            throw new LogicException(e);
-        }
-        return userData;
     }
 }

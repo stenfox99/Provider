@@ -6,8 +6,10 @@ public class UserDataValidator {
     private static final String PHONE_VALIDATOR = "\\+\\d{12}";
     private static final String CSS_ATTACK_VALIDATOR = "</?script>";
 
-    public static boolean initialValidate(String initial) {         //TODO VALID EMPTY
-        if (initial.isEmpty()) return true;
+    public static boolean initialValidate(String initial) {
+        if (initial.isEmpty()) {
+            return true;
+        }
         return initial.matches(INITIALS_VALIDATOR) && !initial.matches(CSS_ATTACK_VALIDATOR);
     }
 
@@ -19,7 +21,9 @@ public class UserDataValidator {
     }
 
     public static boolean phoneValidate(String phone) {
-        if (phone.isEmpty()) return true;
+        if (phone.isEmpty()) {
+            return true;
+        }
         return phone.isEmpty() || phone.matches(PHONE_VALIDATOR);
     }
 }

@@ -13,11 +13,10 @@ public class UserData extends Entity{
     private Tariff tariff;
     private BigDecimal balance;
     private int traffic;
-    private boolean ban;
     private Blob photo;
     private int userId;
 
-    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, Tariff tariff, BigDecimal balance, int traffic, boolean ban, Blob photo, int userId) {
+    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, Tariff tariff, BigDecimal balance, int traffic, Blob photo, int userId) {
         this.userDataId = userDataId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +26,6 @@ public class UserData extends Entity{
         this.tariff = tariff;
         this.balance = balance;
         this.traffic = traffic;
-        this.ban = ban;
         this.photo = photo;
         this.userId = userId;
     }
@@ -114,14 +112,6 @@ public class UserData extends Entity{
 
     public void setTraffic(int traffic) {
         this.traffic = traffic;
-    }
-
-    public boolean isBan() {
-        return ban;
-    }
-
-    public void setBan(boolean ban) {
-        this.ban = ban;
     }
 
     public Blob getPhoto() {

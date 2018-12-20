@@ -19,12 +19,13 @@ public class UserDataDaoImpl implements UserDataDao {
             "UserData.lastName = ?, UserData.patronymic = ?," +
             "UserData.email = ?, UserData.phone = ? WHERE UserData.userId = ?;";
     private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
-            "U.email, U.phone, U.balance, U.traffic, U.ban," +
+            "U.email, U.phone, U.balance, U.traffic," +
             "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId;";
     private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
-            "U.email, U.phone, U.balance, U.traffic, U.ban," +
+            "U.email, U.phone, U.balance, U.traffic," +
             "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId WHERE U.userId = ?;";
     private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
+    private static final String CHANGE_TARIFF = "UPDATE UserData U SET U.tariffId = ? WHERE U.userId = ?;";
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
     private UserDataDaoImpl() {
@@ -81,7 +82,7 @@ public class UserDataDaoImpl implements UserDataDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER_DATA)) {
             ResultSet resultSet = statement.executeQuery();
-            userData = Creator.createUserData(resultSet);
+            userData = ResultSetTransformer.createUserData(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -95,7 +96,7 @@ public class UserDataDaoImpl implements UserDataDao {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_USER_DATA_BY_ID)) {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
-            userData = Creator.createUserData(resultSet);
+            userData = ResultSetTransformer.createUserData(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -107,6 +108,18 @@ public class UserDataDaoImpl implements UserDataDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BALANCE)) {
             statement.setBigDecimal(1, balance);
+            statement.setInt(2, userId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void changeTariff(int tariffId, int userId) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_TARIFF)) {
+            statement.setInt(1, tariffId);
             statement.setInt(2, userId);
             statement.execute();
         } catch (SQLException e) {

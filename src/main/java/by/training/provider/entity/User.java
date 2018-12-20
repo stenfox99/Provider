@@ -7,6 +7,7 @@ public class User extends Entity{
     private String login;
     private String password;
     private UserType userType;
+    private boolean ban;
 
     public User() {
     }
@@ -18,10 +19,17 @@ public class User extends Entity{
         this.userType = userType;
     }
 
-    public User(int userId, String login, UserType userType) {
+    public User(int userId, String login, UserType userType, boolean ban) {
         this.userId = userId;
         this.login = login;
         this.userType = userType;
+        this.ban = ban;
+    }
+
+    public User(String login, String password, UserType userType) {
+        this.login = login;
+        this.userType = userType;
+        this.password = password;
     }
 
     public User(String login, String password){
@@ -86,5 +94,13 @@ public class User extends Entity{
                 ", password='" + password + '\'' +
                 ", userType=" + userType +
                 '}';
+    }
+
+    public boolean isBan() {
+        return ban;
+    }
+
+    public void setBan(boolean ban) {
+        this.ban = ban;
     }
 }

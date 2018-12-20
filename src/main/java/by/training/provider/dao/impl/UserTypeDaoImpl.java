@@ -28,7 +28,7 @@ public class UserTypeDaoImpl implements UserTypeDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_USER_TYPE)){
             ResultSet resultSet = statement.executeQuery();
-            userTypes = Creator.createUserTypes(resultSet);
+            userTypes = ResultSetTransformer.createUserTypes(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

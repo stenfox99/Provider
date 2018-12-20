@@ -75,7 +75,7 @@ public class DiscountDaoImpl implements DiscountDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_DISCOUNTS)) {
             ResultSet resultSet = statement.executeQuery();
-            discounts = Creator.createDiscount(resultSet);
+            discounts = ResultSetTransformer.createDiscount(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -89,7 +89,7 @@ public class DiscountDaoImpl implements DiscountDao {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_DISCOUNT_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            discounts = Creator.createDiscount(resultSet);
+            discounts = ResultSetTransformer.createDiscount(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

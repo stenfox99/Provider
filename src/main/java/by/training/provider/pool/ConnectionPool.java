@@ -50,13 +50,13 @@ public final class ConnectionPool {
         for (int i = 0; i < CONNECTION_COUNT; ++i) {
             try {
                 ProxyConnection connection = new ProxyConnection(DriverManager.getConnection(
-                        DbConstant.DB_URL,
-                        DbConstant.DB_USER,
-                        DbConstant.DB_PASSWORD));
+                        DbParameter.DB_URL,
+                        DbParameter.DB_USER,
+                        DbParameter.DB_PASSWORD));
 
                 addConnection(connection);
             } catch (SQLException e) {
-                LOG.error("Can't create pool", e);
+                LOG.fatal("Can't create pool", e);
                 throw new RuntimeException(e);
             }
         }

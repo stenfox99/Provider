@@ -21,7 +21,6 @@ public class ParameterName {
     public static final String BEGINNING_DATE = "beginningDate";
     public static final String END_DATE = "endDate";
     public static final String USER_DATA = "userData";
-    public static final String LOCALE = "language";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String PATRONYMIC = "patronymic";
@@ -34,6 +33,10 @@ public class ParameterName {
     public static final String BALANCE = "balance";
     public static final String CHANGE_PASSWORD_ERROR = "changePasswordError";
     public static final String INCREASE_BALANCE_ERROR = "increaseBalanceError";
+    public static final String PRINTED_USERS = "printedUsers";
+
+    public static final String LOCALE = "locale";
+    public static final String LANGUAGE = "language";
 
     public static final String COUNT_PAGE = "countPage";
 

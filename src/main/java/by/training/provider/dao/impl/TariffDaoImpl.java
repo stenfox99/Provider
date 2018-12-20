@@ -43,7 +43,7 @@ public class TariffDaoImpl implements TariffDao {
     @Override
     public void remove(Tariff element) throws DaoException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_TARIFF);) {
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(REMOVE_TARIFF)) {
             statement.setString(1, element.getName());
             statement.execute();
         } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class TariffDaoImpl implements TariffDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_ALL_TARIFF)) {
             ResultSet resultSet = statement.executeQuery();
-            tariffs = Creator.createTariffs(resultSet);
+            tariffs = ResultSetTransformer.createTariffs(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -85,7 +85,7 @@ public class TariffDaoImpl implements TariffDao {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            tariffs = Creator.createTariffs(resultSet);
+            tariffs = ResultSetTransformer.createTariffs(resultSet);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

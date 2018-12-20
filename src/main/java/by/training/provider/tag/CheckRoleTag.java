@@ -13,7 +13,7 @@ public class CheckRoleTag extends TagSupport {
     private static final Logger LOG = LogManager.getLogger(CheckRoleTag.class);
     private static final String ROLE = "role";
     private static final String ADMIN = "admin";
-    private static final String ADMIN_ADD_TARIFF = "/jsp/common/Header.jsp";
+    private static final String ADMIN_ADD_TARIFF = "/jsp/common/header.jsp";
 
     @Override
     public int doStartTag() throws JspException {

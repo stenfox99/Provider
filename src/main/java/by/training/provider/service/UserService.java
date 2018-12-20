@@ -1,7 +1,9 @@
 package by.training.provider.service;
 
+import by.training.provider.dao.impl.TariffDaoImpl;
 import by.training.provider.dao.impl.UserDaoImpl;
 import by.training.provider.dao.impl.UserDataDaoImpl;
+import by.training.provider.entity.Tariff;
 import by.training.provider.entity.UserData;
 import by.training.provider.util.Encrypt;
 import by.training.provider.entity.User;
@@ -74,6 +76,26 @@ public class UserService {
         try {
             UserDataDaoImpl.getInstance().updateBalance(userId, updatedBalance);
         } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    public UserData findUserData(int userId) throws LogicException{
+        UserData userData;
+        try {
+            List<UserData> userDataList = UserDataDaoImpl.getInstance().findUserDataByUserId(userId);
+            userData = userDataList.get(0);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+        return userData;
+    }
+
+    public void changeTariff(int userId, String tariffName) throws LogicException{
+        try{
+            List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(tariffName);
+            UserDataDaoImpl.getInstance().changeTariff(tariff.get(0).getTariffId(), userId);
+        }catch (DaoException e){
             throw new LogicException(e);
         }
     }

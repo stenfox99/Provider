@@ -3,10 +3,11 @@ package by.training.provider.command;
 import by.training.provider.command.impl.*;
 
 public enum CommandMap {
-    SIGN_IN(new SignIn()), SIGN_OUT(new SignOut()), ADD_USER(new AddUser()), ADD_TARIFF(new AddTariff()), REMOVE_TARIFF(new RemoveTariff()),
-    UPDATE_TARIFF(new UpdateTariff()), TO_MAIN_PAGE(new ToMainPage()), PRINT_TARIFFS(new PrintTariffs()), PRINT_DISCOUNTS(new PrintDiscounts()),
-    ADD_DISCOUNT(new AddDiscount()), REMOVE_DISCOUNT(new RemoveDiscount()), UPDATE_DISCOUNT(new UpdateDiscount()), LANGUAGE(new ChangeLocale()),
-    TO_PROFILE(new ToProfile()), CHANGE_PROFILE_INFO(new ChangeProfileInfo()), CHANGE_PASSWORD(new ChangePassword()), INCREASE_BALANCE(new IncreaseBalance());
+    SIGN_IN(new SignInCommand()), SIGN_OUT(new SignOutCommand()), ADD_USER(new AddUserCommand()), ADD_TARIFF(new AddTariffCommand()), REMOVE_TARIFF(new RemoveTariffCommand()),
+    UPDATE_TARIFF(new UpdateTariffCommand()), TO_MAIN_PAGE(new ToMainPageCommand()), PRINT_TARIFFS(new PrintTariffCommand()), PRINT_DISCOUNTS(new PrintDiscountCommand()),
+    ADD_DISCOUNT(new AddDiscountCommand()), REMOVE_DISCOUNT(new RemoveDiscountCommand()), UPDATE_DISCOUNT(new UpdateDiscountCommand()), LANGUAGE(new ChangeLocaleCommand()),
+    TO_PROFILE(new ToProfileCommand()), CHANGE_PROFILE_INFO(new ChangeProfileInfoCommand()), CHANGE_PASSWORD(new ChangePasswordCommand()), INCREASE_BALANCE(new IncreaseBalanceCommand()),
+    PRINT_USER(new PrintUserCommand()), UNBAN_USER(new UnbanUserCommand()), BAN_USER(new BanUserCommand()), CONNECT_TO_TARIFF(new ConnectToTariffCommand());
 
     private Command commandType;
 

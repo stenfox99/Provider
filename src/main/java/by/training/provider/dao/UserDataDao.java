@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserDataDao extends DaoBase<UserData> {
     List<UserData> findUserDataByUserId(int userId) throws DaoException;
     void updateBalance(int userId, BigDecimal balance) throws DaoException;
+    void changeTariff(int tariffId, int userId)throws DaoException;
 }
