@@ -15,13 +15,17 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-
-                <div class="text-center">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
-                         alt="avatar">
-                    <h6>Upload a different photo...</h6>
-                    <input type="file" class="text-center center-block file-upload">
-                </div>
+                <form method="post" action="uploadImage" enctype="multipart/form-data">
+                    <input type="hidden" name="command" value="upload_image">
+                    <div class="text-center">
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                             class="avatar img-circle img-thumbnail"
+                             alt="avatar">
+                        <h6>Upload a different photo...</h6>
+                        <input type="file" class="text-center center-block file-upload" required name="image"><br/>
+                        <button type="submit">Confirm</button><span class="ui-state-error" style="color: red;">${imageError}</span>
+                    </div>
+                </form>
                 </hr><br>
                 <h2>Tariff:${userData.tariff.name}</h2>
             </div>
@@ -128,7 +132,8 @@
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="balance"><h4>Balance:${userData.balance}</h4></label>
-                                        <input type="text" class="form-control" name="balance" id="balance" pattern="\d{1,4}"
+                                        <input type="text" class="form-control" name="balance" id="balance"
+                                               pattern="\d{1,4}"
                                                placeholder="Balance" title="enter balance to add.">
                                     </div>
                                     <div class="form-group">
@@ -137,7 +142,8 @@
                                             <button class="btn btn-lg btn-success" type="submit"><i
                                                     class="glyphicon glyphicon-ok-sign"></i> Increase balance
                                             </button>
-                                            <span class="ui-state-error" style="color: red;">${increaseBalanceError}</span>
+                                            <span class="ui-state-error"
+                                                  style="color: red;">${increaseBalanceError}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <label for="tariff-name" class="col-form-label">Tariff name:</label>
                                 <input type="text" class="form-control" id="tariff-name" name="tariffName" required
-                                       pattern="[\w\d\s]{6,20}">
+                                       pattern="[\w\d\sа-яА-Я]{3,20}">
                             </div>
                             <div class="form-group">
                                 <label for="price" class="col-form-label">Price</label>

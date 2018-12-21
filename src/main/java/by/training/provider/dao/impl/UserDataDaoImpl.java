@@ -7,7 +7,10 @@ import by.training.provider.pool.ConnectionPool;
 import by.training.provider.pool.ProxyConnection;
 import com.mysql.jdbc.PreparedStatement;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,6 +29,7 @@ public class UserDataDaoImpl implements UserDataDao {
             "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId WHERE U.userId = ?;";
     private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
     private static final String CHANGE_TARIFF = "UPDATE UserData U SET U.tariffId = ? WHERE U.userId = ?;";
+    private static final String UPLOAD_IMAGE = "UPDATE UserData U SET U.photo = ? WHERE U.userId = ?";
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
     private UserDataDaoImpl() {
@@ -126,4 +130,19 @@ public class UserDataDaoImpl implements UserDataDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public void uploadImage(int userId, Part image) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPLOAD_IMAGE)) {
+            Blob blob = connection.createBlob();
+            blob.setBytes(1, image.getInputStream().readAllBytes());
+            statement.setBlob(1, blob);
+            statement.setInt(2, userId);
+            statement.execute();
+        } catch (SQLException | IOException e) {
+            throw new DaoException(e);
+        }
+    }
+
 }

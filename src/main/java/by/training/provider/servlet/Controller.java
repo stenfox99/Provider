@@ -5,6 +5,7 @@ import by.training.provider.command.Command;
 import by.training.provider.pool.ConnectionPool;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ public class Controller extends HttpServlet {
     }
 
     @Override
-    public void init() {
+    public void init(){
         ConnectionPool.getInstance();
     }
 

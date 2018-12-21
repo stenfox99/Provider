@@ -1,5 +1,6 @@
 package by.training.provider.service;
 
+import by.training.provider.dao.UserDataDao;
 import by.training.provider.dao.impl.TariffDaoImpl;
 import by.training.provider.dao.impl.UserDaoImpl;
 import by.training.provider.dao.impl.UserDataDaoImpl;
@@ -12,6 +13,7 @@ import by.training.provider.exception.DaoException;
 import by.training.provider.util.UserDataValidator;
 import by.training.provider.util.UserValidator;
 
+import javax.servlet.http.Part;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -96,6 +98,14 @@ public class UserService {
             List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(tariffName);
             UserDataDaoImpl.getInstance().changeTariff(tariff.get(0).getTariffId(), userId);
         }catch (DaoException e){
+            throw new LogicException(e);
+        }
+    }
+
+    public void uploadImage(int userId, Part image) throws LogicException{
+        try{
+            UserDataDaoImpl.getInstance().uploadImage(userId,image);
+        } catch (DaoException e) {
             throw new LogicException(e);
         }
     }
