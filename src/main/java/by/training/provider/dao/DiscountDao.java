@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DiscountDao extends DaoBase<Discount> {
     List<Discount> findByName(String name)throws DaoException;
+    List<Discount> findByTariffName(String name) throws DaoException;
 }

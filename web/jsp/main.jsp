@@ -8,7 +8,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <title>Provider</title>
 </head>
-<body style="background-image:url('/image/dwayne-johnson-in-hercules (1920x1080).jpg')">
+<body>
 <jsp:include page="/jsp/common/header.jsp"/>
 <check:checkAdminTariff/>
 <div>

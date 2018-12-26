@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<body>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="content" var="var"/>
+<html>
+<body>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -32,12 +32,16 @@
                     <form class="navbar-form navbar-right" action="controller" method="post">
                         <input type="hidden" name="command" value="sign_in"/>
                         <div class="form-group">
-                            <input type="text" placeholder="Login" class="form-control" name="login">
+                            <input type="text" placeholder=
+                                <fmt:message key="input.login" bundle="${var}"/>
+                                    class="form-control" name="login">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" name="password">
+                            <input type="password" placeholder=
+                                <fmt:message key="input.password" bundle="${var}"/>
+                                    class="form-control" name="password">
                         </div>
-                        <button type="submit" class="btn btn-success">Sign in</button>
+                        <button type="submit" class="btn btn-success"><fmt:message key="button.signIn" bundle="${var}"/></button>
                         </br>
                         <span class="ui-state-error" style="color: red;">${error}</span>
                     </form>
@@ -56,7 +60,7 @@
                                 <span class="navbar-link" style="font-size: 16px;">${login}</span>
                             </c:otherwise>
                         </c:choose>
-                        <button type="submit" class="btn btn-success">Sign out</button>
+                        <button type="submit" class="btn btn-success"><fmt:message key="button.signOut" bundle="${var}"/></button>
                         </br>
                     </form>
                 </div>

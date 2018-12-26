@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ResultSetTransformer {
+    private ResultSetTransformer(){}
+
     static List<User> createUsers(ResultSet resultUsers) throws DaoException {
         List<User> users = new ArrayList<>();
         try {
@@ -52,9 +54,13 @@ class ResultSetTransformer {
                 int id = resultTariffs.getInt(1);
                 String tariffName = resultTariffs.getString(2);
                 BigDecimal price = resultTariffs.getBigDecimal(3);
-                int monthTraffic = resultTariffs.getInt(4);
-                String description = resultTariffs.getString(5);
-                Tariff tariff = new Tariff(id, tariffName, price, monthTraffic, description);
+                BigDecimal priceWithDiscount = resultTariffs.getBigDecimal(4);
+                if (priceWithDiscount == null) {    //todo null
+                    priceWithDiscount = price;
+                }
+                int monthTraffic = resultTariffs.getInt(5);
+                String description = resultTariffs.getString(6);
+                Tariff tariff = new Tariff(id, tariffName, price, priceWithDiscount, monthTraffic, description);
                 tariffs.add(tariff);
             }
         } catch (SQLException e) {
@@ -101,8 +107,12 @@ class ResultSetTransformer {
                 int userId = resultUserData.getInt(10);
                 String tariffName = resultUserData.getString(11);
                 BigDecimal price = resultUserData.getBigDecimal(12);
-                int monthTraffic = resultUserData.getInt(13);
-                Tariff tariff = new Tariff(tariffName, price, monthTraffic);
+                BigDecimal priceWithDiscount = resultUserData.getBigDecimal(13);
+                if (priceWithDiscount == null) {    //todo null
+                    priceWithDiscount = price;
+                }
+                int monthTraffic = resultUserData.getInt(14);
+                Tariff tariff = new Tariff(tariffName, price, priceWithDiscount, monthTraffic);
                 UserData newUserData = new UserData(userDataId, firstName, lastName, patronymic, email, phone, tariff, balance, traffic, photo, userId);
                 userData.add(newUserData);
             }

@@ -36,11 +36,4 @@ public class AdminServiceTest {
         AdminService service = new AdminService();
         service.removeTariff("tariff1");
     }
-
-    @Test
-    public void updateTariff() throws LogicException {
-        Tariff tariff = new Tariff(2, "tariff2", BigDecimal.valueOf(10), 30000,"the best tariff");
-        AdminService service = new AdminService();
-        service.updateTariff(tariff);
-    }
 }

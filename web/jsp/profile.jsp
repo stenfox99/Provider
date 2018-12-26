@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="content" var="var"/>
 <html>
 <head>
     <title>Profile</title>
@@ -21,19 +24,19 @@
                         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
                              class="avatar img-circle img-thumbnail"
                              alt="avatar">
-                        <h6>Upload a different photo...</h6>
                         <input type="file" class="text-center center-block file-upload" required name="image"><br/>
-                        <button type="submit">Confirm</button><span class="ui-state-error" style="color: red;">${imageError}</span>
+                        <button type="submit"><fmt:message key="button.confirm" bundle="${var}"/></button>
+                        <span class="ui-state-error" style="color: red;">${imageError}</span>
                     </div>
                 </form>
                 </hr><br>
-                <h2>Tariff:${userData.tariff.name}</h2>
+                <h2><fmt:message key="label.tariffName" bundle="${var}"/>:${userData.tariff.name}</h2>
             </div>
             <div class="col-sm-9">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#changeInfo">Change profile info</a></li>
-                    <li><a data-toggle="tab" href="#changePas">Change password</a></li>
-                    <li><a data-toggle="tab" href="#balanceTab">Balance/traffic</a></li>
+                    <li class="active"><a data-toggle="tab" href="#changeInfo"><fmt:message key="menu.changeProfileInfo" bundle="${var}"/></a></li>
+                    <li><a data-toggle="tab" href="#changePas"><fmt:message key="menu.changePassword" bundle="${var}"/></a></li>
+                    <li><a data-toggle="tab" href="#balanceTab"><fmt:message key="menu.balanceTraffic" bundle="${var}"/></a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -43,41 +46,41 @@
                             <input type="hidden" value="change_profile_info" name="command">
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="first_name"><h4>First name</h4></label>
+                                    <label for="first_name"><h4><fmt:message key="label.firstName" bundle="${var}"/></h4></label>
                                     <input type="text" class="form-control" name="firstName" id="first_name"
-                                           placeholder="first name" title="enter your first name if any."
+                                           title="enter your first name if any."
                                            value="${userData.firstName}" pattern="[a-zA-Z]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="last_name"><h4>Last name</h4></label>
+                                    <label for="last_name"><h4><fmt:message key="label.surname" bundle="${var}"/></h4></label>
                                     <input type="text" class="form-control" name="lastName" id="last_name"
-                                           placeholder="last name" title="enter your last name if any."
+                                            title="enter your last name if any."
                                            value="${userData.lastName}" pattern="[a-zA-Z]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="last_name"><h4>Patronymic</h4></label>
+                                    <label for="last_name"><h4><fmt:message key="label.patronymic" bundle="${var}"/></h4></label>
                                     <input type="text" class="form-control" name="patronymic" id="patronymic"
-                                           placeholder="patronymic" title="enter your patronymic if any."
+                                           title="enter your patronymic if any."
                                            value="${userData.patronymic}" pattern="[a-zA-Z]{2,12}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="phone"><h4>Phone</h4></label>
+                                    <label for="phone"><h4><fmt:message key="label.phone" bundle="${var}"/></h4></label>
                                     <input type="text" class="form-control" name="phone" id="phone"
-                                           placeholder="enter phone" title="enter your phone number if any."
+                                           title="enter your phone number if any."
                                            value="${userData.phone}" pattern="\+\d{12}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="email"><h4>Email</h4></label>
+                                    <label for="email"><h4><fmt:message key="label.email" bundle="${var}"/></h4></label>
                                     <input type="email" class="form-control" name="email" id="email"
-                                           placeholder="you@email.com" title="enter your email."
+                                           title="enter your email."
                                            value="${userData.email}" pattern="[\w\d]+@mail\.ru|[\w\d]+@gmail\.com">
                                 </div>
                             </div>
@@ -85,7 +88,7 @@
                                 <div class="col-xs-12">
                                     <br>
                                     <button class="btn btn-lg btn-success" type="submit"><i
-                                            class="glyphicon glyphicon-ok-sign"></i> Save
+                                            class="glyphicon glyphicon-ok-sign"></i> <fmt:message key="button.saveChange" bundle="${var}"/>
                                     </button>
                                     <span class="ui-state-error" style="color: red;">${changeInfoError}</span>
                                 </div>
@@ -100,23 +103,23 @@
                             <input type="hidden" value="change_password" name="command">
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
+                                    <label for="password"><h4><fmt:message key="label.password" bundle="${var}"/></h4></label>
                                     <input type="password" class="form-control" name="password" id="password"
-                                           placeholder="password" title="enter your password." pattern="[\w\d]{6,20}">
+                                           title="enter your password." pattern="[\w\d]{6,20}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6">
-                                    <label for="password2"><h4>Verify</h4></label>
+                                    <label for="password2"><h4><fmt:message key="label.verify" bundle="${var}"/></h4></label>
                                     <input type="password" class="form-control" name="password2" id="password2"
-                                           placeholder="password2" title="enter your password2." pattern="[\w\d]{6,20}">
+                                           title="enter your password2." pattern="[\w\d]{6,20}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <br>
                                     <button class="btn btn-lg btn-success" type="submit"><i
-                                            class="glyphicon glyphicon-ok-sign"></i> Save
+                                            class="glyphicon glyphicon-ok-sign"></i> <fmt:message key="button.saveChange" bundle="${var}"/>
                                     </button>
                                     <span class="ui-state-error" style="color: red;">${changePasswordError}</span>
                                 </div>
@@ -131,16 +134,16 @@
                                 <input type="hidden" value="${userData.balance}" name="currentBalance">
                                 <div class="form-group">
                                     <div class="col-xs-6">
-                                        <label for="balance"><h4>Balance:${userData.balance}</h4></label>
+                                        <label for="balance"><h4><fmt:message key="label.balance" bundle="${var}"/>:${userData.balance}</h4></label>
                                         <input type="text" class="form-control" name="balance" id="balance"
                                                pattern="\d{1,4}"
-                                               placeholder="Balance" title="enter balance to add.">
+                                               title="enter balance to add.">
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <br>
                                             <button class="btn btn-lg btn-success" type="submit"><i
-                                                    class="glyphicon glyphicon-ok-sign"></i> Increase balance
+                                                    class="glyphicon glyphicon-ok-sign"></i> <fmt:message key="button.increaseBalance" bundle="${var}"/>
                                             </button>
                                             <span class="ui-state-error"
                                                   style="color: red;">${increaseBalanceError}</span>
@@ -148,23 +151,11 @@
                                     </div>
                                 </div>
                             </form>
-                            <form class="form" action="##" method="post" id="trafficForm">
-                                <div class="form-group">
-                                    <div class="col-xs-6">
-                                        <label for="password2"><h4>Traffic:${userData.traffic}</h4></label>
-                                        <input type="traffic" class="form-control" name="traffic" id="traffic"
-                                               placeholder="traffic" title="enter traffic to add.">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <br>
-                                            <button class="btn btn-lg btn-success" type="submit"><i
-                                                    class="glyphicon glyphicon-ok-sign"></i> Add traffic
-                                            </button>
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <h4><fmt:message key="label.traffic" bundle="${var}"/>:${userData.traffic}</h4>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

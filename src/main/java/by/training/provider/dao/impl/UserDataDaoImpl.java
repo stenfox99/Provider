@@ -23,13 +23,18 @@ public class UserDataDaoImpl implements UserDataDao {
             "UserData.email = ?, UserData.phone = ? WHERE UserData.userId = ?;";
     private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
             "U.email, U.phone, U.balance, U.traffic," +
-            "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId;";
+            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
+            "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId;";
     private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
             "U.email, U.phone, U.balance, U.traffic," +
-            "U.photo, U.userId, T.tariffName, T.price, T.monthTraffic FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId WHERE U.userId = ?;";
+            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
+            "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId WHERE U.userId = ?;";
     private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
     private static final String CHANGE_TARIFF = "UPDATE UserData U SET U.tariffId = ? WHERE U.userId = ?;";
     private static final String UPLOAD_IMAGE = "UPDATE UserData U SET U.photo = ? WHERE U.userId = ?";
+    private static final String UPDATE_BALANCE_AND_TRAFFIC = "UPDATE UserData SET UserData.balance = ?, UserData.traffic = ? " +
+            "WHERE UserData.UserDataId = ?;";
+
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
     private UserDataDaoImpl() {
@@ -145,4 +150,16 @@ public class UserDataDaoImpl implements UserDataDao {
         }
     }
 
+    @Override
+    public void updateBalanceAndTraffic(UserData userData) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BALANCE_AND_TRAFFIC)) {
+            statement.setBigDecimal(1, userData.getBalance());
+            statement.setInt(2, userData.getTraffic());
+            statement.setInt(3, userData.getUserId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
 }

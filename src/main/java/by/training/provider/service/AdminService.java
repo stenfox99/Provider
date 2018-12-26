@@ -1,6 +1,5 @@
 package by.training.provider.service;
 
-import by.training.provider.dao.UserDao;
 import by.training.provider.dao.impl.*;
 import by.training.provider.entity.*;
 import by.training.provider.exception.DaoException;
@@ -10,6 +9,7 @@ import by.training.provider.util.Encrypt;
 import by.training.provider.util.TariffValidator;
 import by.training.provider.util.UserValidator;
 
+import java.util.Date;
 import java.util.List;
 
 public class AdminService {
@@ -95,15 +95,20 @@ public class AdminService {
                 || !DiscountValidator.validDiscountValue(discount.getDiscount()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
             throw new LogicException("Incorrect input data");
         }
-        try {
+        try {//todo validation
             List<Discount> existedDiscounts = DiscountDaoImpl.getInstance().findByName(discount.getName());
             if (existedDiscounts.isEmpty()) {
-                List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(discount.getTariff().getName());
-                if (tariff.isEmpty()) {
-                    throw new DaoException("Selected tariff doesn't exist");
+                List<Discount> discountsByTariff = DiscountDaoImpl.getInstance().findByTariffName(discount.getTariff().getName());
+                if (discountsByTariff.isEmpty()) {
+                    List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(discount.getTariff().getName());
+                    if (tariff.isEmpty()) {
+                        throw new DaoException("Selected tariff doesn't exist");
+                    }
+                    discount.getTariff().setTariffId(tariff.get(0).getTariffId());
+                    DiscountDaoImpl.getInstance().add(discount);
+                } else {
+                    throw new LogicException("This tariff already has discount");
                 }
-                discount.getTariff().setTariffId(tariff.get(0).getTariffId());
-                DiscountDaoImpl.getInstance().add(discount);
             } else {
                 throw new LogicException("This name already exists");
             }
@@ -157,18 +162,35 @@ public class AdminService {
         return users;
     }
 
-    public void banUser(String login) throws LogicException{
-        try{
+    public void banUser(String login) throws LogicException {
+        try {
             UserDaoImpl.getInstance().banUser(login);
-        }catch (DaoException e){
+        } catch (DaoException e) {
             throw new LogicException(e);
         }
     }
 
-    public void unbanUser(String login) throws LogicException{
-        try{
+    public void unbanUser(String login) throws LogicException {
+        try {
             UserDaoImpl.getInstance().unbanUser(login);
-        }catch (DaoException e){
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    public void fillTraffic() throws LogicException {//todo null
+        try {
+            List<UserData> allData = UserDataDaoImpl.getInstance().findAll();
+            for (UserData data : allData) {
+                if (data.getTariff().getPriceWithDiscount() != null) {
+                    if (data.getBalance().compareTo(data.getTariff().getPriceWithDiscount()) >= 0) {
+                        data.setBalance(data.getBalance().subtract(data.getTariff().getPriceWithDiscount()));
+                        data.setTraffic(data.getTraffic() + data.getTariff().getMonthTraffic());
+                        UserDataDaoImpl.getInstance().updateBalanceAndTraffic(data);
+                    }
+                }
+            }
+        } catch (DaoException e) {
             throw new LogicException(e);
         }
     }

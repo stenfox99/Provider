@@ -17,6 +17,7 @@ public class DiscountDaoImpl implements DiscountDao {
     private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ?, Discounts.beginningDate = ?, Discounts.endDate = ? WHERE Discounts.discountName = ?;";
     private static final String SELECT_ALL_DISCOUNTS = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId;";
     private static final String SELECT_DISCOUNT_BY_NAME = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId WHERE Discounts.discountName = ?;";
+    private static final String SELECT_DISCOUNT_BY_TARIFF_NAME = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId WHERE Tariffs.tariffName = ?;";
     private static DiscountDaoImpl instance = new DiscountDaoImpl();
 
     private DiscountDaoImpl() {
@@ -82,11 +83,25 @@ public class DiscountDaoImpl implements DiscountDao {
         return discounts;
     }
 
-    @Override
+    @Override   //todo in one method
     public List<Discount> findByName(String name) throws DaoException {
         List<Discount> discounts;
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_DISCOUNT_BY_NAME)) {
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            discounts = ResultSetTransformer.createDiscount(resultSet);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return discounts;
+    }
+
+    @Override
+    public List<Discount> findByTariffName(String name) throws DaoException {
+        List<Discount> discounts;
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_DISCOUNT_BY_TARIFF_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             discounts = ResultSetTransformer.createDiscount(resultSet);

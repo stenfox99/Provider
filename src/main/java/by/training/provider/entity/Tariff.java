@@ -6,13 +6,15 @@ public class Tariff extends Entity{
     private int tariffId;
     private String name;
     private BigDecimal price;
+    private BigDecimal priceWithDiscount;
     private int monthTraffic;
     private String description;
 
-    public Tariff(int tariffId, String name, BigDecimal price, int monthTraffic, String description) {
+    public Tariff(int tariffId, String name, BigDecimal price, BigDecimal priceWithDiscount, int monthTraffic, String description) {
         this.tariffId = tariffId;
         this.name = name;
         this.price = price;
+        this.priceWithDiscount = priceWithDiscount;
         this.monthTraffic = monthTraffic;
         this.description = description;
     }
@@ -24,9 +26,10 @@ public class Tariff extends Entity{
         this.description = description;
     }
 
-    public Tariff(String name, BigDecimal price, int monthTraffic){
+    public Tariff(String name, BigDecimal price, BigDecimal priceWithDiscount, int monthTraffic){
         this.name = name;
         this.price = price;
+        this.priceWithDiscount = priceWithDiscount;
         this.monthTraffic = monthTraffic;
     }
 
@@ -80,5 +83,13 @@ public class Tariff extends Entity{
 
     public void setMonthTraffic(int monthTraffic) {
         this.monthTraffic = monthTraffic;
+    }
+
+    public BigDecimal getPriceWithDiscount() {
+        return priceWithDiscount;
+    }
+
+    public void setPriceWithDiscount(BigDecimal priceWithDiscount) {
+        this.priceWithDiscount = priceWithDiscount;
     }
 }
