@@ -2,10 +2,11 @@ package by.training.provider.servlet;
 
 import by.training.provider.command.CommandMap;
 import by.training.provider.command.Command;
+import by.training.provider.command.DirectionType;
+import by.training.provider.command.Router;
 import by.training.provider.pool.ConnectionPool;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +30,13 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String command = req.getParameter(COMMAND);
         Command commandType = CommandMap.valueOf(command.toUpperCase()).getCommand();
-        String page = commandType.execute(req);
-        req.getRequestDispatcher(page).forward(req, resp);
+        Router page = commandType.execute(req);
+        if (page.getDirectionType().equals(DirectionType.FORWARD)) {
+            req.getRequestDispatcher(page.getPage()).forward(req, resp);
+        }else{
+//            resp.sendRedirect(getServletContext().getContextPath() + page.getPage());
+            req.getRequestDispatcher(page.getPage()).forward(req, resp);
+        }
     }
 
     @Override

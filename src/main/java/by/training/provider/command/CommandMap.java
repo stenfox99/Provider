@@ -1,6 +1,16 @@
 package by.training.provider.command;
 
 import by.training.provider.command.impl.*;
+import by.training.provider.command.impl.admin.*;
+import by.training.provider.command.impl.discount.AddDiscountCommand;
+import by.training.provider.command.impl.discount.PrintDiscountCommand;
+import by.training.provider.command.impl.discount.RemoveDiscountCommand;
+import by.training.provider.command.impl.discount.UpdateDiscountCommand;
+import by.training.provider.command.impl.tariff.AddTariffCommand;
+import by.training.provider.command.impl.tariff.PrintTariffCommand;
+import by.training.provider.command.impl.tariff.RemoveTariffCommand;
+import by.training.provider.command.impl.tariff.UpdateTariffCommand;
+import by.training.provider.command.impl.user.*;
 
 public enum CommandMap {
     SIGN_IN(new SignInCommand()), SIGN_OUT(new SignOutCommand()), ADD_USER(new AddUserCommand()), ADD_TARIFF(new AddTariffCommand()), REMOVE_TARIFF(new RemoveTariffCommand()),

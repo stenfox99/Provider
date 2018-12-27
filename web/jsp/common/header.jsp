@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="own" uri="http://mycompany.com" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="content" var="var"/>
 <html>
@@ -18,12 +19,7 @@
                         key="link.tariffs" bundle="${var}"/></a>
                 <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message
                         key="link.discounts" bundle="${var}"/></a>
-                <c:choose>
-                    <c:when test="${role == 'admin'}">
-                        <a class="navbar-brand" href="controller?command=print_user&pageNumber=0"><fmt:message
-                                key="link.user" bundle="${var}"/></a>
-                    </c:when>
-                </c:choose>
+                <own:userLink/>
             </form>
         </div>
         <c:choose>

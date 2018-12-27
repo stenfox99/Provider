@@ -1,11 +1,8 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.tariff;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.ParameterName;
-import by.training.provider.command.PagePath;
+import by.training.provider.command.*;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.LogicException;
-import by.training.provider.exception.DaoException;
 import by.training.provider.service.AdminService;
 import by.training.provider.service.CommonService;
 
@@ -15,8 +12,8 @@ import java.util.List;
 
 public class RemoveTariffCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         AdminService adminService = new AdminService();
         List<Tariff> tariffs = new ArrayList<>();
@@ -24,10 +21,10 @@ public class RemoveTariffCommand implements Command {
         try {
             adminService.removeTariff(tariffName);
             tariffs = service.findAllTariffs();
-            page = PagePath.TARIFFS;
+            page = new Router(PagePath.TARIFFS, DirectionType.REDIRECT);
         }catch (LogicException e){
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
         }
         List<?> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);

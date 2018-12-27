@@ -1,8 +1,6 @@
 package by.training.provider.command.impl;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.PagePath;
-import by.training.provider.command.ParameterName;
+import by.training.provider.command.*;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
 
@@ -13,21 +11,21 @@ import java.io.IOException;
 
 public class UploadImage implements Command {
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         int userId = Integer.parseInt(request.getSession().getAttribute(ParameterName.USER_ID).toString());
         Part part;
         try {
             part = request.getPart(ParameterName.IMAGE);
             UserService service = new UserService();
             service.uploadImage(userId, part);
-            page = PagePath.PROFILE;
+            page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
         } catch (IOException | ServletException e) {
             request.setAttribute(ParameterName.IMAGE_ERROR, e.getMessage());
-            page = PagePath.PROFILE;
+            page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
         }
         return page;
     }

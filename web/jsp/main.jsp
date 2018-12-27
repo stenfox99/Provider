@@ -10,7 +10,6 @@
 </head>
 <body>
 <jsp:include page="/jsp/common/header.jsp"/>
-<check:checkAdminTariff/>
 <div>
     <div class="jumbotron">
         <div class="container">

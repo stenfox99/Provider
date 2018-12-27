@@ -6,11 +6,16 @@
         version="2.1">
 
     <tlib-version>1.0</tlib-version>
-    <short-name>check</short-name>
+    <short-name>own</short-name>
     <uri>http://mycompany.com</uri>
-<tag>
-    <name>checkAdminTariff</name>
-    <tag-class>by.training.provider.tag.CheckRoleTag</tag-class>
-    <body-content>empty</body-content>
-</tag>
+    <tag>
+        <name>printInfo</name>
+        <tag-class>by.training.provider.tag.PrintInfo</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+    <tag>
+        <name>userLink</name>
+        <tag-class>by.training.provider.tag.UserLink</tag-class>
+        <body-content>empty</body-content>
+    </tag>
 </taglib>

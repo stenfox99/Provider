@@ -1,8 +1,6 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.discount;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.PagePath;
-import by.training.provider.command.ParameterName;
+import by.training.provider.command.*;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.LogicException;
@@ -17,8 +15,8 @@ import java.util.List;
 
 public class UpdateDiscountCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         String discountName = request.getParameter(ParameterName.DISCOUNT_NAME);
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         int discountValue = Integer.parseInt(request.getParameter(ParameterName.DISCOUNT));
@@ -46,10 +44,10 @@ public class UpdateDiscountCommand implements Command {
         try {
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
-            page = PagePath.DISCOUNTS;
+            page = new Router(PagePath.DISCOUNTS, DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e.getMessage());
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
         }
         List<?> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);

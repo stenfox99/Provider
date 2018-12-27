@@ -1,8 +1,6 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.admin;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.PagePath;
-import by.training.provider.command.ParameterName;
+import by.training.provider.command.*;
 import by.training.provider.entity.User;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.AdminService;
@@ -14,18 +12,18 @@ import java.util.List;
 
 public class UnbanUserCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         String login = request.getParameter(ParameterName.LOGIN);
         AdminService adminService = new AdminService();
         List<User> users = new ArrayList<>();
         try {
             adminService.unbanUser(login);
             users = adminService.findAllUser();
-            page = PagePath.USERS;
+            page = new Router(PagePath.USERS, DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
         }
         CommonService service = new CommonService();
         List<?> printedUsers = service.divideListOnPage(users, 0);

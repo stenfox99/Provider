@@ -1,8 +1,6 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.user;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.PagePath;
-import by.training.provider.command.ParameterName;
+import by.training.provider.command.*;
 import by.training.provider.entity.UserData;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
@@ -12,8 +10,8 @@ import java.math.BigDecimal;
 
 public class IncreaseBalanceCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         int userId = Integer.parseInt(request.getSession().getAttribute(ParameterName.USER_ID).toString());
         BigDecimal currentBalance = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.CURRENT_BALANCE)));
         BigDecimal balance = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.BALANCE)));
@@ -26,10 +24,10 @@ public class IncreaseBalanceCommand implements Command {
         UserData userData = new UserData();
         try {
             userData = userService.findUserData(userId);
-            page = PagePath.PROFILE;
+            page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
         } catch (LogicException e) {
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
         }
         request.getSession().setAttribute(ParameterName.USER_DATA, userData);
         return page;

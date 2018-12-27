@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="check" uri="http://mycompany.com" %>
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="content" var="var"/>
 <html>
@@ -27,7 +28,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="label.infoAboutTariff" bundle="${var}"/></h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><fmt:message key="label.infoAboutTariff"
+                                                                                    bundle="${var}"/></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -36,29 +38,35 @@
                         <form action="controller" method="post">
                             <input type="hidden" value="add_tariff" name="command">
                             <div class="form-group">
-                                <label for="tariff-name" class="col-form-label"><fmt:message key="label.tariffName" bundle="${var}"/>*</label>
+                                <label for="tariff-name" class="col-form-label"><fmt:message key="label.tariffName"
+                                                                                             bundle="${var}"/>*</label>
                                 <input type="text" class="form-control" id="tariff-name" name="tariffName" required
                                        pattern="[\w\d\sа-яА-Я]{3,20}">
                             </div>
                             <div class="form-group">
-                                <label for="price" class="col-form-label"><fmt:message key="label.price" bundle="${var}"/>*</label>
+                                <label for="price" class="col-form-label"><fmt:message key="label.price"
+                                                                                       bundle="${var}"/>*</label>
                                 <input type="text" class="form-control" id="price" name="tariffPrice" required
                                        pattern="\d{1,6}\.\d{2}|\d{1,6}">
                             </div>
                             <div class="form-group">
-                                <label for="month-traffic" class="col-form-label"><fmt:message key="label.monthTraffic" bundle="${var}"/>*</label>
+                                <label for="month-traffic" class="col-form-label"><fmt:message key="label.monthTraffic"
+                                                                                               bundle="${var}"/>*</label>
                                 <input type="text" class="form-control" id="month-traffic" name="monthTraffic" required
                                        pattern="[\d]{1,9}">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label"><fmt:message key="label.description" bundle="${var}"/>*</label>
+                                <label for="message-text" class="col-form-label"><fmt:message key="label.description"
+                                                                                              bundle="${var}"/>*</label>
                                 <textarea class="form-control" id="message-text" name="description" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary"><fmt:message key="button.addTariff" bundle="${var}"/></button>
+                            <button type="submit" class="btn btn-primary"><fmt:message key="button.addTariff"
+                                                                                       bundle="${var}"/></button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="button.close" bundle="${var}"/></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="button.close"
+                                                                                                          bundle="${var}"/></button>
                     </div>
                 </div>
             </div>

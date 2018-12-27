@@ -1,8 +1,6 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.tariff;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.PagePath;
-import by.training.provider.command.ParameterName;
+import by.training.provider.command.*;
 import by.training.provider.entity.Tariff;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.CommonService;
@@ -14,17 +12,17 @@ import java.util.List;
 public class PrintTariffCommand implements Command {
 
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         int pageNumber = Integer.parseInt(request.getParameter(ParameterName.PAGE_NUMBER));
         List<Tariff> tariffs = new ArrayList<>();
         CommonService service = new CommonService();
         try {
             tariffs = service.findAllTariffs();
-            page = PagePath.TARIFFS;
+            page = new Router(PagePath.TARIFFS, DirectionType.FORWARD);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.FORWARD);
         }
         List<?> printedTariffs = service.divideListOnPage(tariffs, pageNumber);
         int countPage = service.pageCount(tariffs);

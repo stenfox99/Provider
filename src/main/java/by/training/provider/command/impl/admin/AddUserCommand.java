@@ -1,8 +1,6 @@
-package by.training.provider.command.impl;
+package by.training.provider.command.impl.admin;
 
-import by.training.provider.command.Command;
-import by.training.provider.command.ParameterName;
-import by.training.provider.command.PagePath;
+import by.training.provider.command.*;
 import by.training.provider.entity.User;
 import by.training.provider.entity.UserType;
 import by.training.provider.exception.LogicException;
@@ -20,8 +18,8 @@ public class AddUserCommand implements Command {
     private static final int USER_TYPE = 2;
 
     @Override
-    public String execute(HttpServletRequest request) {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router page;
         String login = request.getParameter(ParameterName.LOGIN);
         String password = request.getParameter(ParameterName.PASSWORD);
         String userType = request.getParameter(ParameterName.USER_TYPE);
@@ -44,10 +42,10 @@ public class AddUserCommand implements Command {
         List<User> users = new ArrayList<>();
         try {
             users = adminService.findAllUser();
-            page = PagePath.USERS;
+            page = new Router(PagePath.USERS, DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = PagePath.ERROR;
+            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
         }
         CommonService service = new CommonService();
         List<?> printedUsers = service.divideListOnPage(users, 0);
