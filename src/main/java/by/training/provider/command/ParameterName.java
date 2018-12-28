@@ -46,6 +46,7 @@ public class ParameterName {
 
     public static final String COUNT_PAGE = "countPage";
     public static final String PAGE_NUMBER = "pageNumber";
+    public static final String PAGE = "page";
 
     public static final int COUNT_ON_PAGE = 9;
     private ParameterName(){

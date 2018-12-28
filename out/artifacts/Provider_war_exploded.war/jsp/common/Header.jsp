@@ -19,12 +19,6 @@
                         key="link.tariffs" bundle="${var}"/></a>
                 <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message
                         key="link.discounts" bundle="${var}"/></a>
-                <%--<c:choose>--%>
-                    <%--<c:when test="${role == 'admin'}">--%>
-                        <%--<a class="navbar-brand" href="controller?command=print_user&pageNumber=0"><fmt:message--%>
-                                <%--key="link.user" bundle="${var}"/></a>--%>
-                    <%--</c:when>--%>
-                <%--</c:choose>--%>
                 <own:userLink/>
             </form>
         </div>

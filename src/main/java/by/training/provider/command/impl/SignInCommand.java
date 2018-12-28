@@ -30,7 +30,7 @@ public class SignInCommand implements Command {
             } else {
                 request.setAttribute(ParameterName.ERROR, "Incorrect login or password");
             }
-            page = new Router(PagePath.MAIN_PAGE, DirectionType.REDIRECT);
+            page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.REDIRECT);
         }catch (LogicException e){
             request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);

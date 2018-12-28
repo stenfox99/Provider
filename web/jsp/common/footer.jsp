@@ -9,8 +9,8 @@
     <footer>
         <p>© 2018 Training</p>
         <form>
-            <a class="aboutLanguage" href="controller?command=language&language=en_EN">EN</a>
-            <a class="aboutLanguage" href="controller?command=language&language=ru_RU">RU</a></br>
+            <a href="controller?command=language&language=en_EN">EN</a>
+            <a href="controller?command=language&language=ru_RU">RU</a></br>
         </form>
         <info:printInfo/>
     </footer>
