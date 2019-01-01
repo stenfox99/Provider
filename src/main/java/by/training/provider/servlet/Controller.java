@@ -34,8 +34,7 @@ public class Controller extends HttpServlet {
         if (page.getDirectionType().equals(DirectionType.FORWARD)) {
             req.getRequestDispatcher(page.getPage()).forward(req, resp);
         }else{
-//            resp.sendRedirect(getServletContext().getContextPath() + page.getPage());
-            req.getRequestDispatcher(page.getPage()).forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + page.getPage());
         }
     }
 

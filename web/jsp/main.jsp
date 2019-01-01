@@ -1,6 +1,9 @@
 <%@ taglib prefix="check" uri="http://mycompany.com" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="content" var="var"/>
 <html>
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -13,43 +16,29 @@
 <div>
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-                jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-                unique.</p>
+            <h1>EPAM Provider</h1>
+            <h2><fmt:message key="label.aboutUs" bundle="${var}"/></h2>
+            <p><fmt:message key="label.aboutUsText" bundle="${var}"/></p>
         </div>
     </div>
-
     <div class="container">
+        <h1><fmt:message key="label.specialOffers" bundle="${var}"/></h1>
         <div class="row">
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                    euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris
-                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                    euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-                    ut
-                    fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-            </div>
+            <c:forEach items="${printedDiscounts}" var="element">
+                <div class="col-md-4">
+                    <h2>${element.name}</h2>
+                    <h4><fmt:message key="label.discount" bundle="${var}"/> : ${element.discount}%</h4>
+                    <h4><fmt:message key="label.tariffByDiscount" bundle="${var}"/> : ${element.tariff.name}</h4>
+                    <h4><fmt:message key="label.beginningDate" bundle="${var}"/> : ${element.beginningDate}</h4>
+                    <h4><fmt:message key="label.endDate" bundle="${var}"/> : ${element.endDate}</h4>
+                    <p>${element.description}</p>
+                </div>
+            </c:forEach>
         </div>
-        <hr>
     </div>
 </div>
+<br/>
+<br/>
 <jsp:include page="/jsp/common/footer.jsp"/>
 </body>
 </html>

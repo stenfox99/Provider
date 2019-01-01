@@ -32,8 +32,8 @@ public class AddTariffCommand implements Command {
             tariffs = service.findAllTariffs();
             page = new Router(PagePath.TARIFFS, DirectionType.REDIRECT);
         } catch (LogicException e) {
-            request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            request.setAttribute(ParameterName.ERROR, e);
         }
         List<?> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);

@@ -9,8 +9,7 @@ public class SignOutCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String currentPage = request.getSession().getAttribute(ParameterName.PAGE).toString();
         session.invalidate();
-        return new Router(currentPage, DirectionType.REDIRECT);
+        return new Router(PagePath.MAIN_PAGE, DirectionType.REDIRECT);
     }
 }
