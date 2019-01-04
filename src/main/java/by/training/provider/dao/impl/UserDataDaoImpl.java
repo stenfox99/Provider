@@ -9,6 +9,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.ResultSet;
@@ -17,10 +18,19 @@ import java.util.List;
 
 public class UserDataDaoImpl implements UserDataDao {
     private static final String ADD_USER_DATA = "INSERT INTO UserData(userDataId, userId, balance) VALUES(?,?,?);";
+
     private static final String REMOVE_USER_DATA = "DELETE FROM UserData WHERE UserData.userDataId = ?;";
+
     private static final String UPDATE_USER_DATA = "UPDATE UserData SET UserData.firstName = ?, " +
             "UserData.lastName = ?, UserData.patronymic = ?," +
             "UserData.email = ?, UserData.phone = ? WHERE UserData.userId = ?;";
+    private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
+    private static final String CHANGE_TARIFF = "UPDATE UserData U SET U.tariffId = ? WHERE U.userId = ?;";
+    private static final String UPDATE_BALANCE_AND_TRAFFIC = "UPDATE UserData SET UserData.balance = ?, UserData.traffic = ? " +
+            "WHERE UserData.UserDataId = ?;";
+    private static final String UPDATE_AVATAR = "UPDATE UserData U SET U.photo = ? WHERE U.userId = ?;";
+    private static final String UPDATE_TRAFFIC = "UPDATE UserData U SET U.traffic = ? WHERE U.userId = ?;";
+
     private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
             "U.email, U.phone, U.balance, U.traffic," +
             "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
@@ -29,11 +39,6 @@ public class UserDataDaoImpl implements UserDataDao {
             "U.email, U.phone, U.balance, U.traffic," +
             "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
             "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId WHERE U.userId = ?;";
-    private static final String UPDATE_BALANCE = "UPDATE UserData U SET U.balance = ? WHERE U.userId = ?;";
-    private static final String CHANGE_TARIFF = "UPDATE UserData U SET U.tariffId = ? WHERE U.userId = ?;";
-    private static final String UPLOAD_IMAGE = "UPDATE UserData U SET U.photo = ? WHERE U.userId = ?";
-    private static final String UPDATE_BALANCE_AND_TRAFFIC = "UPDATE UserData SET UserData.balance = ?, UserData.traffic = ? " +
-            "WHERE UserData.UserDataId = ?;";
 
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 
@@ -137,20 +142,6 @@ public class UserDataDaoImpl implements UserDataDao {
     }
 
     @Override
-    public void uploadImage(int userId, Part image) throws DaoException {
-        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPLOAD_IMAGE)) {
-            Blob blob = connection.createBlob();
-            blob.setBytes(1, image.getInputStream().readAllBytes());
-            statement.setBlob(1, blob);
-            statement.setInt(2, userId);
-            statement.execute();
-        } catch (SQLException | IOException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
     public void updateBalanceAndTraffic(UserData userData) throws DaoException {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_BALANCE_AND_TRAFFIC)) {
@@ -159,6 +150,30 @@ public class UserDataDaoImpl implements UserDataDao {
             statement.setInt(3, userData.getUserId());
             statement.execute();
         } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void updateImage(int userId, InputStream image) throws DaoException {
+        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_AVATAR)){
+            statement.setBlob(1, image);
+            statement.setInt(2, userId);
+            statement.execute();
+        }catch (SQLException e){
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void updateTraffic(UserData data) throws DaoException{
+        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TRAFFIC)){
+            statement.setInt(1, data.getTraffic());
+            statement.setInt(2, data.getUserId());
+            statement.execute();
+        }catch (SQLException e){
             throw new DaoException(e);
         }
     }

@@ -7,6 +7,7 @@ import by.training.provider.command.Router;
 import by.training.provider.pool.ConnectionPool;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/controller")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class Controller extends HttpServlet {
     private static final String COMMAND = "command";
 
@@ -34,7 +38,8 @@ public class Controller extends HttpServlet {
         if (page.getDirectionType().equals(DirectionType.FORWARD)) {
             req.getRequestDispatcher(page.getPage()).forward(req, resp);
         }else{
-            resp.sendRedirect(req.getContextPath() + page.getPage());
+//            resp.sendRedirect(req.getContextPath() + page.getPage());
+            req.getRequestDispatcher(page.getPage()).forward(req, resp);
         }
     }
 

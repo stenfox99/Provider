@@ -3,6 +3,7 @@ package by.training.provider.dao;
 import by.training.provider.entity.User;
 import by.training.provider.exception.DaoException;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface UserDao extends DaoBase<User> {
@@ -11,4 +12,5 @@ public interface UserDao extends DaoBase<User> {
     void changePassword(int userId, String password)throws DaoException;
     void banUser(String login)throws DaoException;
     void unbanUser(String login)throws DaoException;
+
 }

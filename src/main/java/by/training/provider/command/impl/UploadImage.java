@@ -1,6 +1,7 @@
 package by.training.provider.command.impl;
 
 import by.training.provider.command.*;
+import by.training.provider.entity.UserData;
 import by.training.provider.exception.LogicException;
 import by.training.provider.service.UserService;
 
@@ -18,7 +19,10 @@ public class UploadImage implements Command {
         try {
             part = request.getPart(ParameterName.IMAGE);
             UserService service = new UserService();
-            service.uploadImage(userId, part);
+            String image = service.uploadImage(userId, part);
+            UserData userData = (UserData)request.getSession().getAttribute(ParameterName.USER_DATA);
+            userData.setPhoto(image);
+            request.getSession().setAttribute(ParameterName.USER_DATA, userData);
             page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
         } catch (IOException | ServletException e) {
             request.setAttribute(ParameterName.IMAGE_ERROR, e.getMessage());

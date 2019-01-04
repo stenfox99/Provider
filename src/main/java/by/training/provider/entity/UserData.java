@@ -13,10 +13,10 @@ public class UserData extends Entity{
     private Tariff tariff;
     private BigDecimal balance;
     private int traffic;
-    private Blob photo;
+    private String photo;
     private int userId;
 
-    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, Tariff tariff, BigDecimal balance, int traffic, Blob photo, int userId) {
+    public UserData(int userDataId, String firstName, String lastName, String patronymic, String email, String phone, Tariff tariff, BigDecimal balance, int traffic, String photo, int userId) {
         this.userDataId = userDataId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -114,11 +114,11 @@ public class UserData extends Entity{
         this.traffic = traffic;
     }
 
-    public Blob getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Blob photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

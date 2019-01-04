@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 class ResultSetTransformer {
@@ -103,7 +104,12 @@ class ResultSetTransformer {
                 String phone = resultUserData.getString(6);
                 BigDecimal balance = resultUserData.getBigDecimal(7);
                 int traffic = resultUserData.getInt(8);
-                Blob photo = resultUserData.getBlob(9);
+                String photo = "";
+                if (resultUserData.getBlob(9) != null) {
+                    Blob photoBlob = resultUserData.getBlob(9);
+                    byte[] avatar = photoBlob.getBytes(1, (int) photoBlob.length());
+                    photo = Base64.getEncoder().encodeToString(avatar);
+                }
                 int userId = resultUserData.getInt(10);
                 String tariffName = resultUserData.getString(11);
                 BigDecimal price = resultUserData.getBigDecimal(12);
