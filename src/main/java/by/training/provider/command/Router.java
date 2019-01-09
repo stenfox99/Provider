@@ -1,6 +1,6 @@
 package by.training.provider.command;
 
-public class Router {  //todo name place
+public class Router {
     private String page;
     private DirectionType directionType;
 
@@ -8,6 +8,8 @@ public class Router {  //todo name place
         this.page = page;
         this.directionType = directionType;
     }
+
+    public Router(){}
 
     public String getPage() {
         return page;

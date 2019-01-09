@@ -21,16 +21,18 @@ public class SignInCommand implements Command {
             if (user.isPresent()) {
                 if (user.get().isBan()){
                     request.setAttribute(ParameterName.ERROR, "This user was banned");
+                    page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.FORWARD);
                 }else {
                     HttpSession session = request.getSession();
                     session.setAttribute(ParameterName.LOGIN, user.get().getLogin());
                     session.setAttribute(ParameterName.USER_ID, user.get().getUserId());
                     session.setAttribute(ParameterName.ROLE, user.get().getUserType().getUserType());
+                    page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.REDIRECT);
                 }
             } else {
                 request.setAttribute(ParameterName.ERROR, "Incorrect login or password");
+                page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.FORWARD);
             }
-            page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.REDIRECT);
         }catch (LogicException e){
             request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);

@@ -26,10 +26,10 @@ public class RemoveDiscountCommand implements Command {
             adminService.removeDiscount(discount);
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
-            page = new Router(PagePath.DISCOUNTS, DirectionType.REDIRECT);
+            page = new Router(PagePath.DISCOUNTS, DirectionType.FORWARD);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            page = new Router(PagePath.ERROR, DirectionType.FORWARD);
         }
         List<?> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);

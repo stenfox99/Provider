@@ -3,7 +3,10 @@ package by.training.provider.filter;
 import by.training.provider.command.ParameterName;
 import by.training.provider.entity.Discount;
 import by.training.provider.exception.LogicException;
+import by.training.provider.pool.ConnectionPool;
 import by.training.provider.service.CommonService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +16,8 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter(urlPatterns = {"/jsp/main.jsp"}, dispatcherTypes = DispatcherType.FORWARD)
-public class ShowDiscountFilter implements Filter { //TODO NAME
+public class ShowDiscountFilter implements Filter {
+    private static final Logger LOG = LogManager.getLogger(ShowDiscountFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -31,7 +35,7 @@ public class ShowDiscountFilter implements Filter { //TODO NAME
                 httpServletRequest.getSession().setAttribute(ParameterName.PRINTED_DISCOUNTS, discounts);
             }
         } catch (LogicException e) {
-            //TODO EXCEPTION
+            LOG.error(e);
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }

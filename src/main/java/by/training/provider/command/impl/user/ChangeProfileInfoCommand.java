@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ChangeProfileInfoCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        Router page;
+        Router page = new Router();
         int userId = Integer.parseInt(request.getSession().getAttribute(ParameterName.USER_ID).toString());
         String firstName = request.getParameter(ParameterName.FIRST_NAME);
         String lastName = request.getParameter(ParameterName.LAST_NAME);
@@ -21,16 +21,18 @@ public class ChangeProfileInfoCommand implements Command {
         UserService service = new UserService();
         try {
             service.updateProfileData(newUserData);
+            page.setDirectionType(DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.CHANGE_INFO_PROFILE_ERROR, e.getMessage());
+            page.setDirectionType(DirectionType.FORWARD);
         }
         UserData userData = new UserData();
         try {
             userData = service.findUserData(userId);
-            page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
+            page.setPage(PagePath.PROFILE);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            page.setPage(PagePath.ERROR);
         }
         request.setAttribute(ParameterName.USER_DATA, userData);
         return page;

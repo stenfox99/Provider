@@ -1,5 +1,5 @@
 package by.training.provider.command;
 
-public enum DirectionType { //todo name
+public enum DirectionType {
     FORWARD, REDIRECT
 }

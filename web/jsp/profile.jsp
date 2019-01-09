@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <form method="post" action="controller" enctype="multipart/form-data">
+                <form method="post" action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
                     <input type="hidden" name="command" value="upload_image">
                     <div class="text-center">
                         <c:choose>
@@ -56,7 +56,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="changeInfo">
                         <hr>
-                        <form class="form" action="controller" method="post" id="changeForm">
+                        <form class="form" action="${pageContext.request.contextPath}/controller" method="post" id="changeForm">
                             <input type="hidden" value="change_profile_info" name="command">
                             <div class="form-group">
                                 <div class="col-xs-6">
@@ -117,7 +117,7 @@
 
                     <div class="tab-pane" id="changePas">
                         <hr>
-                        <form class="form" action="controller" method="post" id="changePassword">
+                        <form class="form" action="${pageContext.request.contextPath}/controller" method="post" id="changePassword">
                             <input type="hidden" value="change_password" name="command">
                             <div class="form-group">
                                 <div class="col-xs-6">
@@ -150,7 +150,7 @@
                     <div class="tab-pane" id="balanceTab">
                         <div class="tab-pane" id="settings">
                             <hr>
-                            <form class="form" action="controller" method="post" id="balanceForm">
+                            <form class="form" action="${pageContext.request.contextPath}/controller" method="post" id="balanceForm">
                                 <input type="hidden" value="increase_balance" name="command">
                                 <input type="hidden" value="${userData.balance}" name="currentBalance">
                                 <div class="form-group">

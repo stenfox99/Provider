@@ -42,7 +42,7 @@ public class AddUserCommand implements Command {
         List<User> users = new ArrayList<>();
         try {
             users = adminService.findAllUser();
-            page = new Router(PagePath.USERS, DirectionType.REDIRECT);
+            page = new Router(PagePath.USERS, DirectionType.FORWARD);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);

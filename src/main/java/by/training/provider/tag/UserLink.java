@@ -20,9 +20,9 @@ public class UserLink extends TagSupport {
             if (session.getAttribute(ROLE) != null && session.getAttribute(ROLE).toString().equals(ADMIN)) {
                 JspWriter out = pageContext.getOut();
                 if (session.getAttribute(LOCALE) != null && session.getAttribute(LOCALE).toString().equals(LANGUAGE)) {
-                    out.write("<a class=\"navbar-brand\" href=\"controller?command=print_user&pageNumber=0\">Users</a>");
+                    out.write("<a class=\"navbar-brand\" href=\"" + pageContext.getServletContext().getContextPath() + "/controller?command=print_user&pageNumber=0\">Users</a>");
                 }else{
-                    out.write("<a class=\"navbar-brand\" href=\"controller?command=print_user&pageNumber=0\">Пользователи</a>");
+                    out.write("<a class=\"navbar-brand\" href=\"" + pageContext.getServletContext().getContextPath() + "/controller?command=print_user&pageNumber=0\">Пользователи</a>");
                 }
             }
         } catch (IOException e) {

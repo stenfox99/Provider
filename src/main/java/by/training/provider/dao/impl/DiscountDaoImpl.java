@@ -83,11 +83,15 @@ public class DiscountDaoImpl implements DiscountDao {
         return discounts;
     }
 
-    @Override   //todo in one method
+    @Override
     public List<Discount> findByName(String name) throws DaoException {
+        return getDiscounts(name, SELECT_DISCOUNT_BY_NAME);
+    }
+
+    private List<Discount> getDiscounts(String name, String selectDiscountByName) throws DaoException {
         List<Discount> discounts;
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_DISCOUNT_BY_NAME)) {
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(selectDiscountByName)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             discounts = ResultSetTransformer.createDiscount(resultSet);
@@ -99,15 +103,6 @@ public class DiscountDaoImpl implements DiscountDao {
 
     @Override
     public List<Discount> findByTariffName(String name) throws DaoException {
-        List<Discount> discounts;
-        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(SELECT_DISCOUNT_BY_TARIFF_NAME)) {
-            statement.setString(1, name);
-            ResultSet resultSet = statement.executeQuery();
-            discounts = ResultSetTransformer.createDiscount(resultSet);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-        return discounts;
+        return getDiscounts(name, SELECT_DISCOUNT_BY_TARIFF_NAME);
     }
 }

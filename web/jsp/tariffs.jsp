@@ -35,7 +35,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" value="add_tariff" name="command">
                             <div class="form-group">
                                 <label for="tariff-name" class="col-form-label"><fmt:message key="label.tariffName"
@@ -83,7 +83,7 @@
             </thead>
             <tbody>
             <c:forEach var="element" items="${printedTariffs}">
-                <form action="controller" method="post">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
                     <tr>
                         <input type="hidden" name="tariffName" value="${element.name}">
                         <c:choose>
@@ -115,7 +115,7 @@
                                     <button type="submit"><fmt:message key="button.saveChange" bundle="${var}"/></button>
                                 </td>
                                 <td>
-                                    <a href="controller?command=remove_tariff&tariffName=${element.name}">
+                                    <a href="${pageContext.request.contextPath}/controller?command=remove_tariff&tariffName=${element.name}">
                                         <fmt:message key="button.deleteTariff" bundle="${var}"/>
                                     </a>
                                 </td>
@@ -136,7 +136,7 @@
             <ul class="pagination">
                 <c:forEach var="i" begin="1" end="${countPage}">
                     <li class="page-item"><a class="page-link"
-                                             href="controller?command=print_tariffs&pageNumber=${i-1}">${i}</a>
+                                             href="${pageContext.request.contextPath}/controller?command=print_tariffs&pageNumber=${i-1}">${i}</a>
                     </li>
                 </c:forEach>
             </ul>

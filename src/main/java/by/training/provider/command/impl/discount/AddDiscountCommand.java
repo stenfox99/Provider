@@ -16,38 +16,40 @@ import java.util.List;
 public class AddDiscountCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        Router page    ;
+        Router page = new Router();
         String discountName = request.getParameter(ParameterName.DISCOUNT_NAME);
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         int discountValue = Integer.parseInt(request.getParameter(ParameterName.DISCOUNT));
         String description = request.getParameter(ParameterName.DESCRIPTION);
-        Date beginningDate = null;
-        Date endDate = null;
+        Date beginningDate;
+        Date endDate;
         try {
             beginningDate = DateConverter.toDate(request.getParameter(ParameterName.BEGINNING_DATE));
             endDate = DateConverter.toDate(request.getParameter(ParameterName.END_DATE));
+            Tariff tariff = new Tariff(tariffName);
+            Discount discount = new Discount(discountName, discountValue, description, beginningDate, endDate, tariff);
+            AdminService adminService = new AdminService();
+            try {
+                adminService.addDiscount(discount);
+                page.setDirectionType(DirectionType.REDIRECT);
+            } catch (LogicException e) {
+                request.setAttribute(ParameterName.ERROR, e.getMessage());
+                page.setDirectionType(DirectionType.FORWARD);
+            }
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e.getMessage());
+            page.setDirectionType(DirectionType.FORWARD);
         }
-        Tariff tariff = new Tariff(tariffName);
-        Discount discount = new Discount(discountName, discountValue, description, beginningDate, endDate, tariff);
-        AdminService adminService = new AdminService();
-        try {
-            adminService.addDiscount(discount);
-        } catch (LogicException e) {
-            request.setAttribute(ParameterName.ERROR, e.getMessage());
-        }
-
         List<Discount> discounts = new ArrayList<>();
         List<Tariff> tariffs = new ArrayList<>();
         CommonService service = new CommonService();
         try {
             discounts = service.findAllDiscounts();
             tariffs = service.findAllTariffs();
-            page = new Router(PagePath.DISCOUNTS, DirectionType.REDIRECT);
+            page.setPage(PagePath.DISCOUNTS);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
-            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            page.setPage(PagePath.ERROR);
         }
         List<?> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);

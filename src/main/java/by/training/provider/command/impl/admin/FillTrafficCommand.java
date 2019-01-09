@@ -12,7 +12,7 @@ public class FillTrafficCommand implements Command {
         Router page;
         try {
             new AdminService().fillTraffic();
-            page = new Router(PagePath.USERS, DirectionType.REDIRECT);
+            page = new Router(PagePath.USERS, DirectionType.FORWARD);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);

@@ -14,7 +14,7 @@ import java.util.List;
 public class UpdateTariffCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        Router page;
+        Router page = new Router();
         String tariffName = request.getParameter(ParameterName.TARIFF_NAME);
         BigDecimal price = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.TARIFF_PRICE)));
         int monthTraffic = Integer.parseInt(request.getParameter(ParameterName.MONTH_TRAFFIC));
@@ -25,12 +25,14 @@ public class UpdateTariffCommand implements Command {
         CommonService service = new CommonService();
         try{
             adminService.updateTariff(tariff);
+            page.setDirectionType(DirectionType.REDIRECT);
         }catch (LogicException e){
             request.setAttribute(ParameterName.ERROR, e.getMessage());
+            page.setDirectionType(DirectionType.FORWARD);
         }
         try {
             tariffs = service.findAllTariffs();
-            page = new Router(PagePath.TARIFFS, DirectionType.REDIRECT);
+            page.setPage(PagePath.TARIFFS);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e);
             page = new Router(PagePath.ERROR, DirectionType.REDIRECT);

@@ -11,22 +11,24 @@ import java.math.BigDecimal;
 public class IncreaseBalanceCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        Router page;
+        Router page = new Router();
         int userId = Integer.parseInt(request.getSession().getAttribute(ParameterName.USER_ID).toString());
         BigDecimal currentBalance = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.CURRENT_BALANCE)));
         BigDecimal balance = BigDecimal.valueOf(Double.valueOf(request.getParameter(ParameterName.BALANCE)));
         UserService userService = new UserService();
         try {
             userService.increaseBalance(userId, currentBalance, balance);
+            page.setDirectionType(DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.INCREASE_BALANCE_ERROR, e.getMessage());
+            page.setDirectionType(DirectionType.FORWARD);
         }
         UserData userData = new UserData();
         try {
             userData = userService.findUserData(userId);
-            page = new Router(PagePath.PROFILE, DirectionType.REDIRECT);
+            page.setPage(PagePath.PROFILE);
         } catch (LogicException e) {
-            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            page.setPage(PagePath.ERROR);
             request.setAttribute(ParameterName.ERROR, e);
         }
         request.getSession().setAttribute(ParameterName.USER_DATA, userData);

@@ -95,14 +95,14 @@ public class AdminService {
                 || !DiscountValidator.validDiscountValue(discount.getDiscount()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
             throw new LogicException("Incorrect input data");
         }
-        try {//todo validation
+        try {
             List<Discount> existedDiscounts = DiscountDaoImpl.getInstance().findByName(discount.getName());
             if (existedDiscounts.isEmpty()) {
                 List<Discount> discountsByTariff = DiscountDaoImpl.getInstance().findByTariffName(discount.getTariff().getName());
                 if (discountsByTariff.isEmpty()) {
                     List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(discount.getTariff().getName());
                     if (tariff.isEmpty()) {
-                        throw new DaoException("Selected tariff doesn't exist");
+                        throw new LogicException("Selected tariff doesn't exist");
                     }
                     discount.getTariff().setTariffId(tariff.get(0).getTariffId());
                     DiscountDaoImpl.getInstance().add(discount);
@@ -178,7 +178,7 @@ public class AdminService {
         }
     }
 
-    public void fillTraffic() throws LogicException {//todo null
+    public void fillTraffic() throws LogicException {
         try {
             List<UserData> allData = UserDataDaoImpl.getInstance().findAll();
             for (UserData data : allData) {

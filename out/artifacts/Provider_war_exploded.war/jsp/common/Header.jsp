@@ -13,11 +13,11 @@
     <div class="container">
         <div class="navbar-header">
             <form>
-                <a class="navbar-brand" href="controller?command=To_Main_Page"><fmt:message key="link.main"
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=To_Main_Page"><fmt:message key="link.main"
                                                                                             bundle="${var}"/></a>
-                <a class="navbar-brand" href="controller?command=print_tariffs&pageNumber=0"><fmt:message
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=print_tariffs&pageNumber=0"><fmt:message
                         key="link.tariffs" bundle="${var}"/></a>
-                <a class="navbar-brand" href="controller?command=print_discounts&pageNumber=0"><fmt:message
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/controller?command=print_discounts&pageNumber=0"><fmt:message
                         key="link.discounts" bundle="${var}"/></a>
                 <own:userLink/>
             </form>
@@ -25,7 +25,7 @@
         <c:choose>
             <c:when test="${empty login}">
                 <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right" action="controller" method="post">
+                    <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/controller" method="post">
                         <input type="hidden" name="command" value="sign_in"/>
                         <div class="form-group">
                             <input type="text" placeholder=
@@ -45,12 +45,12 @@
             </c:when>
             <c:otherwise>
                 <div class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right" action="controller" method="post">
+                    <form class="navbar-form navbar-right" action="${pageContext.request.contextPath}/controller" method="post">
                         <input type="hidden" name="command" value="sign_out"/>
                         <c:choose>
                             <c:when test="${role == 'user'}">
                                 <a class="navbar-link" style="font-size: 16px;"
-                                   href="controller?command=To_Profile">${login}</a>
+                                   href="${pageContext.request.contextPath}/controller?command=To_Profile">${login}</a>
                             </c:when>
                             <c:otherwise>
                                 <span class="navbar-link" style="font-size: 16px;">${login}</span>

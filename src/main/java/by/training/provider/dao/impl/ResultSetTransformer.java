@@ -56,7 +56,7 @@ class ResultSetTransformer {
                 String tariffName = resultTariffs.getString(2);
                 BigDecimal price = resultTariffs.getBigDecimal(3);
                 BigDecimal priceWithDiscount = resultTariffs.getBigDecimal(4);
-                if (priceWithDiscount == null) {    //todo null
+                if (priceWithDiscount == null) {
                     priceWithDiscount = price;
                 }
                 int monthTraffic = resultTariffs.getInt(5);
@@ -114,7 +114,7 @@ class ResultSetTransformer {
                 String tariffName = resultUserData.getString(11);
                 BigDecimal price = resultUserData.getBigDecimal(12);
                 BigDecimal priceWithDiscount = resultUserData.getBigDecimal(13);
-                if (priceWithDiscount == null) {    //todo null
+                if (priceWithDiscount == null) {
                     priceWithDiscount = price;
                 }
                 int monthTraffic = resultUserData.getInt(14);

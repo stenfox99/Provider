@@ -10,6 +10,6 @@ public class SignOutCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return new Router(PagePath.MAIN_PAGE, DirectionType.REDIRECT);
+        return new Router(PagePath.MAIN_PAGE, DirectionType.FORWARD);
     }
 }

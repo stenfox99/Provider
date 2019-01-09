@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
                 data-whatever="@mdo"><fmt:message key="button.addUser" bundle="${var}"/>
         </button><br/>
-        <form action="controller" method="post">
+        <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" value="fill_traffic" name="command">
             <button type="submit" class="btn btn-primary"><fmt:message key="button.distributeTraffic" bundle="${var}"/></button>
         </form>
@@ -33,7 +33,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="controller" method="post">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" value="add_user" name="command">
                             <div class="form-group">
                                 <label for="user-name" class="col-form-label"><fmt:message key="input.login" bundle="${var}"/>*</label>
@@ -73,16 +73,16 @@
             </thead>
             <tbody>
             <c:forEach var="element" items="${printedUsers}">
-                <form action="controller" method="post">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
                     <tr>
                         <td>${element.login}</td>
                         <td>${element.userType.userType}</td>
                         <td>${element.ban}</td>
                         <td>
-                            <a href="controller?command=ban_user&login=${element.login}"><fmt:message key="button.ban" bundle="${var}"/></a>
+                            <a href="${pageContext.request.contextPath}/controller?command=ban_user&login=${element.login}"><fmt:message key="button.ban" bundle="${var}"/></a>
                         </td>
                         <td>
-                            <a href="controller?command=unban_user&login=${element.login}"><fmt:message key="button.unban" bundle="${var}"/></a>
+                            <a href="${pageContext.request.contextPath}/controller?command=unban_user&login=${element.login}"><fmt:message key="button.unban" bundle="${var}"/></a>
                         </td>
                     </tr>
                 </form>
@@ -93,7 +93,7 @@
             <ul class="pagination">
                 <c:forEach var="i" begin="1" end="${countPage}">
                     <li class="page-item"><a class="page-link"
-                                             href="controller?command=print_user&pageNumber=${i-1}">${i}</a>
+                                             href="${pageContext.request.contextPath}/controller?command=print_user&pageNumber=${i-1}">${i}</a>
                     </li>
                 </c:forEach>
             </ul>

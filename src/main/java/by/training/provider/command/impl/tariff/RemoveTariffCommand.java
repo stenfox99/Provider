@@ -21,10 +21,10 @@ public class RemoveTariffCommand implements Command {
         try {
             adminService.removeTariff(tariffName);
             tariffs = service.findAllTariffs();
-            page = new Router(PagePath.TARIFFS, DirectionType.REDIRECT);
+            page = new Router(PagePath.TARIFFS, DirectionType.FORWARD);
         }catch (LogicException e){
             request.setAttribute(ParameterName.ERROR, e);
-            page = new Router(PagePath.ERROR, DirectionType.REDIRECT);
+            page = new Router(PagePath.ERROR, DirectionType.FORWARD);
         }
         List<?> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);

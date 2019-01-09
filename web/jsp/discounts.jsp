@@ -32,7 +32,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="controller" method="post">
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" value="add_discount" name="command">
                                     <div class="form-group">
                                         <label for="discount-name" class="col-form-label"><fmt:message key="label.discountName" bundle="${var}"/>*</label>
@@ -92,7 +92,7 @@
             </thead>
             <tbody>
             <c:forEach var="element" items="${printedDiscounts}">
-                <form action="controller" method="post">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
                     <tr>
                         <c:choose>
                             <c:when test="${role == 'admin'}">
@@ -137,7 +137,7 @@
                                     <button type="submit"><fmt:message key="button.saveChange" bundle="${var}"/></button>
                                 </td>
                                 <td>
-                                    <a href="controller?command=remove_discount&discountName=${element.name}">
+                                    <a href="${pageContext.request.contextPath}/controller?command=remove_discount&discountName=${element.name}">
                                         <fmt:message key="button.deleteDiscount" bundle="${var}"/></a>
                                 </td>
                             </c:when>
@@ -151,7 +151,7 @@
             <ul class="pagination">
                 <c:forEach var="i" begin="1" end="${countPage}">
                     <li class="page-item"><a class="page-link"
-                                             href="controller?command=print_discounts&pageNumber=${i-1}">${i}</a>
+                                             href="${pageContext.request.contextPath}/controller?command=print_discounts&pageNumber=${i-1}">${i}</a>
                     </li>
                 </c:forEach>
             </ul>
