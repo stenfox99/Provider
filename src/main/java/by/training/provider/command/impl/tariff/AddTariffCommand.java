@@ -39,8 +39,8 @@ public class AddTariffCommand implements Command {
         }
         List<?> printedTariffs = service.divideListOnPage(tariffs, 0);
         int countPage = service.pageCount(tariffs);
-        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
-        request.setAttribute(ParameterName.PRINTED_TARIFFS, printedTariffs);
+        request.getSession().setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.getSession().setAttribute(ParameterName.PRINTED_TARIFFS, printedTariffs);
         return page;
     }
 }

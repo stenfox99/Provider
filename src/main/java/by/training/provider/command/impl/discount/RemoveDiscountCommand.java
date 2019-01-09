@@ -33,9 +33,9 @@ public class RemoveDiscountCommand implements Command {
         }
         List<?> printedDiscounts = service.divideListOnPage(discounts, 0);
         int countPage = service.pageCount(discounts);
-        request.setAttribute(ParameterName.COUNT_PAGE, countPage);
-        request.setAttribute(ParameterName.PRINTED_DISCOUNTS, printedDiscounts);
-        request.setAttribute(ParameterName.TARIFFS, tariffs);
+        request.getSession().setAttribute(ParameterName.COUNT_PAGE, countPage);
+        request.getSession().setAttribute(ParameterName.PRINTED_DISCOUNTS, printedDiscounts);
+        request.getSession().setAttribute(ParameterName.TARIFFS, tariffs);
         return page;
     }
 }

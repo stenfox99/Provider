@@ -34,7 +34,7 @@ public class ChangeProfileInfoCommand implements Command {
             request.setAttribute(ParameterName.ERROR, e);
             page.setPage(PagePath.ERROR);
         }
-        request.setAttribute(ParameterName.USER_DATA, userData);
+        request.getSession().setAttribute(ParameterName.USER_DATA, userData);
         return page;
     }
 }
