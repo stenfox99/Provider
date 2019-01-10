@@ -1,6 +1,5 @@
 package by.training.provider.service;
 
-import by.training.provider.dao.UserDataDao;
 import by.training.provider.dao.impl.TariffDaoImpl;
 import by.training.provider.dao.impl.UserDaoImpl;
 import by.training.provider.dao.impl.UserDataDaoImpl;
@@ -49,9 +48,9 @@ public class UserService {
     }
 
     public void updateProfileData(UserData data) throws LogicException {
-        if (!UserDataValidator.initialValidate(data.getFirstName()) || !UserDataValidator.initialValidate(data.getLastName()) ||
-                !UserDataValidator.initialValidate(data.getPatronymic()) || !UserDataValidator.emailValidate(data.getEmail()) ||
-                !UserDataValidator.phoneValidate(data.getPhone())) {
+        if (!UserDataValidator.validInitial(data.getFirstName()) || !UserDataValidator.validInitial(data.getLastName()) ||
+                !UserDataValidator.validInitial(data.getPatronymic()) || !UserDataValidator.validEmail(data.getEmail()) ||
+                !UserDataValidator.validPhone(data.getPhone())) {
             throw new LogicException("Incorrect input data");
         }
         try {
