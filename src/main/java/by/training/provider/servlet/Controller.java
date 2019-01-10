@@ -1,12 +1,10 @@
 package by.training.provider.servlet;
 
-import by.training.provider.command.CommandMap;
 import by.training.provider.command.Command;
+import by.training.provider.command.CommandMap;
 import by.training.provider.command.DirectionType;
 import by.training.provider.command.Router;
 import by.training.provider.pool.ConnectionPool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

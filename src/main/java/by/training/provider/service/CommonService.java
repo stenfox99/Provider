@@ -3,11 +3,9 @@ package by.training.provider.service;
 import by.training.provider.command.ParameterName;
 import by.training.provider.dao.impl.DiscountDaoImpl;
 import by.training.provider.dao.impl.TariffDaoImpl;
-import by.training.provider.dao.impl.UserDataDaoImpl;
 import by.training.provider.entity.Discount;
 import by.training.provider.entity.Entity;
 import by.training.provider.entity.Tariff;
-import by.training.provider.entity.UserData;
 import by.training.provider.exception.DaoException;
 import by.training.provider.exception.LogicException;
 
@@ -46,11 +44,11 @@ public class CommonService {
         return discounts;
     }
 
-    public int pageCount(List<? extends Entity> list){
+    public int pageCount(List<? extends Entity> list) {
         int pageCount;
-        if (list.size() % ParameterName.COUNT_ON_PAGE == 0){
+        if (list.size() % ParameterName.COUNT_ON_PAGE == 0) {
             pageCount = list.size() / ParameterName.COUNT_ON_PAGE;
-        }else {
+        } else {
             pageCount = list.size() / ParameterName.COUNT_ON_PAGE + 1;
         }
         return pageCount;

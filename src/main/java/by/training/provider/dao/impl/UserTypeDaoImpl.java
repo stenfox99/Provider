@@ -13,6 +13,7 @@ import java.util.List;
 
 public class UserTypeDaoImpl implements UserTypeDao {
     private static final String SELECT_ALL_USER_TYPE = "SELECT userTypeId, userType FROM UserTypes;";
+
     private static UserTypeDaoImpl instance = new UserTypeDaoImpl();
 
     private UserTypeDaoImpl() {

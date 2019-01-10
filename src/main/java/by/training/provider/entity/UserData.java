@@ -1,9 +1,8 @@
 package by.training.provider.entity;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 
-public class UserData extends Entity{
+public class UserData extends Entity {
     private int userDataId;
     private String firstName;
     private String lastName;
@@ -30,7 +29,7 @@ public class UserData extends Entity{
         this.userId = userId;
     }
 
-    public UserData(int userDataId){
+    public UserData(int userDataId) {
         this.userDataId = userDataId;
     }
 
@@ -54,40 +53,20 @@ public class UserData extends Entity{
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPatronymic() {
         return patronymic;
     }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public Tariff getTariff() {

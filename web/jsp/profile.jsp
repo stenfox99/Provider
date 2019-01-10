@@ -34,14 +34,13 @@
                                      alt="avatar">
                             </c:otherwise>
                         </c:choose>
-                        <h4>1024 x 1024</h4>
                         <input type="file" class="text-center center-block file-upload" required name="image"><br/>
                         <button type="submit"><fmt:message key="button.confirm" bundle="${var}"/></button>
                         <span class="ui-state-error" style="color: red;">${imageError}</span>
                     </div>
                 </form>
                 </hr><br>
-                <h2><fmt:message key="label.tariffName" bundle="${var}"/>:${userData.tariff.name}</h2>
+                <h3><fmt:message key="label.tariffName" bundle="${var}"/>:${userData.tariff.name}</h3>
             </div>
             <div class="col-sm-9">
                 <ul class="nav nav-tabs">
@@ -124,7 +123,7 @@
                                     <label for="password"><h4><fmt:message key="label.password" bundle="${var}"/></h4>
                                     </label>
                                     <input type="password" class="form-control" name="password" id="password"
-                                           title="enter your password." pattern="[\w\d]{6,20}">
+                                           title="enter your password." pattern="[\w\d]{6,20}" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -132,7 +131,7 @@
                                     <label for="password2"><h4><fmt:message key="label.verify" bundle="${var}"/></h4>
                                     </label>
                                     <input type="password" class="form-control" name="password2" id="password2"
-                                           title="enter your password2." pattern="[\w\d]{6,20}">
+                                           title="enter your password2." pattern="[\w\d]{6,20}" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -160,7 +159,7 @@
                                         </label>
                                         <input type="text" class="form-control" name="balance" id="balance"
                                                pattern="\d{1,4}"
-                                               title="enter balance to add.">
+                                               title="enter balance to add." required>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-12">

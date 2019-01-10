@@ -37,16 +37,6 @@ public class UserService {
         return user;
     }
 
-    public void updateUserPassword(String login, String password) throws LogicException {
-        try {
-            String encryptPassword = Encrypt.encrypt(password);
-            User user = new User(login, encryptPassword);
-            UserDaoImpl.getInstance().update(user);
-        } catch (DaoException e) {
-            throw new LogicException(e);
-        }
-    }
-
     public void updateProfileData(UserData data) throws LogicException {
         if (!UserDataValidator.validInitial(data.getFirstName()) || !UserDataValidator.validInitial(data.getLastName()) ||
                 !UserDataValidator.validInitial(data.getPatronymic()) || !UserDataValidator.validEmail(data.getEmail()) ||

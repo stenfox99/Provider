@@ -13,11 +13,15 @@ import java.util.List;
 
 public class DiscountDaoImpl implements DiscountDao {
     private static final String ADD_DISCOUNT = "INSERT INTO Discounts(discountName, tariffId, discount, description, beginningDate, endDate) VALUES(?,?,?,?,?,?);";
-    private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountName = ?;";
+
     private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET Discounts.tariffId = ?, Discounts.discount = ?, Discounts.description = ?, Discounts.beginningDate = ?, Discounts.endDate = ? WHERE Discounts.discountName = ?;";
+
+    private static final String REMOVE_DISCOUNT = "DELETE FROM Discounts WHERE Discounts.discountName = ?;";
+
     private static final String SELECT_ALL_DISCOUNTS = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId;";
     private static final String SELECT_DISCOUNT_BY_NAME = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId WHERE Discounts.discountName = ?;";
     private static final String SELECT_DISCOUNT_BY_TARIFF_NAME = "SELECT Discounts.discountName, Discounts.discount, Discounts.description, Discounts.beginningDate, Discounts.endDate, Tariffs.tariffId, Tariffs.tariffName FROM Discounts INNER JOIN Tariffs ON Discounts.tariffId = Tariffs.tariffId WHERE Tariffs.tariffName = ?;";
+
     private static DiscountDaoImpl instance = new DiscountDaoImpl();
 
     private DiscountDaoImpl() {
@@ -33,7 +37,7 @@ public class DiscountDaoImpl implements DiscountDao {
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(ADD_DISCOUNT)) {
             statement.setString(1, element.getName());
             statement.setInt(2, element.getTariff().getTariffId());
-            statement.setInt(3, element.getDiscount());
+            statement.setInt(3, element.getDiscountValue());
             statement.setString(4, element.getDescription());
             statement.setDate(5, element.getBeginningDate());
             statement.setDate(6, element.getEndDate());
@@ -59,7 +63,7 @@ public class DiscountDaoImpl implements DiscountDao {
         try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_DISCOUNT)) {
             statement.setInt(1, element.getTariff().getTariffId());
-            statement.setInt(2, element.getDiscount());
+            statement.setInt(2, element.getDiscountValue());
             statement.setString(3, element.getDescription());
             statement.setDate(4, element.getBeginningDate());
             statement.setDate(5, element.getEndDate());

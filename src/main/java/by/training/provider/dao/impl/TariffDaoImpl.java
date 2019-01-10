@@ -13,10 +13,14 @@ import java.util.List;
 
 public class TariffDaoImpl implements TariffDao {
     private static final String ADD_TARIFF = "INSERT INTO Tariffs(tariffName, price, monthTraffic, description) VALUES(?,?,?,?);";
-    private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
+    
     private static final String UPDATE_TARIFF = "UPDATE Tariffs SET Tariffs.price = ?, Tariffs.monthTraffic = ?, Tariffs.description = ? WHERE Tariffs.tariffName = ?;";
+    
+    private static final String REMOVE_TARIFF = "DELETE FROM Tariffs WHERE Tariffs.tariffName = ?;";
+    
     private static final String SELECT_ALL_TARIFF = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.price - Tariffs.price * Discounts.discount / 100, Tariffs.monthTraffic, Tariffs.description FROM Tariffs LEFT JOIN Discounts on Tariffs.tariffId = Discounts.tariffId;";
     private static final String SELECT_BY_NAME = "SELECT Tariffs.tariffId, Tariffs.tariffName, Tariffs.price, Tariffs.price - Tariffs.price * Discounts.discount / 100, Tariffs.monthTraffic, Tariffs.description FROM Tariffs LEFT JOIN Discounts on Tariffs.tariffId = Discounts.tariffId WHERE Tariffs.tariffName = ?;";
+    
     private static TariffDaoImpl instance = new TariffDaoImpl();
 
     private TariffDaoImpl() {

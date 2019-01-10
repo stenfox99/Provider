@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/by/training/provider/dao/impl/DiscountDaoImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/training/provider/dao/impl/TariffDaoImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/training/provider/dao/impl/UserDaoImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/training/provider/dao/impl/UserDataDaoImpl.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/training/provider/dao/impl/UserTypeDaoImpl.java" dialect="MySQL" />
+  </component>
+</project>

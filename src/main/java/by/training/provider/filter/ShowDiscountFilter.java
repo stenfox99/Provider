@@ -3,7 +3,6 @@ package by.training.provider.filter;
 import by.training.provider.command.ParameterName;
 import by.training.provider.entity.Discount;
 import by.training.provider.exception.LogicException;
-import by.training.provider.pool.ConnectionPool;
 import by.training.provider.service.CommonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +30,7 @@ public class ShowDiscountFilter implements Filter {
             List<Discount> discounts = new CommonService().findAllDiscounts();
             if (discounts.size() > 3) {
                 httpServletRequest.getSession().setAttribute(ParameterName.PRINTED_DISCOUNTS, discounts.subList(discounts.size() - 4, discounts.size() - 1));
-            }else {
+            } else {
                 httpServletRequest.getSession().setAttribute(ParameterName.PRINTED_DISCOUNTS, discounts);
             }
         } catch (LogicException e) {

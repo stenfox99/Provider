@@ -35,8 +35,8 @@
                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" value="add_discount" name="command">
                                     <div class="form-group">
-                                        <label for="discount-name" class="col-form-label"><fmt:message key="label.discountName" bundle="${var}"/>*</label>
-                                        <input type="text" class="form-control" id="discount-name" name="discountName"
+                                        <label for="discountValue-name" class="col-form-label"><fmt:message key="label.discountName" bundle="${var}"/>*</label>
+                                        <input type="text" class="form-control" id="discountValue-name" name="discountName"
                                                required pattern="[\w\d\s]{6,20}">
                                     </div>
                                     <div class="form-group">
@@ -49,8 +49,8 @@
                                         </datalist>
                                     </div>
                                     <div class="form-group">
-                                        <label for="discount" class="col-form-label"><fmt:message key="label.discount" bundle="${var}"/>*</label>
-                                        <input type="text" class="form-control" id="discount" name="discount" required
+                                        <label for="discountValue" class="col-form-label"><fmt:message key="label.discountValue" bundle="${var}"/>*</label>
+                                        <input type="text" class="form-control" id="discountValue" name="discount" required
                                                pattern="[\d]{1,4}">
                                     </div>
                                     <div class="form-group">
@@ -84,7 +84,7 @@
             <tr>
                 <th scope="col"><fmt:message key="label.discountName" bundle="${var}"/></th>
                 <th scope="col"><fmt:message key="label.tariffName" bundle="${var}"/></th>
-                <th scope="col"><fmt:message key="label.discount" bundle="${var}"/>(%)</th>
+                <th scope="col"><fmt:message key="label.discountValue" bundle="${var}"/>(%)</th>
                 <th scope="col"><fmt:message key="label.description" bundle="${var}"/></th>
                 <th scope="col"><fmt:message key="label.beginningDate" bundle="${var}"/></th>
                 <th scope="col"><fmt:message key="label.endDate" bundle="${var}"/></th>
@@ -110,7 +110,7 @@
                                     </datalist>
                                 </td>
                                 <td>
-                                    <input type="text" name="discount" value="${element.discount}" required>
+                                    <input type="text" name="discount" value="${element.discountValue}" required>
                                 </td>
                                 <td>
                                     <textarea type="textarea" name="description" required>${element.description}</textarea>
@@ -125,7 +125,7 @@
                             <c:otherwise>
                                 <td>${element.name}</td>
                                 <td>${element.tariff.name}</td>
-                                <td>${element.discount}</td>
+                                <td>${element.discountValue}</td>
                                 <td>${element.description}</td>
                                 <td>${element.beginningDate}</td>
                                 <td>${element.endDate}</td>

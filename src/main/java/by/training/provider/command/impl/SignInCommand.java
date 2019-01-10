@@ -26,7 +26,7 @@ public class SignInCommand implements Command {
                     HttpSession session = request.getSession();
                     session.setAttribute(ParameterName.LOGIN, user.get().getLogin());
                     session.setAttribute(ParameterName.USER_ID, user.get().getUserId());
-                    session.setAttribute(ParameterName.ROLE, user.get().getUserType().getUserType());
+                    session.setAttribute(ParameterName.ROLE, user.get().getUserType().getUserTypeValue());
                     page = new Router(request.getSession().getAttribute(ParameterName.PAGE).toString(), DirectionType.REDIRECT);
                 }
             } else {

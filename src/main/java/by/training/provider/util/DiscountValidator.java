@@ -6,6 +6,8 @@ public class DiscountValidator {
     private static final String DISCOUNT_DESCRIPTION_VALIDATOR = "[\\w\\d\\s\\n',.!?]{1,255}";
     private static final String XSS_ATTACK_VALIDATOR = "</?script>";
 
+    private DiscountValidator(){}
+
     public static boolean validDiscountName(String discountName) {
         return discountName.matches(DISCOUNT_NAME_VALIDATOR) && !discountName.matches(XSS_ATTACK_VALIDATOR);
     }

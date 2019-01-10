@@ -65,10 +65,6 @@ public class Tariff extends Entity{
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -81,15 +77,7 @@ public class Tariff extends Entity{
         return monthTraffic;
     }
 
-    public void setMonthTraffic(int monthTraffic) {
-        this.monthTraffic = monthTraffic;
-    }
-
     public BigDecimal getPriceWithDiscount() {
         return priceWithDiscount;
-    }
-
-    public void setPriceWithDiscount(BigDecimal priceWithDiscount) {
-        this.priceWithDiscount = priceWithDiscount;
     }
 }

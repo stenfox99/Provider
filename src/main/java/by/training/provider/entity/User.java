@@ -66,41 +66,7 @@ public class User extends Entity{
         return userType;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId == user.userId &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(userType, user.userType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, login, password, userType);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", userType=" + userType +
-                '}';
-    }
-
     public boolean isBan() {
         return ban;
-    }
-
-    public void setBan(boolean ban) {
-        this.ban = ban;
     }
 }

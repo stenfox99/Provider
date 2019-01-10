@@ -50,7 +50,7 @@
                                 <input list="user-type-list" class="form-control" id="userType" name="userType">
                                 <datalist id="user-type-list">
                                     <c:forEach var="userType" items="${userType}">
-                                        <option>${userType.userType}</option>
+                                        <option>${userType.userTypeValue}</option>
                                     </c:forEach>
                                 </datalist>
                             </div>
@@ -76,7 +76,7 @@
                 <form action="${pageContext.request.contextPath}/controller" method="post">
                     <tr>
                         <td>${element.login}</td>
-                        <td>${element.userType.userType}</td>
+                        <td>${element.userType.userTypeValue}</td>
                         <td>${element.ban}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/controller?command=ban_user&login=${element.login}"><fmt:message key="button.ban" bundle="${var}"/></a>

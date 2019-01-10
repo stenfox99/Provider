@@ -27,7 +27,7 @@
             <c:forEach items="${printedDiscounts}" var="element">
                 <div class="col-md-4">
                     <h2>${element.name}</h2>
-                    <h4><fmt:message key="label.discount" bundle="${var}"/> : ${element.discount}%</h4>
+                    <h4><fmt:message key="label.discountValue" bundle="${var}"/> : ${element.discountValue}%</h4>
                     <h4><fmt:message key="label.tariffByDiscount" bundle="${var}"/> : ${element.tariff.name}</h4>
                     <h4><fmt:message key="label.beginningDate" bundle="${var}"/> : ${element.beginningDate}</h4>
                     <h4><fmt:message key="label.endDate" bundle="${var}"/> : ${element.endDate}</h4>

@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 public class DateConverter {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
+    private DateConverter(){}
+
     public static Date toDate(String dateString) throws LogicException {
         Date parsed;
         try {

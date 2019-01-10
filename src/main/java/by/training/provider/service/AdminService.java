@@ -9,7 +9,6 @@ import by.training.provider.util.Encrypt;
 import by.training.provider.util.TariffValidator;
 import by.training.provider.util.UserValidator;
 
-import java.util.Date;
 import java.util.List;
 
 public class AdminService {
@@ -92,7 +91,7 @@ public class AdminService {
 
     public void addDiscount(Discount discount) throws LogicException {
         if (!DiscountValidator.validDiscountName(discount.getName()) || !DiscountValidator.validDescription(discount.getDescription())
-                || !DiscountValidator.validDiscountValue(discount.getDiscount()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
+                || !DiscountValidator.validDiscountValue(discount.getDiscountValue()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
             throw new LogicException("Incorrect input data");
         }
         try {
@@ -127,7 +126,7 @@ public class AdminService {
 
     public void updateDiscount(Discount discount) throws LogicException {
         if (!DiscountValidator.validDiscountName(discount.getName()) || !DiscountValidator.validDescription(discount.getDescription())
-                || !DiscountValidator.validDiscountValue(discount.getDiscount()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
+                || !DiscountValidator.validDiscountValue(discount.getDiscountValue()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
             throw new LogicException("Incorrect input data");
         }
         try {
@@ -182,12 +181,11 @@ public class AdminService {
         try {
             List<UserData> allData = UserDataDaoImpl.getInstance().findAll();
             for (UserData data : allData) {
-                if (data.getTariff().getPriceWithDiscount() != null) {
-                    if (data.getBalance().compareTo(data.getTariff().getPriceWithDiscount()) >= 0) {
+                if (data.getTariff().getPriceWithDiscount() != null &&
+                        data.getBalance().compareTo(data.getTariff().getPriceWithDiscount()) >= 0) {
                         data.setBalance(data.getBalance().subtract(data.getTariff().getPriceWithDiscount()));
                         data.setTraffic(data.getTraffic() + data.getTariff().getMonthTraffic());
                         UserDataDaoImpl.getInstance().updateBalanceAndTraffic(data);
-                    }
                 }
             }
         } catch (DaoException e) {

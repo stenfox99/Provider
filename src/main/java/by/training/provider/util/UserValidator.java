@@ -5,6 +5,8 @@ public class UserValidator {
     private static final String PASSWORD_VALIDATOR = "[\\w\\d]{6,20}";
     private static final String XSS_ATTACK_VALIDATOR = "</?script>";
 
+    private UserValidator(){}
+
     public static boolean validLogin(String login) {
         return login.matches(LOGIN_VALIDATOR) && !login.matches(XSS_ATTACK_VALIDATOR);
     }

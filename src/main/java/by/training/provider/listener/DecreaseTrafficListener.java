@@ -2,7 +2,6 @@ package by.training.provider.listener;
 
 import by.training.provider.command.ParameterName;
 import by.training.provider.exception.LogicException;
-import by.training.provider.pool.ConnectionPool;
 import by.training.provider.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

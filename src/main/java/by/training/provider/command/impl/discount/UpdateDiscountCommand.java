@@ -29,13 +29,8 @@ public class UpdateDiscountCommand implements Command {
             Tariff tariff = new Tariff(tariffName);
             Discount discount = new Discount(discountName, discountValue, description, beginningDate, endDate, tariff);
             AdminService adminService = new AdminService();
-            try {
-                adminService.updateDiscount(discount);
-                page.setDirectionType(DirectionType.REDIRECT);
-            } catch (LogicException e) {
-                request.setAttribute(ParameterName.ERROR, e.getMessage());
-                page.setDirectionType(DirectionType.FORWARD);
-            }
+            adminService.updateDiscount(discount);
+            page.setDirectionType(DirectionType.REDIRECT);
         } catch (LogicException e) {
             request.setAttribute(ParameterName.ERROR, e.getMessage());
             page.setDirectionType(DirectionType.FORWARD);

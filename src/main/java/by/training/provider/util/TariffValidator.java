@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 
 public class TariffValidator {
     private static final String TARIFF_NAME_VALIDATOR = "[\\w\\d\\sа-яА-Я]{3,20}";
-    private static final String TARIFF_PRICE_VALIDATOR = "d{1,6}\\.\\d{2}|\\d{1,6}";
+    private static final String TARIFF_PRICE_VALIDATOR = "\\d{1,6}\\.\\d{2}|\\d{1,6}.\\d";
     private static final String TARIFF_TRAFFIC_VALIDATOR = "[\\d]{1,9}";
     private static final String TARIFF_DESCRIPTION_VALIDATOR = "[\\w\\d\\s\\nа-яА-Я',.!?]{1,255}";
     private static final String XSS_ATTACK_VALIDATOR = "</?script>";
+
+    private TariffValidator(){}
 
     public static boolean validTariffName(String tariffName){
         return tariffName.matches(TARIFF_NAME_VALIDATOR) && !tariffName.matches(XSS_ATTACK_VALIDATOR);

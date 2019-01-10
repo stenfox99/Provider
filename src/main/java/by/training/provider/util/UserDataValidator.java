@@ -6,6 +6,8 @@ public class UserDataValidator {
     private static final String PHONE_VALIDATOR = "\\+\\d{12}";
     private static final String XSS_ATTACK_VALIDATOR = "</?script>";
 
+    private UserDataValidator(){}
+
     public static boolean validInitial(String initial) {
         if (initial.isEmpty()) {
             return true;

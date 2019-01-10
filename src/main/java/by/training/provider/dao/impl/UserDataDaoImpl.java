@@ -7,11 +7,8 @@ import by.training.provider.pool.ConnectionPool;
 import by.training.provider.pool.ProxyConnection;
 import com.mysql.jdbc.PreparedStatement;
 
-import javax.servlet.http.Part;
-import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -156,24 +153,24 @@ public class UserDataDaoImpl implements UserDataDao {
 
     @Override
     public void updateImage(int userId, InputStream image) throws DaoException {
-        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_AVATAR)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_AVATAR)) {
             statement.setBlob(1, image);
             statement.setInt(2, userId);
             statement.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
-    public void updateTraffic(UserData data) throws DaoException{
-        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TRAFFIC)){
+    public void updateTraffic(UserData data) throws DaoException {
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UPDATE_TRAFFIC)) {
             statement.setInt(1, data.getTraffic());
             statement.setInt(2, data.getUserId());
             statement.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }

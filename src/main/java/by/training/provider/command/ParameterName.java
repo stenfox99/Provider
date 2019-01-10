@@ -1,21 +1,17 @@
 package by.training.provider.command;
 
 public class ParameterName {
+    public static final String USER_ID = "userId";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String SECOND_PASSWORD = "password2";
     public static final String ERROR = "error";
-    public static final String USER_ID = "userId";
     public static final String ROLE = "role";
-    public static final String IMAGE = "image";
-
     public static final String USER_TYPE = "userType";
-    public static final String USER_TYPE_ID = "userTypeId";
 
     public static final String TARIFF_NAME = "tariffName";
     public static final String TARIFF_PRICE = "tariffPrice";
     public static final String DESCRIPTION = "description";
-    public static final String TARIFF_ID = "tariffId";
     public static final String MONTH_TRAFFIC = "monthTraffic";
 
     public static final String DISCOUNT_NAME = "discountName";
@@ -31,6 +27,7 @@ public class ParameterName {
     public static final String EMAIL = "email";
     public static final String PHONE = "phone";
     public static final String BALANCE = "balance";
+    public static final String IMAGE = "image";
 
     public static final String TARIFFS = "tariffs";
     public static final String PRINTED_TARIFFS = "printedTariffs";
