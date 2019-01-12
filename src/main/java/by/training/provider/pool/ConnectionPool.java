@@ -9,11 +9,24 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * The Class ConnectionPool.
+ */
 public final class ConnectionPool {
+    
+    /** The Constant LOG. */
     private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
+    
+    /** The Constant CONNECTION_COUNT. */
     private static final int CONNECTION_COUNT = 10;
+    
+    /** The instance. */
     private static ConnectionPool instance;
+    
+    /** The locker. */
     private static ReentrantLock locker = new ReentrantLock();
+    
+    /** The is created. */
     private static boolean isCreated;
 
     static {
@@ -25,12 +38,21 @@ public final class ConnectionPool {
         }
     }
 
+    /** The all connections. */
     private BlockingQueue<ProxyConnection> allConnections = new LinkedBlockingDeque<>();
 
+    /**
+     * Instantiates a new connection pool.
+     */
     private ConnectionPool() {
         init();
     }
 
+    /**
+     * Gets the single instance of ConnectionPool.
+     *
+     * @return single instance of ConnectionPool
+     */
     public static ConnectionPool getInstance() {
         if (!isCreated) {
             locker.lock();
@@ -46,6 +68,9 @@ public final class ConnectionPool {
         return instance;
     }
 
+    /**
+     * Inits the.
+     */
     private void init() {
         for (int i = 0; i < CONNECTION_COUNT; ++i) {
             try {
@@ -62,6 +87,11 @@ public final class ConnectionPool {
         }
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     public ProxyConnection getConnection() {
         ProxyConnection connection = null;
         try {
@@ -72,6 +102,11 @@ public final class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Adds the connection.
+     *
+     * @param connection the connection
+     */
     void addConnection(ProxyConnection connection) {
         try {
             allConnections.put(connection);
@@ -80,6 +115,9 @@ public final class ConnectionPool {
         }
     }
 
+    /**
+     * Destroy connections.
+     */
     public void destroyConnections() {
         try {
             for (int i = 0; i < CONNECTION_COUNT; ++i) {

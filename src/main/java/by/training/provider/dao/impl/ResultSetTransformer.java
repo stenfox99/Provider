@@ -12,9 +12,23 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * The Class ResultSetTransformer.
+ */
 class ResultSetTransformer {
+    
+    /**
+     * Instantiates a new result set transformer.
+     */
     private ResultSetTransformer(){}
 
+    /**
+     * Creates the users.
+     *
+     * @param resultUsers the result users
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     static List<User> createUsers(ResultSet resultUsers) throws DaoException {
         List<User> users = new ArrayList<>();
         try {
@@ -33,6 +47,13 @@ class ResultSetTransformer {
         return users;
     }
 
+    /**
+     * Creates the user types.
+     *
+     * @param resultUserTypes the result user types
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     static List<UserType> createUserTypes(ResultSet resultUserTypes) throws DaoException {
         List<UserType> userTypes = new ArrayList<>();
         try {
@@ -48,6 +69,13 @@ class ResultSetTransformer {
         return userTypes;
     }
 
+    /**
+     * Creates the tariffs.
+     *
+     * @param resultTariffs the result tariffs
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     static List<Tariff> createTariffs(ResultSet resultTariffs) throws DaoException {
         List<Tariff> tariffs = new ArrayList<>();
         try {
@@ -75,6 +103,13 @@ class ResultSetTransformer {
         return tariffs;
     }
 
+    /**
+     * Creates the discount.
+     *
+     * @param resultDiscount the result discount
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     static List<Discount> createDiscount(ResultSet resultDiscount) throws DaoException {
         List<Discount> discounts = new ArrayList<>();
         try {
@@ -97,6 +132,13 @@ class ResultSetTransformer {
         return discounts;
     }
 
+    /**
+     * Creates the user data.
+     *
+     * @param resultUserData the result user data
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     static List<UserData> createUserData(ResultSet resultUserData) throws DaoException {
         List<UserData> userData = new ArrayList<>();
         try {

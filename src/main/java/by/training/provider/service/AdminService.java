@@ -11,8 +11,17 @@ import by.training.provider.util.UserValidator;
 
 import java.util.List;
 
+/**
+ * The Class AdminService.
+ */
 public class AdminService {
 
+    /**
+     * Adds the user.
+     *
+     * @param user the user
+     * @throws LogicException the logic exception
+     */
     public void addUser(User user) throws LogicException {
         if (!UserValidator.validLogin(user.getLogin()) || !UserValidator.validPassword(user.getPassword())) {
             throw new LogicException("The incorrect input data");
@@ -34,6 +43,12 @@ public class AdminService {
 
     }
 
+    /**
+     * Adds the admin.
+     *
+     * @param user the user
+     * @throws LogicException the logic exception
+     */
     public void addAdmin(User user) throws LogicException {
         if (!UserValidator.validLogin(user.getLogin()) || !UserValidator.validPassword(user.getPassword())) {
             throw new LogicException("The incorrect input data");
@@ -51,6 +66,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Adds the tariff.
+     *
+     * @param tariff the tariff
+     * @throws LogicException the logic exception
+     */
     public void addTariff(Tariff tariff) throws LogicException {
         if (!TariffValidator.validTariffName(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) ||
                 !TariffValidator.validDescription(tariff.getDescription()) || !TariffValidator.validTraffic(tariff.getMonthTraffic())) {
@@ -68,6 +89,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Removes the tariff.
+     *
+     * @param tariffName the tariff name
+     * @throws LogicException the logic exception
+     */
     public void removeTariff(String tariffName) throws LogicException {
         Tariff tariff = new Tariff(tariffName);
         try {
@@ -77,6 +104,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Update tariff.
+     *
+     * @param tariff the tariff
+     * @throws LogicException the logic exception
+     */
     public void updateTariff(Tariff tariff) throws LogicException {
         if (!TariffValidator.validTariffName(tariff.getName()) || !TariffValidator.validPrice(tariff.getPrice()) ||
                 !TariffValidator.validDescription(tariff.getDescription()) || !TariffValidator.validTraffic(tariff.getMonthTraffic())) {
@@ -89,6 +122,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Adds the discount.
+     *
+     * @param discount the discount
+     * @throws LogicException the logic exception
+     */
     public void addDiscount(Discount discount) throws LogicException {
         if (!DiscountValidator.validDiscountName(discount.getName()) || !DiscountValidator.validDescription(discount.getDescription())
                 || !DiscountValidator.validDiscountValue(discount.getDiscountValue()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
@@ -116,6 +155,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Removes the discount.
+     *
+     * @param discount the discount
+     * @throws LogicException the logic exception
+     */
     public void removeDiscount(Discount discount) throws LogicException {
         try {
             DiscountDaoImpl.getInstance().remove(discount);
@@ -124,6 +169,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Update discount.
+     *
+     * @param discount the discount
+     * @throws LogicException the logic exception
+     */
     public void updateDiscount(Discount discount) throws LogicException {
         if (!DiscountValidator.validDiscountName(discount.getName()) || !DiscountValidator.validDescription(discount.getDescription())
                 || !DiscountValidator.validDiscountValue(discount.getDiscountValue()) || discount.getBeginningDate().compareTo(discount.getEndDate()) > 0) {
@@ -141,6 +192,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Find all user.
+     *
+     * @return the list
+     * @throws LogicException the logic exception
+     */
     public List<User> findAllUser() throws LogicException {
         List<User> users;
         try {
@@ -151,6 +208,12 @@ public class AdminService {
         return users;
     }
 
+    /**
+     * Find all user type.
+     *
+     * @return the list
+     * @throws LogicException the logic exception
+     */
     public List<UserType> findAllUserType() throws LogicException {
         List<UserType> users;
         try {
@@ -161,6 +224,12 @@ public class AdminService {
         return users;
     }
 
+    /**
+     * Ban user.
+     *
+     * @param login the login
+     * @throws LogicException the logic exception
+     */
     public void banUser(String login) throws LogicException {
         try {
             UserDaoImpl.getInstance().banUser(login);
@@ -169,6 +238,12 @@ public class AdminService {
         }
     }
 
+    /**
+     * Unban user.
+     *
+     * @param login the login
+     * @throws LogicException the logic exception
+     */
     public void unbanUser(String login) throws LogicException {
         try {
             UserDaoImpl.getInstance().unbanUser(login);
@@ -177,6 +252,11 @@ public class AdminService {
         }
     }
 
+    /**
+     * Fill traffic.
+     *
+     * @throws LogicException the logic exception
+     */
     public void fillTraffic() throws LogicException {
         try {
             List<UserData> allData = UserDataDaoImpl.getInstance().findAll();

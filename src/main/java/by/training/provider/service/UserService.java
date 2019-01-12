@@ -20,9 +20,22 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The Class UserService.
+ */
 public class UserService {
+    
+    /** The Constant DECREASE_TRAFFIC. */
     private static final int DECREASE_TRAFFIC = 10;
 
+    /**
+     * Find user.
+     *
+     * @param login the login
+     * @param password the password
+     * @return the optional
+     * @throws LogicException the logic exception
+     */
     public Optional<User> findUser(String login, String password) throws LogicException {
         Optional<User> user = Optional.empty();
         try {
@@ -37,6 +50,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Update profile data.
+     *
+     * @param data the data
+     * @throws LogicException the logic exception
+     */
     public void updateProfileData(UserData data) throws LogicException {
         if (!UserDataValidator.validInitial(data.getFirstName()) || !UserDataValidator.validInitial(data.getLastName()) ||
                 !UserDataValidator.validInitial(data.getPatronymic()) || !UserDataValidator.validEmail(data.getEmail()) ||
@@ -50,6 +69,14 @@ public class UserService {
         }
     }
 
+    /**
+     * Change password.
+     *
+     * @param userId the user id
+     * @param password the password
+     * @param password2 the password 2
+     * @throws LogicException the logic exception
+     */
     public void changePassword(int userId, String password, String password2) throws LogicException {
         if (!UserValidator.validPassword(password) || !UserValidator.validPassword(password2)
                 || !UserValidator.verifyPassword(password, password2)) {
@@ -63,6 +90,14 @@ public class UserService {
         }
     }
 
+    /**
+     * Increase balance.
+     *
+     * @param userId the user id
+     * @param currentBalance the current balance
+     * @param balance the balance
+     * @throws LogicException the logic exception
+     */
     public void increaseBalance(int userId, BigDecimal currentBalance, BigDecimal balance) throws LogicException {
         if (balance.compareTo(BigDecimal.ZERO) < 0) {
             throw new LogicException("Incorrect input data");
@@ -75,6 +110,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Find user data.
+     *
+     * @param userId the user id
+     * @return the user data
+     * @throws LogicException the logic exception
+     */
     public UserData findUserData(int userId) throws LogicException {
         UserData userData;
         try {
@@ -86,6 +128,13 @@ public class UserService {
         return userData;
     }
 
+    /**
+     * Change tariff.
+     *
+     * @param userId the user id
+     * @param tariffName the tariff name
+     * @throws LogicException the logic exception
+     */
     public void changeTariff(int userId, String tariffName) throws LogicException {
         try {
             List<Tariff> tariff = TariffDaoImpl.getInstance().findByName(tariffName);
@@ -95,6 +144,14 @@ public class UserService {
         }
     }
 
+    /**
+     * Upload image.
+     *
+     * @param userId the user id
+     * @param imagePart the image part
+     * @return the string
+     * @throws LogicException the logic exception
+     */
     public String uploadImage(int userId, Part imagePart) throws LogicException {
         try {
             InputStream inputStream = imagePart.getInputStream();
@@ -108,6 +165,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Decrease traffic.
+     *
+     * @param userId the user id
+     * @throws LogicException the logic exception
+     */
     public void decreaseTraffic(int userId) throws LogicException {
         try {
             List<UserData> userData = UserDataDaoImpl.getInstance().findUserDataByUserId(userId);

@@ -22,6 +22,11 @@ public enum CommandMap {
 
     private Command commandType;
 
+    /**
+     * Instantiates a new command map.
+     *
+     * @param commandType the command type
+     */
     CommandMap(Command commandType) {
         this.commandType = commandType;
     }
