@@ -1,8 +1,6 @@
 package by.training.provider.entity;
 
-import java.util.Objects;
-
-public class User extends Entity{
+public class User extends Entity {
     private int userId;
     private String login;
     private String password;
@@ -32,12 +30,12 @@ public class User extends Entity{
         this.password = password;
     }
 
-    public User(String login, String password){
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public User(int userId, String password){
+    public User(int userId, String password) {
         this.userId = userId;
         this.password = password;
     }

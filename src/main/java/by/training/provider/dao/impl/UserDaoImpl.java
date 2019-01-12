@@ -7,7 +7,6 @@ import by.training.provider.pool.ConnectionPool;
 import by.training.provider.pool.ProxyConnection;
 import com.mysql.jdbc.PreparedStatement;
 
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -114,34 +113,34 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void changePassword(int userId, String password) throws DaoException {
-        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(CHANGE_PASSWORD)) {
             statement.setString(1, password);
             statement.setInt(2, userId);
             statement.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
     public void banUser(String login) throws DaoException {
-        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(BAN_USER)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(BAN_USER)) {
             statement.setString(1, login);
             statement.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
     public void unbanUser(String login) throws DaoException {
-        try(ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UNBAN_USER)){
+        try (ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = (PreparedStatement) connection.prepareStatement(UNBAN_USER)) {
             statement.setString(1, login);
             statement.execute();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
