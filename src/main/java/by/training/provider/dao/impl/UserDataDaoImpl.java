@@ -28,14 +28,22 @@ public class UserDataDaoImpl implements UserDataDao {
     private static final String UPDATE_AVATAR = "UPDATE UserData U SET U.photo = ? WHERE U.userId = ?;";
     private static final String UPDATE_TRAFFIC = "UPDATE UserData U SET U.traffic = ? WHERE U.userId = ?;";
 
+//    private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
+//            "U.email, U.phone, U.balance, U.traffic," +
+//            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
+//            "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId;";
     private static final String SELECT_ALL_USER_DATA = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
             "U.email, U.phone, U.balance, U.traffic," +
-            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
+            "U.photo, U.userId, T.tariffName, T.price, D.discount, D.beginningDate, D.endDate ,T.monthTraffic " +
             "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId;";
-    private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
-            "U.email, U.phone, U.balance, U.traffic," +
-            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
-            "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId WHERE U.userId = ?;";
+//    private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
+//            "U.email, U.phone, U.balance, U.traffic," +
+//            "U.photo, U.userId, T.tariffName, T.price, T.price - T.price * D.discount / 100 ,T.monthTraffic " +
+//            "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId WHERE U.userId = ?;";
+private static final String SELECT_USER_DATA_BY_ID = "SELECT U.UserDataId, U.firstName, U.lastName, U.patronymic," +
+        "U.email, U.phone, U.balance, U.traffic," +
+        "U.photo, U.userId, T.tariffName, T.price, D.discount, D.beginningDate, D.endDate ,T.monthTraffic " +
+        "FROM UserData U LEFT JOIN Tariffs T ON U.tariffId = T.tariffId LEFT JOIN Discounts D ON T.tariffId = D.tariffId WHERE U.userId = ?;";
 
     private static UserDataDaoImpl instance = new UserDataDaoImpl();
 

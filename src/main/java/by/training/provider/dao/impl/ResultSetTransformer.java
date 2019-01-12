@@ -55,12 +55,17 @@ class ResultSetTransformer {
                 int id = resultTariffs.getInt(1);
                 String tariffName = resultTariffs.getString(2);
                 BigDecimal price = resultTariffs.getBigDecimal(3);
-                BigDecimal priceWithDiscount = resultTariffs.getBigDecimal(4);
-                if (priceWithDiscount == null) {
-                    priceWithDiscount = price;
+                int discount = resultTariffs.getInt(4);
+                Date beginningDate = resultTariffs.getDate(5);
+                Date endDate = resultTariffs.getDate(6);
+                BigDecimal priceWithDiscount = price;
+                java.util.Date currentDate = new java.util.Date();
+                if (discount != 0 && beginningDate.compareTo(new Date(currentDate.getTime())) <= 0
+                        && endDate.compareTo(new Date(currentDate.getTime())) >= 0) {
+                    priceWithDiscount = price.subtract(price.multiply(new BigDecimal(discount)).divide(new BigDecimal(100)));
                 }
-                int monthTraffic = resultTariffs.getInt(5);
-                String description = resultTariffs.getString(6);
+                int monthTraffic = resultTariffs.getInt(7);
+                String description = resultTariffs.getString(8);
                 Tariff tariff = new Tariff(id, tariffName, price, priceWithDiscount, monthTraffic, description);
                 tariffs.add(tariff);
             }
@@ -113,11 +118,16 @@ class ResultSetTransformer {
                 int userId = resultUserData.getInt(10);
                 String tariffName = resultUserData.getString(11);
                 BigDecimal price = resultUserData.getBigDecimal(12);
-                BigDecimal priceWithDiscount = resultUserData.getBigDecimal(13);
-                if (priceWithDiscount == null) {
-                    priceWithDiscount = price;
+                int discount = resultUserData.getInt(13);
+                Date beginningDate = resultUserData.getDate(14);
+                Date endDate = resultUserData.getDate(15);
+                BigDecimal priceWithDiscount = price;
+                java.util.Date currentDate = new java.util.Date();
+                if (discount != 0 && beginningDate.compareTo(new Date(currentDate.getTime())) <= 0
+                        && endDate.compareTo(new Date(currentDate.getTime())) >= 0) {
+                    priceWithDiscount = price.subtract(price.multiply(new BigDecimal(discount)).divide(new BigDecimal(100)));
                 }
-                int monthTraffic = resultUserData.getInt(14);
+                int monthTraffic = resultUserData.getInt(16);
                 Tariff tariff = new Tariff(tariffName, price, priceWithDiscount, monthTraffic);
                 UserData newUserData = new UserData(userDataId, firstName, lastName, patronymic, email, phone, tariff, balance, traffic, photo, userId);
                 userData.add(newUserData);

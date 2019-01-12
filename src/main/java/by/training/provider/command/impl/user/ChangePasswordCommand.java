@@ -21,6 +21,6 @@ public class ChangePasswordCommand implements Command {
             request.setAttribute(ParameterName.CHANGE_PASSWORD_ERROR, e.getMessage());
             page.setDirectionType(DirectionType.FORWARD);
         }
-        return new Router(PagePath.PROFILE, DirectionType.REDIRECT);
+        return page;
     }
 }
