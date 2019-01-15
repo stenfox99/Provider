@@ -175,7 +175,11 @@ public class UserService {
         try {
             List<UserData> userData = UserDataDaoImpl.getInstance().findUserDataByUserId(userId);
             UserData user = userData.get(0);
-            user.setTraffic(user.getTraffic() - DECREASE_TRAFFIC);
+            if (user.getTraffic() - DECREASE_TRAFFIC < 0){
+                user.setTraffic(0);
+            }else {
+                user.setTraffic(user.getTraffic() - DECREASE_TRAFFIC);
+            }
             UserDataDaoImpl.getInstance().updateTraffic(user);
         } catch (DaoException e) {
             throw new LogicException(e);
