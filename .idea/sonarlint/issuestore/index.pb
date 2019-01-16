@@ -5,8 +5,6 @@ e
 5src/main/java/by/training/provider/entity/Tariff.java,4\f\4fa48619583f837610564575c7d27c843c912ba4
 c
 3src/main/java/by/training/provider/entity/User.java,a\7\a76e2c8cc63f2875d724601900570a2e19fe7dd6
-e
-5src/main/java/by/training/provider/entity/Breach.java,c\d\cdb80ff83172402f695c6c211b46ba403ae6aef3
 n
 >src/main/java/by/training/provider/exception/DaoException.java,2\e\2e9131385dee673cd123bd6cbcbbc0a6294bed96
 k
@@ -15,8 +13,6 @@ k
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 <
 Provider.iml,1\4\14e7c110c74a99b5629a770a498b133ab55c4a3d
-k
-;src/test/java/by/training/provider/dao/UserTypeDaoTest.java,4\8\486d50adf511f7a788e4285a4a79e9932f743a5c
 I
 web/jsp/common/Footer.jsp,8\2\8258ebe7dd9b5669af88d65be760838a28ae35f7
 j
@@ -30,19 +26,11 @@ k
 l
 <src/main/java/by/training/provider/pool/ProxyConnection.java,7\8\78198fe8f374dba8bfa537c380cacc090d0dfa42
 g
-7src/test/java/by/training/provider/dao/UserDaoTest.java,6\6\663f560a0dca649b51c92de2522083f6dcc9c5fd
-o
-?src/test/java/by/training/provider/pool/ConnectionPoolTest.java,f\b\fb7b9e87ff8adf7f34098f53643944d87e4e14b8
-g
 7src/main/java/by/training/provider/entity/UserData.java,2\b\2bf12467905e6297728ec076bad88f06e8fadffa
 l
 <src/main/java/by/training/provider/service/AdminService.java,9\3\93754c5cd926a2f0cbcaed7f081190cec86f9ee2
 j
 :src/main/java/by/training/provider/servlet/Controller.java,1\7\17f7b8321c6b94232fc0e7ffce7e47227559b213
-p
-@src/test/java/by/training/provider/service/AdminServiceTest.java,8\a\8abe767f245bb089f93729b925c2be13c798662a
-o
-?src/test/java/by/training/provider/service/UserServiceTest.java,a\f\af530cd6bfebe346f39b138b7920a8387bd0d565
 I
 web/jsp/common/Header.jsp,c\2\c2c8abdd4568605c259702a502fbc0bdd1f064fc
 @
@@ -61,8 +49,6 @@ _.idea/dataSources/dc07e2c2-0683-4462-a73c-bdc94f4536df/storage_v2/_src_/schema/
 c.idea/dataSources/dc07e2c2-0683-4462-a73c-bdc94f4536df/storage_v2/_src_/schema/testjoin.vIivuw.meta,a\d\ade46d0f4613bbaa7496ea20e10cf3d3509cf373
 
 `.idea/dataSources/dc07e2c2-0683-4462-a73c-bdc94f4536df/storage_v2/_src_/schema/world.khvBBg.meta,b\2\b2048c3d37605df0dc26215fc5ce3508e84f273f
-<
-logs/log.log,5\5\556ba4b2b1dccf4c3c379694e46cd98762049bab
 A
 web/jsp/Error.jsp,4\5\45daebd15fc0e7b2767d2562ee12a50ed3a8461f
 C

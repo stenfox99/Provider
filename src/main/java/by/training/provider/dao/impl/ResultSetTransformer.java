@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -87,7 +88,12 @@ class ResultSetTransformer {
                 Date beginningDate = resultTariffs.getDate(5);
                 Date endDate = resultTariffs.getDate(6);
                 BigDecimal priceWithDiscount = price;
-                java.util.Date currentDate = new java.util.Date();
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE,0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+                java.util.Date currentDate = cal.getTime();
                 if (discount != 0 && beginningDate.compareTo(new Date(currentDate.getTime())) <= 0
                         && endDate.compareTo(new Date(currentDate.getTime())) >= 0) {
                     priceWithDiscount = price.subtract(price.multiply(new BigDecimal(discount)).divide(new BigDecimal(100)));
@@ -122,7 +128,6 @@ class ResultSetTransformer {
                 int tariffId = resultDiscount.getInt(6);
                 String tariffName = resultDiscount.getString(7);
                 Tariff tariff = new Tariff(tariffId, tariffName);
-
                 Discount newDiscount = new Discount(discountName, discount, description, beginningDate, endDate, tariff);
                 discounts.add(newDiscount);
             }
@@ -164,7 +169,12 @@ class ResultSetTransformer {
                 Date beginningDate = resultUserData.getDate(14);
                 Date endDate = resultUserData.getDate(15);
                 BigDecimal priceWithDiscount = price;
-                java.util.Date currentDate = new java.util.Date();
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE,0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+                java.util.Date currentDate = cal.getTime();
                 if (discount != 0 && beginningDate.compareTo(new Date(currentDate.getTime())) <= 0
                         && endDate.compareTo(new Date(currentDate.getTime())) >= 0) {
                     priceWithDiscount = price.subtract(price.multiply(new BigDecimal(discount)).divide(new BigDecimal(100)));
