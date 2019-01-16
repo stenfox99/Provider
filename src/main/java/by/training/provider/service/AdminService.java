@@ -262,7 +262,8 @@ public class AdminService {
             List<UserData> allData = UserDataDaoImpl.getInstance().findAll();
             for (UserData data : allData) {
                 if (data.getTariff().getPriceWithDiscount() != null &&
-                        data.getBalance().compareTo(data.getTariff().getPriceWithDiscount()) >= 0) {
+                        data.getBalance().compareTo(data.getTariff().getPriceWithDiscount()) >= 0 &&
+                        data.getTraffic() < Integer.MAX_VALUE - data.getTariff().getMonthTraffic()) {
                         data.setBalance(data.getBalance().subtract(data.getTariff().getPriceWithDiscount()));
                         data.setTraffic(data.getTraffic() + data.getTariff().getMonthTraffic());
                         UserDataDaoImpl.getInstance().updateBalanceAndTraffic(data);
